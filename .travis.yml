@@ -46,6 +46,7 @@ script:
   - if ! grep -rlI $'\xEF\xBB\xBF' src/ ; then echo "no utf8 BOM found"; else echo "found utf8 BOM in some files. See above."; exit 1; fi
   # validate composer.json
   - composer validate --no-check-lock
+  - php -S localhost:8080 tests/route.php > /dev/null 2>&1 &
   # run PHPUnit
   - vendor/bin/phpunit --verbose
 

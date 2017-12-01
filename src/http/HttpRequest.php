@@ -24,7 +24,13 @@ class HttpRequest
         return self::post($url, $params, 'application/json', $timeout);
     }
 
-    public function postFile(string $url, array $params = [], float $timeout = 1.0)
+    public function postForm(string $url, array $params = [], float $timeout = 1.0)
+    {
+        return self::post($url, $params, 'application/x-www-form-urlencoded', $timeout);
+    }
+
+    //TODO
+    private function postFile(string $url, array $params = [], float $timeout = 1.0)
     {
         return self::post($url, $params, 'multipart/form-data', $timeout);
     }
