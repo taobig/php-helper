@@ -32,7 +32,7 @@ class ProvinceHelper
             ["name" => "浙江省", "short_name" => ["浙"], "license_plate_number_prefix" => "浙", "capital" => "杭州市"],
             ["name" => "江西省", "short_name" => ["赣"], "license_plate_number_prefix" => "赣", "capital" => "南昌市"],
             ["name" => "湖北省", "short_name" => ["鄂"], "license_plate_number_prefix" => "鄂", "capital" => "武汉市"],
-            ["name" => "甘肃省", "short_name" => ["甘", "陇"], "license_plate_number_prefix" => "甘，", "capital" => "兰州市"],
+            ["name" => "甘肃省", "short_name" => ["甘", "陇"], "license_plate_number_prefix" => "甘", "capital" => "兰州市"],
             ["name" => "山西省", "short_name" => ["晋"], "license_plate_number_prefix" => "晋", "capital" => "太原市"],
             ["name" => "陕西省", "short_name" => ["陕", "秦"], "license_plate_number_prefix" => "陕", "capital" => "西安市"],
             ["name" => "福建省", "short_name" => ["闽"], "license_plate_number_prefix" => "闽", "capital" => "福州市"],
