@@ -7,8 +7,7 @@ class NetHelperTest extends TestCase
 
     public function testGetLocalIpV4()
     {
-        $count = shell_exec("/sbin/ifconfig -s|wc -l");//include title & "Local Loopback"
-        var_dump($count);
+        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
         $ipList = NetHelper::getMachineIpV4();
         echo "All ip address\n";
         var_dump($ipList);
