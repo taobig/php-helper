@@ -15,10 +15,9 @@ class NetHelperTest extends TestCase
 
 
         $publicIpList = NetHelper::getMachineIpV4(true);
-        $result = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io
-        $json = json_decode($result, true);
-        if (in_array($json['ip'], $ipList)) {//the machine may has more one public ip address
-            $this->assertSame(true, in_array($json['ip'], $publicIpList));
+        $publicIp = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io  or  ip.cn  or  myip.ipip.net
+        if (in_array($publicIp, $ipList)) {
+            $this->assertSame(true, in_array($publicIp, $publicIpList));//the machine may has more one public ip address
         } else {
             $this->assertSame(0, count($publicIpList));
         }
