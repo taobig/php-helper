@@ -8,6 +8,7 @@ class NetHelperTest extends TestCase
     public function testGetLocalIpV4()
     {
         $count = shell_exec("/sbin/ifconfig -s|wc -l");//include title & "Local Loopback"
+        var_dump($count);
         $ipList = NetHelper::getMachineIpV4();
         echo "All ip address\n";
         var_dump($ipList);
@@ -15,7 +16,7 @@ class NetHelperTest extends TestCase
 
 
         $publicIpList = NetHelper::getMachineIpV4(true);
-        $publicIp = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io  or  ip.cn  or  myip.ipip.net
+        $publicIp = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io  or api.ipify.org  or  ip.cn  or  myip.ipip.net
         if (in_array($publicIp, $ipList)) {
             $this->assertSame(true, in_array($publicIp, $publicIpList));//the machine may has more one public ip address
         } else {
