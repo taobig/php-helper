@@ -9,4 +9,7 @@ if (is_file($composerAutoload)) {
     require_once($composerAutoload);
 }
 
+
+(new \taobig\helpers\ErrorHandler())->init();
+
 require_once(__DIR__ . '/TestCase.php');

@@ -5,6 +5,22 @@ use taobig\helpers\FileHelper;
 class FileHelperTest extends TestCase
 {
 
+    public function testCopyDestinationIsFile()
+    {
+        $this->expectException(\ErrorException::class);
+        $sourceDir = __DIR__;
+        $dstDir = '/bin/ls';
+        FileHelper::recurseCopy($sourceDir, $dstDir);
+    }
+
+    public function testCopyDirCreatedException()
+    {
+        $this->expectException(\ErrorException::class);
+        $sourceDir = __DIR__;
+        $dstDir = '/root/test';
+        FileHelper::recurseCopy($sourceDir, $dstDir);
+    }
+
     public function testCopy()
     {
         $sourceDir = __DIR__;
