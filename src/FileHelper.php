@@ -15,7 +15,8 @@ class FileHelper
 //            mkdir
 //            Emits an E_WARNING level error if the directory already exists.
 //            Emits an E_WARNING level error if the relevant permissions prevent creating the directory.
-            if (!mkdir($dst, 0777, true)) {
+            mkdir($dst, 0777, true);
+            if (!is_writable($dst)) {
                 throw new \ErrorException("create dir({$dst}) failed");
             }
         }

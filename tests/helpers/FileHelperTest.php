@@ -16,9 +16,18 @@ class FileHelperTest extends TestCase
     public function testCopyDirCreatedException()
     {
         $this->expectException(\ErrorException::class);
-        $sourceDir = __DIR__;
-        $dstDir = '/root/test';
-        FileHelper::recurseCopy($sourceDir, $dstDir);
+        
+        $old_level = error_reporting(0);
+        $old_error_handler = set_error_handler(NULL);
+        try {
+            $sourceDir = __DIR__;
+            $dstDir = '/root/test';
+            FileHelper::recurseCopy($sourceDir, $dstDir);
+        } catch (\Throwable $e) {
+            error_reporting($old_level);
+            set_error_handler($old_error_handler);
+            throw $e;
+        }
     }
 
     public function testCopy()
