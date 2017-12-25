@@ -29,8 +29,7 @@ class HttpRequest
         return self::post($url, $params, 'application/x-www-form-urlencoded', $timeout);
     }
 
-    //TODO
-    private function postFile(string $url, array $params = [], float $timeout = 1.0)
+    public function postFile(string $url, array $params = [], float $timeout = 1.0)
     {
         return self::post($url, $params, 'multipart/form-data', $timeout);
     }
@@ -47,7 +46,7 @@ class HttpRequest
             $option ['json'] = $params;
         } else if ($contentType === 'application/x-www-form-urlencoded') {
             $option ['form_params'] = $params;
-        } else if ($contentType === 'multipart/form-data') {
+        } else if ($contentType === 'multipart/form-data') {//docs: http://docs.guzzlephp.org/en/stable/request-options.html#multipart
             $option ['multipart'] = $params;
         }
         $response = $client->request('POST', $url, $option);

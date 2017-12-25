@@ -11,6 +11,14 @@ switch ($uri) {
         header("Content-type:application/json");
         echo file_get_contents("php://input");
         break;
+    case "/file":
+        header("Content-type:application/json");
+        $result = [
+            'files' => $_FILES,
+            'post' => $_POST,
+        ];
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+        break;
     case "/":
         echo "Hello world!";
         break;

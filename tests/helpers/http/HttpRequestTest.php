@@ -31,4 +31,35 @@ class HttpRequestTest extends TestCase
         $this->assertSame("time={$time}", $content);
     }
 
+    public function testPostFile()
+    {
+        $time = time();
+        $params = [
+            [
+                'name' => 'file1',
+                'contents' => file_get_contents(__FILE__),
+                'filename' => basename(__FILE__),
+            ],
+            [
+                'name' => 'file2',
+                'contents' => file_get_contents(__FILE__),
+                'filename' => basename(__FILE__),
+            ],
+            [
+                'name' => 'file_size',
+                'contents' => filesize(__FILE__),
+            ],
+            [
+                'name' => 'time',
+                'contents' => $time,
+            ],
+        ];
+        $content = (new HttpRequest())->postFile("localhost:8080/file", $params, 10);
+        var_dump($content);
+        $this->assertSame("string", gettype($content));
+        $json = json_decode($content, true);
+        $this->assertSame($time, intval($json['post']['time']));
+        $this->assertSame($json['files']['file1']['size'], intval($json['post']['file_size']));
+    }
+
 }
