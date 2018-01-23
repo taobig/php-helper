@@ -25,4 +25,15 @@ class StringEncodingHelperTest extends TestCase
         $this->assertSame("[\"你好\", [\"你好\"]", $unicodeStr);
     }
 
+    public function testToGBK()
+    {
+        $str = file_get_contents(__DIR__ . '/StringEncodingHelperFile_UCS2BE.source');
+        $gbkStr = (new StringEncodingHelper())->toGBK($str);
+        $this->assertSame(false, $gbkStr);
+
+        $str = "你好";
+        $gbkStr = (new StringEncodingHelper())->toGBK($str);
+        $this->assertSame(mb_convert_encoding($str, 'GBK', 'UTF-8'), $gbkStr);
+    }
+
 }

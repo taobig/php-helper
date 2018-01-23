@@ -18,4 +18,18 @@ class StringEncodingHelper
         }, $str);
     }
 
+
+    //https://secure.php.net/manual/en/mbstring.supported-encodings.php
+    public static function toGBK(string $str)
+    {
+        $encode = mb_detect_encoding($str, ['UTF-8', 'GB2312', 'GBK', 'EUC-CN', 'CP936'], true);
+        if ($encode === false) {
+            return false;
+        } else if ($encode == "UTF-8") {
+            return iconv('UTF-8', 'GB18030', $str);
+        } else {
+            return $str;
+        }
+    }
+
 }
