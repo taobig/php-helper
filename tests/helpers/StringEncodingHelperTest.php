@@ -34,6 +34,9 @@ class StringEncodingHelperTest extends TestCase
         $str = "你好";
         $gbkStr = (new StringEncodingHelper())->toGBK($str);
         $this->assertSame(mb_convert_encoding($str, 'GBK', 'UTF-8'), $gbkStr);
+
+        $_gbkStr = (new StringEncodingHelper())->toGBK($gbkStr);
+        $this->assertSame($gbkStr, $_gbkStr);
     }
 
 }
