@@ -63,4 +63,18 @@ class StringHelperTest extends TestCase
         $this->assertSame("", StringHelper::stripRight("", "hello world"));
     }
 
+    public function testMbRtrim()
+    {
+        $this->assertSame("hello ", StringHelper::mb_rtrim("hello world", "world"));
+        $this->assertSame("he", StringHelper::mb_rtrim("hello world", " world"));
+        $this->assertSame("你好，", StringHelper::mb_rtrim("你好，世界", "世界"));
+
+//        $this->assertSame("互联网产�", trim("互联网产品、", "、"));
+        $this->assertSame("互联网产品", StringHelper::mb_rtrim("互联网产品、", "、"));
+        $this->assertSame("", StringHelper::mb_rtrim("、", "、"));
+        $this->assertSame("", StringHelper::mb_rtrim("", "、"));
+
+        $this->assertSame("汉语言", StringHelper::mb_rtrim("汉语言、", "、"));
+    }
+
 }

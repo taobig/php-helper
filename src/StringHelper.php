@@ -64,4 +64,29 @@ class StringHelper
         return $str;
     }
 
+    public static function mb_rtrim(string $str, string $trim, string $encoding = 'UTF-8'): string
+    {
+        $mask = [];
+        $trimLength = mb_strlen($trim, $encoding);
+        for ($i = 0; $i < $trimLength; ++$i) {
+            $item = mb_substr($trim, $i, 1, $encoding);
+            $mask[] = $item;
+        }
+
+        $len = mb_strlen($str, $encoding);
+        $pos = $len;
+        if ($len > 0) {
+            for ($i = $len - 1; $i >= 0; --$i) {
+                $item = mb_substr($str, $i, 1, $encoding);
+                if (in_array($item, $mask)) {
+                    --$pos;
+                } else {
+                    break;
+                }
+            }
+            return mb_substr($str, 0, $pos, $encoding);
+        }
+        return $str;
+    }
+
 }
