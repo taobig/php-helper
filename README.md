@@ -14,3 +14,14 @@ A tool set for PHP projects
 composer require taobig/php-helper
 
 ```
+
+
+## Usage
+```
+
+use taobig\helpers\StringHelper;
+StringHelper::startsWith("hello world", "hello ");//true
+...
+
+```
+Test-case: https://github.com/taobig/php-helper/tree/master/tests/helpers
