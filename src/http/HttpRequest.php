@@ -7,14 +7,25 @@ use GuzzleHttp\Client;
 class HttpRequest
 {
 
-    public function get(string $url, float $timeout = 1.0)
+    /**
+     * @param string $url
+     * @param float $timeout
+     * @param array $option
+     * ` $option = [
+     *      "headers" => [
+     *          "User-Agent" => "...",
+     *      ],
+     * ]; `
+     * @return mixed
+     */
+    public function get(string $url, float $timeout = 1.0, array $option = [])
     {
         $client = new Client([
             // Base URI is used with relative requests
 //            'base_uri' => $url,
             'timeout' => $timeout,
         ]);
-        $response = $client->request('GET', $url);
+        $response = $client->request('GET', $url, $option);
         return $response->getBody()->getContents();
 
     }
