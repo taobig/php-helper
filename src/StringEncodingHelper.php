@@ -32,4 +32,16 @@ class StringEncodingHelper
         }
     }
 
+    public static function gbkToUtf8(string $str)
+    {
+        $encode = mb_detect_encoding($str, ['UTF-8', 'GB2312', 'GBK', 'EUC-CN', 'CP936'], true);
+        if ($encode === false) {
+            return false;
+        } else if ($encode == "UTF-8") {
+            return $encode;
+        } else {
+            return iconv( 'GB18030', 'UTF-8', $str);
+        }
+    }
+
 }
