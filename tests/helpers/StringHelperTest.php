@@ -80,6 +80,7 @@ class StringHelperTest extends TestCase
     public function testLeftPadding()
     {
         $this->assertSame("09", StringHelper::leftPadding("9", 2, '0'));
+        $this->assertSame("10", StringHelper::leftPadding("10", 2, '0'));
         $this->assertSame("009", StringHelper::leftPadding("9", 3, '0'));
         $this->assertSame("aa9", StringHelper::leftPadding("9", 3, 'a'));
         $this->assertSame("990", StringHelper::leftPadding("990", 3, '0'));
