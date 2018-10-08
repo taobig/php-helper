@@ -77,4 +77,14 @@ class StringHelperTest extends TestCase
         $this->assertSame("汉语言", StringHelper::mb_rtrim("汉语言、", "、"));
     }
 
+    public function testLeftPadding()
+    {
+        $this->assertSame("09", StringHelper::leftPadding("9", 2, '0'));
+        $this->assertSame("009", StringHelper::leftPadding("9", 3, '0'));
+        $this->assertSame("aa9", StringHelper::leftPadding("9", 3, 'a'));
+        $this->assertSame("990", StringHelper::leftPadding("990", 3, '0'));
+
+        $this->assertSame("9", StringHelper::leftPadding("9", 3, '00'));
+    }
+
 }

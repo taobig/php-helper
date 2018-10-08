@@ -89,4 +89,25 @@ class StringHelper
         return $str;
     }
 
+    /**
+     * @param string $str
+     * @param string $length
+     * @param string $paddingChar Must be a character
+     * @return string
+     */
+    public static function leftPadding(string $str, string $length, string $paddingChar): string
+    {
+        if (strlen($paddingChar) !== 1) {
+            return $str;
+        }
+        if (strlen($str) >= $length) {
+            return $str;
+        }
+        $paddingLength = $length - strlen($str);
+        for ($i = 0; $i < $paddingLength; ++$i) {
+            $str = "{$paddingChar}{$str}";
+        }
+        return $str;
+    }
+
 }
