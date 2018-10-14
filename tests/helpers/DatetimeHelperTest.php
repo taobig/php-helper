@@ -27,4 +27,14 @@ class DatetimeHelperTest extends TestCase
         $this->assertSame(315572198400, DatetimeHelper::datetimeDiff("99991231", "00000000"));
     }
 
+    public function testGetDatetime()
+    {
+        for ($i = 1; $i < 200; ++$i) {
+            $dt = DatetimeHelper::getDatetime();
+            usleep(500000);
+            $this->assertRegExp("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) [0-5]\d:[0-5]\d:[0-5]\d$/", $dt);
+        }
+
+    }
+
 }
