@@ -88,4 +88,15 @@ class StringHelperTest extends TestCase
         $this->assertSame("9", StringHelper::leftPadding("9", 3, '00'));
     }
 
+    public function testPrepend()
+    {
+        $this->assertSame("09", StringHelper::prepend("9", 2, '0'));
+        $this->assertSame("10", StringHelper::prepend("10", 2, '0'));
+        $this->assertSame("009", StringHelper::prepend("9", 3, '0'));
+        $this->assertSame("aa9", StringHelper::prepend("9", 3, 'a'));
+        $this->assertSame("990", StringHelper::prepend("990", 3, '0'));
+
+        $this->assertSame("9", StringHelper::prepend("9", 3, '00'));
+    }
+
 }
