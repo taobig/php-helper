@@ -92,22 +92,22 @@ class StringHelper
     /**
      * @deprecated
      * @param string $str
-     * @param string $length
+     * @param int $length
      * @param string $paddingChar Must be a character
      * @return string
      */
-    public static function leftPadding(string $str, string $length, string $paddingChar): string
+    public static function leftPadding(string $str, int $length, string $paddingChar): string
     {
         return self::prepend($str, $length, $paddingChar);
     }
 
     /**
      * @param string $str
-     * @param string $length
+     * @param int $length
      * @param string $paddingChar Must be a character
      * @return string
      */
-    public static function prepend(string $str, string $length, string $paddingChar): string
+    public static function prepend(string $str, int $length, string $paddingChar): string
     {
         if (strlen($paddingChar) !== 1) {
             return $str;
