@@ -25,22 +25,22 @@ class NetHelperTest extends TestCase
 
     public function testIsPrivateIP()
     {
-        $result = NetHelper::isPrivateIP("10.0.0.0");
+        $result = NetHelper::isPrivateIPv4Address("10.0.0.0");
         $this->assertSame(true, $result);
 
-        $result = NetHelper::isPrivateIP("192.168.0.0");
+        $result = NetHelper::isPrivateIPv4Address("192.168.0.0");
         $this->assertSame(true, $result);
-        $result = NetHelper::isPrivateIP("192.1.0.0");
+        $result = NetHelper::isPrivateIPv4Address("192.1.0.0");
         $this->assertSame(false, $result);
 
 
-        $result = NetHelper::isPrivateIP("172.0.0.0");
+        $result = NetHelper::isPrivateIPv4Address("172.0.0.0");
         $this->assertSame(false, $result);
-        $result = NetHelper::isPrivateIP("172.16.0.0");
+        $result = NetHelper::isPrivateIPv4Address("172.16.0.0");
         $this->assertSame(true, $result);
-        $result = NetHelper::isPrivateIP("172.31.255.255");
+        $result = NetHelper::isPrivateIPv4Address("172.31.255.255");
         $this->assertSame(true, $result);
-        $result = NetHelper::isPrivateIP("172.32.0.0");
+        $result = NetHelper::isPrivateIPv4Address("172.32.0.0");
         $this->assertSame(false, $result);
 
     }
