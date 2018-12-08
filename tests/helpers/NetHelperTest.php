@@ -7,8 +7,12 @@ class NetHelperTest extends TestCase
 
     public function testGetLocalIpV4()
     {
-        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
+        if (PHP_VERSION_ID >= 70300) {
+            $adapterList = net_get_interfaces();
+            var_dump($adapterList);
+        }
         $ipList = NetHelper::getMachineIpV4();
+        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
         echo "All ip address\n";
         var_dump($ipList);
         $this->assertSame($count - 1 - 1, count($ipList));
