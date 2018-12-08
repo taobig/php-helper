@@ -17,7 +17,12 @@ class NetHelper
                     }
                     $ipAddress = trim($list['address']);
                     if (NetHelper::isIPv4Address($ipAddress)) {
-                        if (!NetHelper::isPrivateIPv4Address($ipAddress)) {
+                        if ($ipAddress != "127.0.0.1") {//Loop back address
+                            if ($onlyPublicAddress) {
+                                if (NetHelper::isPrivateIPv4Address($ipAddress)) {
+                                    continue;
+                                }
+                            }
                             $ipList[] = $ipAddress;
                         }
                     }
@@ -28,7 +33,7 @@ class NetHelper
             if (preg_match_all("/addr:(\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0) {
                 foreach ($match[1] as $k => $v) {
                     $ipAddress = $match[1][$k];
-                    if ($ipAddress != "127.0.0.1") {
+                    if ($ipAddress != "127.0.0.1") {//Loop back address
                         if ($onlyPublicAddress) {
                             if (self::isPrivateIPv4Address($ipAddress)) {
                                 continue;
@@ -64,9 +69,6 @@ class NetHelper
             if ($arr[1] >= 16 && $arr[1] <= 31) {
                 return true;
             }
-        }
-        if ($ipAddress === '127.0.0.1') {//Loop back address
-            return true;
         }
         return false;
     }

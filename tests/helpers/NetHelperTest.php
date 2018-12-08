@@ -12,16 +12,17 @@ class NetHelperTest extends TestCase
             var_dump($adapterList);
         }
         $ipList = NetHelper::getMachineIpV4();
-        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
         echo "All ip address\n";
         var_dump($ipList);
+
+        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
         $this->assertSame($count - 1 - 1, count($ipList));
 
 
         $publicIpList = NetHelper::getMachineIpV4(true);
         $publicIp = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io  or api.ipify.org  or  ip.cn  or  myip.ipip.net
         if (in_array($publicIp, $ipList)) {
-            $this->assertSame(true, in_array($publicIp, $publicIpList));//the machine may has more one public ip address
+            $this->assertSame(true, in_array($publicIp, $publicIpList));//the machine may has more than one public ip address
         } else {
             $this->assertSame(0, count($publicIpList));
         }
