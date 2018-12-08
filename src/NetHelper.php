@@ -10,19 +10,22 @@ class NetHelper
         $ipList = [];
         if (PHP_VERSION_ID >= 70300) {
             $adapterList = net_get_interfaces();
-            foreach($adapterList as $adapter){
-                foreach($adapter['unicast'] as $list){
-                    $ipAddress = $list['address'];
-                    if(NetHelper::isIPv4Address($ipAddress)) {
+            foreach ($adapterList as $adapter) {
+                foreach ($adapter['unicast'] as $list) {
+                    if (!isset($list['address'])) {
+                        continue;
+                    }
+                    $ipAddress = trim($list['address']);
+                    if (NetHelper::isIPv4Address($ipAddress)) {
                         if (!NetHelper::isPrivateIPv4Address($ipAddress)) {
                             $ipList[] = $ipAddress;
                         }
                     }
                 }
             }
-        }else {
+        } else {
             $result = shell_exec("/sbin/ifconfig");
-            if ($match = self::isIPv4Address($result)) {
+            if (preg_match_all("/addr:(\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0) {
                 foreach ($match[1] as $k => $v) {
                     $ipAddress = $match[1][$k];
                     if ($ipAddress != "127.0.0.1") {
@@ -41,7 +44,7 @@ class NetHelper
 
     public static function isIPv4Address(string $ipAddress)
     {
-        if (preg_match_all("/addr:(\d+\.\d+\.\d+\.\d+)/", $ipAddress, $match) !== 0) {
+        if (preg_match_all("/^(\d+\.\d+\.\d+\.\d+)$/", $ipAddress, $match) !== 0) {
             return $match;
         }
         return false;
@@ -61,6 +64,9 @@ class NetHelper
             if ($arr[1] >= 16 && $arr[1] <= 31) {
                 return true;
             }
+        }
+        if ($ipAddress === '127.0.0.1') {//Loop back address
+            return true;
         }
         return false;
     }
