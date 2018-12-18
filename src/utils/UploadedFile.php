@@ -37,6 +37,7 @@ class UploadedFile
 
     /**
      * @var int[]
+     * @see https://secure.php.net/manual/en/features.file-upload.errors.php
      */
     private static $errors = [
         UPLOAD_ERR_OK,
@@ -136,6 +137,12 @@ class UploadedFile
     public function saveAs($file, $deleteTempFile = true)
     {
         if ($this->error == UPLOAD_ERR_OK) {
+            //The destination directory must exist; move_uploaded_file() & copy() will not automatically create it for you.
+            if (!file_exists(dirname($file))) {
+                if (!mkdir(dirname($file), 0777, true)) {
+                    return false;
+                }
+            }
             if ($deleteTempFile) {
                 return move_uploaded_file($this->tempName, $file);
             } elseif (is_uploaded_file($this->tempName)) {
