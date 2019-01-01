@@ -16,7 +16,7 @@ class ArrayHelper
         if ($size <= 0) {
             return $multiArr;
         }
-        
+
         if ($size >= count($arr)) {
             $multiArr[] = $arr;
         } else {
@@ -29,6 +29,18 @@ class ArrayHelper
                     ++$index;
                     $length = 0;
                 }
+            }
+        }
+        return $multiArr;
+    }
+
+    public static function groupBy(array $arr, $column_key): array
+    {
+        $multiArr = [];
+        foreach ($arr as $row) {
+            $val = $row[$column_key];
+            if (is_int($val) || is_string($val)) {
+                $multiArr[$val][] = $row;
             }
         }
         return $multiArr;
