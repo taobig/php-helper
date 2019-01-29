@@ -72,4 +72,58 @@ class ArrayHelperTest extends TestCase
         $this->assertSame(false, array_key_exists('bb', $result));
     }
 
+    public function testUnderscore2camelcase()
+    {
+        $arr = [
+            "id" => 1,
+            "user_name" => "yes",
+            "test_1" => 3,
+            "good_news" => [
+                "user_name" => "yes",
+                "test_1" => 3,
+                "good_news" => [
+                    "user_name" => "no",
+                    "test_1" => 3,
+                    "good_news" => [
+                    ],
+                ],
+            ],
+            "Happy_bird"=>1
+        ];
+        print_r($arr);
+        $result = ArrayHelper::underscore2camelcase($arr);
+        print_r($result);
+        $this->assertSame(5, count($result));
+        $this->assertSame(true, isset($result['userName']));
+        $this->assertSame("yes", ($result['userName']));
+        $this->assertSame(true, isset($result['test1']));
+        $this->assertSame(3, ($result['test1']));
+        $this->assertSame(true, isset($result['goodNews']));
+        $this->assertSame(true, isset($result['goodNews']['userName']));
+        $this->assertSame(true, isset($result['goodNews']['goodNews']['userName']));
+        $this->assertSame("no", ($result['goodNews']['goodNews']['userName']));
+        $this->assertSame(1, ($result['happyBird']));
+
+
+        $o = new \StdClass();
+        $o->aaa = 11;
+        $arr = [
+            "a" => 1,
+            "aBC" => 2,
+            "a_b" => 3,
+            "a_b_c_d" => $o,
+            "EFGH" => $o,
+            "mK" => $o,
+            "l_s" => $o,
+        ];
+        print_r($arr);
+        $result = ArrayHelper::underscore2camelcase($arr);
+        print_r($result);
+
+        $this->assertSame(7, count($result));
+        $this->assertSame(11, ($result['eFGH']->aaa));
+        $this->assertSame(11, ($result['mK']->aaa));
+        $this->assertSame(11, ($result['lS']->aaa));
+    }
+
 }

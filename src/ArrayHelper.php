@@ -46,4 +46,22 @@ class ArrayHelper
         return $multiArr;
     }
 
+    public static function underscore2camelcase(array $arr): array
+    {
+        $result = [];
+        if (is_array($arr)) {
+            foreach ($arr as $key => $val) {
+                $camelcaseKey = lcfirst(implode('', array_map('ucfirst', explode('_', $key))));
+                if (isset($result[$camelcaseKey])) {
+                    continue;
+                }
+                if (!is_array($val)) {
+                    $result[$camelcaseKey] = $val;
+                } else {
+                    $result[$camelcaseKey] = self::underscore2camelcase($val);
+                }
+            }
+        }
+        return $result;
+    }
 }
