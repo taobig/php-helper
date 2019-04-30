@@ -1,6 +1,6 @@
 <?php
 
-use taobig\helpers\base\StaticBase;
+use taobig\helpers\base\SingleInstanceBase;
 
 class SingleInstanceBaseTest extends TestCase {
 
@@ -17,7 +17,7 @@ class SingleInstanceBaseTest extends TestCase {
 }
 
 
-class SingleInstanceTest extends StaticBase
+class SingleInstanceTest extends SingleInstanceBase
 {
     public function hello(){
         return "Hello World!";
