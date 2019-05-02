@@ -20,11 +20,17 @@ class DatetimeHelper
         return date("Y-m-d H:i:s");
     }
 
+    public static function getDate(): string
+    {
+        return date('Y-m-d');
+    }
+
     /**
      * this method need 64-bit PHP runtime.(32-bit时只能表示67年的时间差)
      * @param string $strDtLeft
      * @param string $strDtRight
      * @return int
+     * @throws \Exception
      */
     public static function datetimeDiff(string $strDtLeft, string $strDtRight): int
     {
