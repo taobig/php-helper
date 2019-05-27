@@ -16,7 +16,7 @@ class FileHelperTest extends TestCase
     public function testCopyDirCreatedException()
     {
         $this->expectException(\ErrorException::class);
-        
+
         $old_level = error_reporting(0);
         $old_error_handler = set_error_handler(NULL);
         try {
@@ -66,6 +66,25 @@ class FileHelperTest extends TestCase
     {
         FileHelper::recurseRemove($dir);
         $this->assertSame(false, file_exists($dir));
+    }
+
+    public function testGetLastNLines()
+    {
+        $file = __DIR__ . '/fileHelperTest.txt';
+        $content = FileHelper::getLastNLines($file, 1);
+        $this->assertSame('//last line', $content);
+
+        $content = FileHelper::getLastNLines($file, 2);
+        $this->assertSame("//last line but one\n//last line", $content);
+
+        $content = FileHelper::getLastNLines($file, PHP_INT_MAX);
+        $this->assertSame(file_get_contents($file), $content);
+
+        $this->expectException(OutOfBoundsException::class);
+        $content = FileHelper::getLastNLines($file, 0);
+
+        $this->expectException(OutOfBoundsException::class);
+        $content = FileHelper::getLastNLines($file, -1);
     }
 
 }

@@ -52,4 +52,37 @@ class FileHelper
         rmdir($src);
     }
 
+    public static function getLastNLines(string $filePath, int $lines = 1, $eol = "\n")
+    {
+        if ($lines <= 0) {
+            throw new \OutOfBoundsException('');
+        }
+        $content = "";
+        $resource = fopen($filePath, 'r');
+        if ($resource) {
+            try {
+                fseek($resource, -1, SEEK_END);
+                $rowCount = 1;
+                do {
+                    $str = fgetc($resource);
+                    if ($str === false) {
+                        break;
+                    }
+                    if ($str === $eol) {
+                        ++$rowCount;
+                        if ($rowCount > $lines) {
+                            break;
+                        }
+                    }
+                    $content = $str . $content;
+                    fseek($resource, -2, SEEK_CUR);
+                } while (true);
+            } finally {
+                fclose($resource);
+            }
+        }
+        return $content;
+    }
+
+
 }
