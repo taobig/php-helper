@@ -57,6 +57,9 @@ class FileHelper
         if ($lines <= 0) {
             throw new \OutOfBoundsException('');
         }
+        if (strlen($eol) != 1) {
+            throw new \OutOfBoundsException('');
+        }
         $content = "";
         $resource = fopen($filePath, 'r');
         if ($resource) {
