@@ -16,7 +16,7 @@ class FileLock extends Lock
     {
         parent::__construct($version);
 
-        $this->dirPath = $dirPath;
+        $this->dirPath = rtrim($dirPath, '/') . '/';
     }
 
     public function __destruct()
@@ -28,7 +28,7 @@ class FileLock extends Lock
 
     public function lock(string $key, int $lifeTime = 60): int
     {
-        $resource = @fopen($this->dirPath . '/' . md5($key), 'a');
+        $resource = @fopen($this->dirPath  . md5($key), 'a');
         if (!$resource || !flock($resource, LOCK_EX | LOCK_NB)) {
             throw new LockFailedException($key);
         }
