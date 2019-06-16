@@ -88,4 +88,10 @@ class FileHelper
     }
 
 
+    public static function getLastNLinesByTailf(string $filePath, int $lines = 1)
+    {
+        $cmd = "tail -n {$lines} " . escapeshellarg($filePath);
+        return shell_exec($cmd);
+    }
+
 }
