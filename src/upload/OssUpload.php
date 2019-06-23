@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\upload;
+namespace taobig\helpers\upload;
 
 use OSS\Core\OssException;
 use OSS\OssClient;
