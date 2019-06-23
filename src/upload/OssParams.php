@@ -9,13 +9,17 @@ class OssParams
 
     /** @var string */
     public $accessKeyId;
+
     /** @var string */
     public $accessKeySecret;
+
     /** @var string */
     public $endpointServer;
+
     /** @var string */
-    public $endpointServerUrl;
+    public $bindingDomain;
+
     /** @var string */
-    public $bucketNamePublicRead;
+    public $bucketName;
 
 }

@@ -14,14 +14,14 @@ class OssUpload implements UploadInterface
     /** @var OssClient */
     private $ossClient;
     /** @var string */
-    private $endpoint_server_url;
+    private $bindingDomain;
     /** @var string */
     private $bucketName;
 
     public function __construct(OssParams $ossParams)
     {
-        $this->endpoint_server_url = rtrim($ossParams->endpointServerUrl, '/') . '/';
-        $this->bucketName = $ossParams->bucketNamePublicRead;
+        $this->bindingDomain = rtrim($ossParams->bindingDomain, '/') . '/';
+        $this->bucketName = $ossParams->bucketName;
 
         $this->ossClient = new OssClient($ossParams->accessKeyId, $ossParams->accessKeySecret, $ossParams->endpointServer);
     }
@@ -64,7 +64,7 @@ class OssUpload implements UploadInterface
 
     public function buildUrl(string $targetFileName): string
     {
-        return $this->endpoint_server_url . ltrim($targetFileName, '/');
+        return $this->bindingDomain . ltrim($targetFileName, '/');
     }
 
 }
