@@ -15,7 +15,8 @@
 	"require-dev" : {
 		"phpunit/phpunit" : "~6.1",
 		"satooshi/php-coveralls": "^1.0",
-		"yiisoft/yii2-redis": "^2.0"
+		"yiisoft/yii2-redis": "^2.0",
+		"aliyuncs/oss-sdk-php": "~2.0"
 	},
 	"autoload" : {
 		"psr-4" : {
