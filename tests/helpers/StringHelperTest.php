@@ -99,4 +99,10 @@ class StringHelperTest extends TestCase
         $this->assertSame("9", StringHelper::prepend("9", 3, '00'));
     }
 
+    public function testCombine()
+    {
+        $this->assertSame("aaabbbccc", StringHelper::combineSpaces("aaa  bbb  ccc"));
+        $this->assertSame("aaabbbccc", StringHelper::combineSpaces("aaa bbb    ccc"));
+    }
+
 }
