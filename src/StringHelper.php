@@ -122,4 +122,14 @@ class StringHelper
         return $str;
     }
 
+    //合并多个连续空格为一个
+    public static function combineSpaces(string $str): string
+    {
+        $ret = preg_replace("/\s(?=\s)/", "\\1", $str);
+        if ($ret === null) {
+            throw new \RuntimeException("preg_replace {$str} failed");
+        }
+        return $ret;
+    }
+
 }
