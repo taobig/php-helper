@@ -24,14 +24,14 @@ class YiiRedisConnection implements RedisConnectionInterface
     {
         $params = [];
         foreach ($options as $_key => $option) {
-            if (is_string($_key)) {
+            if (is_string($_key)) {//'EX' => 60
                 $params[] = $_key;
                 $params[] = $option;
-            } else {
+            } else {//int(0) => 'NX'
                 $params[] = $option;
             }
         }
-        return $this->redis->set($key, $value, $options);
+        return $this->redis->set($key, $value, ...$params);
         //$this->redis->executeCommand('SET', [$key, $value, 'EX', 60, 'NX']);
 //        array_unshift($options, $key);
 //        array_unshift($options, $value);
