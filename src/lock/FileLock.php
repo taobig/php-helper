@@ -26,6 +26,12 @@ class FileLock extends Lock
         }
     }
 
+    /**
+     * @param string $key
+     * @param int $lifeTime
+     * @return int
+     * @throws LockFailedException
+     */
     public function lock(string $key, int $lifeTime = 60): int
     {
         $resource = @fopen($this->dirPath  . md5($key), 'a');
