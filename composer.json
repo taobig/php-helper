@@ -10,8 +10,9 @@
 		"php-64bit": "^7.0",
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
+		"ext-json": "*",
 		"guzzlehttp/guzzle": "^6.3"
-	},
+    },
 	"require-dev" : {
 		"phpunit/phpunit" : "~6.1",
 		"satooshi/php-coveralls": "^1.0",
