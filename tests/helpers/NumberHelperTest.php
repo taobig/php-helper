@@ -18,6 +18,8 @@ class NumberHelperTest extends TestCase
         $this->assertSame('七', NumberHelper::singleDigitToSimpleChinese(7));
         $this->assertSame('八', NumberHelper::singleDigitToSimpleChinese(8));
         $this->assertSame('九', NumberHelper::singleDigitToSimpleChinese(9));
+
+        $this->assertSame('', NumberHelper::singleDigitToSimpleChinese(222));
     }
 
 }
