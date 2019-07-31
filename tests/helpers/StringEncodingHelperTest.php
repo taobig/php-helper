@@ -47,6 +47,10 @@ class StringEncodingHelperTest extends TestCase
 
         $gbkStr = (new StringEncodingHelper())->gbkToUtf8("你好，世界");
         $this->assertSame('你好，世界', $gbkStr);
+
+        $str = file_get_contents(__DIR__ . '/StringEncodingHelperFile_unknown.source');
+        $gbkStr = (new StringEncodingHelper())->gbkToUtf8($str);
+        $this->assertSame(false, $gbkStr);
     }
 
 }
