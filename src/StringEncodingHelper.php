@@ -38,7 +38,7 @@ class StringEncodingHelper
         if ($encode === false) {
             return false;
         } else if ($encode == "UTF-8") {
-            return $encode;
+            return $str;
         } else {
             return iconv( 'GB18030', 'UTF-8', $str);
         }
