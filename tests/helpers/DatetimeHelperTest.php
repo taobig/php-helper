@@ -76,5 +76,23 @@ class DatetimeHelperTest extends TestCase
         $this->assertSame('2019-08-01', $dt);
     }
 
+    public function testConvertTimestampToDatetime()
+    {
+        $time = time();
+        $dt = DatetimeHelper::convertTimestampToDatetime($time);
+        $this->assertSame($time, $dt->getTimestamp());
+    }
+
+    public function testConvertStringToDatetime()
+    {
+        $str = '2019-08-01 00:00:00';
+        $dt = DatetimeHelper::convertStringToDatetime($str);
+        $this->assertSame($str, $dt->format('Y-m-d H:i:s'));
+
+        $this->expectException(\Exception::class);
+        $str = '2019-08---01 00:00:00';
+        $dt = DatetimeHelper::convertStringToDatetime($str);
+        $this->assertSame($str, $dt->format('Y-m-d H:i:s'));
+    }
 
 }

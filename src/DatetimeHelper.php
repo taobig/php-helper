@@ -2,6 +2,8 @@
 
 namespace taobig\helpers;
 
+use DateTime;
+
 class DatetimeHelper
 {
 
@@ -26,7 +28,7 @@ class DatetimeHelper
     }
 
     /**
-     * @param int|string|\DateTime $referenceTime   time() or "2019-07-31" or \DateTime
+     * @param int|string|DateTime $referenceTime time() or "2019-07-31" or DateTime
      * @return false|string
      */
     public static function getYesterdayDate($referenceTime = null)
@@ -36,14 +38,14 @@ class DatetimeHelper
             $time = $referenceTime;
         } else if (is_string($referenceTime)) {
             $time = strtotime($referenceTime);
-        }else if($referenceTime instanceof \DateTime){
+        } else if ($referenceTime instanceof DateTime) {
             $time = $referenceTime->getTimestamp();
         }
         return date("Y-m-d", strtotime("-1 days", $time));
     }
 
     /**
-     * @param int|string|\DateTime $referenceTime   time() or "2019-07-31" or \DateTime
+     * @param int|string|DateTime $referenceTime time() or "2019-07-31" or DateTime
      * @return false|string
      */
     public static function getTomorrowDate($referenceTime = null)
@@ -53,7 +55,7 @@ class DatetimeHelper
             $time = $referenceTime;
         } else if (is_string($referenceTime)) {
             $time = strtotime($referenceTime);
-        }else if($referenceTime instanceof \DateTime){
+        } else if ($referenceTime instanceof DateTime) {
             $time = $referenceTime->getTimestamp();
         }
         return date("Y-m-d", strtotime("+1 days", $time));
@@ -68,10 +70,30 @@ class DatetimeHelper
      */
     public static function datetimeDiff(string $strDtLeft, string $strDtRight): int
     {
-        $dtLeft = new \DateTime($strDtLeft);
-        $dtRight = new \DateTime($strDtRight);
+        $dtLeft = new DateTime($strDtLeft);
+        $dtRight = new DateTime($strDtRight);
 
         return $dtLeft->getTimestamp() - $dtRight->getTimestamp();
+    }
+
+    /**
+     * @param int $timestamp
+     * @return DateTime
+     * @throws \Exception
+     */
+    public static function convertTimestampToDatetime(int $timestamp): DateTime
+    {
+        return (new DateTime())->setTimestamp($timestamp);
+    }
+
+    /**
+     * @param string $datetime
+     * @return DateTime
+     * @throws \Exception
+     */
+    public static function convertStringToDatetime(string $datetime): DateTime
+    {
+        return new DateTime($datetime);
     }
 
 }
