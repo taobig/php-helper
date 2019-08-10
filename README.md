@@ -18,7 +18,7 @@ composer require taobig/php-helper
 | Major Version	 | PHP Compatibility	 | Initial Release	 | Support |
 | :-----| ----: | :----: | :----: |
 | 1.x | PHP 7.0, PHP 7.1, PHP 7.2 | 25 Sep 2018 | ?? |
-| 2.x | PHP 7.4 | ?? | ?? |
+
 
 ## Usage
 ```
