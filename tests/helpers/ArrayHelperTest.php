@@ -88,7 +88,8 @@ class ArrayHelperTest extends TestCase
                     ],
                 ],
             ],
-            "Happy_bird" => 1
+            "Happy_bird" => 1,
+            "HappyBird" => 2,
         ];
         $result = ArrayHelper::underscore2camelcase($arr);
         $this->assertSame(5, count($result));
@@ -102,6 +103,8 @@ class ArrayHelperTest extends TestCase
         $this->assertSame("no", ($result['goodNews']['goodNews']['userName']));
         $this->assertSame(1, ($result['happyBird']));
 
+        $result = ArrayHelper::underscore2camelcase($arr, false);
+        $this->assertSame(2, ($result['happyBird']));
 
         $o = new \StdClass();
         $o->aaa = 11;

@@ -46,14 +46,25 @@ class ArrayHelper
         return $multiArr;
     }
 
-    public static function underscore2camelcase(array $arr): array
+    /**
+     * convert all keys from underscore-style to camelcase-style.
+     * 如果转换后的key已经存在，则使用原始值
+     * @param array $arr
+     * @param bool $reserveOriginValue
+     * @return array
+     */
+    public static function underscore2camelcase(array $arr, bool $reserveOriginValue = true): array
     {
         $result = [];
         if (is_array($arr)) {
             foreach ($arr as $key => $val) {
                 $camelcaseKey = lcfirst(implode('', array_map('ucfirst', explode('_', $key))));
                 if (isset($result[$camelcaseKey])) {
-                    continue;
+                    if($reserveOriginValue) {
+                        continue;
+                    }else{
+                        $result[$camelcaseKey] = $val;
+                    }
                 }
                 if (!is_array($val)) {
                     $result[$camelcaseKey] = $val;
