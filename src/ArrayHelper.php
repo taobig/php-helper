@@ -64,4 +64,40 @@ class ArrayHelper
         }
         return $result;
     }
+
+    public static function removeEmptyElement(array $arr, bool $discardKeys = false): array
+    {
+        $result = [];
+        foreach ($arr as $key => $item) {
+            if (!empty($item)) {
+                $result[$key] = $item;
+            }
+        }
+        if ($discardKeys) {
+            return array_values($result);
+        }
+        return $result;
+    }
+
+    public static function removeSpecifiedElement(array $arr, $specifiedElement = null, bool $strictType = false, bool $discardKeys = false): array
+    {
+        $result = [];
+        foreach ($arr as $key => $item) {
+            if ($strictType) {
+                if ($item === $specifiedElement) {
+                    continue;
+                }
+            } else {
+                if ($item == $specifiedElement) {
+                    continue;
+                }
+            }
+            $result[$key] = $item;
+        }
+        if ($discardKeys) {
+            return array_values($result);
+        }
+        return $result;
+    }
+
 }

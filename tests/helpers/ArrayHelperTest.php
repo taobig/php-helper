@@ -88,11 +88,9 @@ class ArrayHelperTest extends TestCase
                     ],
                 ],
             ],
-            "Happy_bird"=>1
+            "Happy_bird" => 1
         ];
-        print_r($arr);
         $result = ArrayHelper::underscore2camelcase($arr);
-        print_r($result);
         $this->assertSame(5, count($result));
         $this->assertSame(true, isset($result['userName']));
         $this->assertSame("yes", ($result['userName']));
@@ -116,14 +114,85 @@ class ArrayHelperTest extends TestCase
             "mK" => $o,
             "l_s" => $o,
         ];
-        print_r($arr);
         $result = ArrayHelper::underscore2camelcase($arr);
-        print_r($result);
 
         $this->assertSame(7, count($result));
         $this->assertSame(11, ($result['eFGH']->aaa));
         $this->assertSame(11, ($result['mK']->aaa));
         $this->assertSame(11, ($result['lS']->aaa));
+    }
+
+    public function testRemoveEmptyElement()
+    {
+        $arr = [1, 2, 3, 0, '', 99, ['test']];
+        $result = ArrayHelper::removeEmptyElement($arr);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(5, count($result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(false, array_key_exists(4, $result));
+        $this->assertSame(true, array_key_exists(5, $result));
+
+        $result = ArrayHelper::removeEmptyElement($arr, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(5, count($result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+        $this->assertSame(false, array_key_exists(5, $result));
+    }
+
+    public function testRemoveSpecifiedElement()
+    {
+        $arr = [1, 2, 3, null, 4];
+        $result = ArrayHelper::removeSpecifiedElement($arr);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, 3, 4];
+        $result = ArrayHelper::removeSpecifiedElement($arr, 3);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(3, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, 3, 4];
+        $result = ArrayHelper::removeSpecifiedElement($arr, 3, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(3, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, '3', 4];
+        $result = ArrayHelper::removeSpecifiedElement($arr, 3, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, '3', 4];
+        $result = ArrayHelper::removeSpecifiedElement($arr, 3, true, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(false, array_key_exists(4, $result));
     }
 
 }
