@@ -36,9 +36,11 @@ class OssUpload implements UploadInterface
      */
     public function upload(string $localFile, string $targetFileName, bool $skipSameNameFile = false): string
     {
-        $isExist = $this->ossClient->doesObjectExist($this->bucketName, $targetFileName);
-        if ($isExist && !$skipSameNameFile) {
-            throw new FileExistsException('文件已经存在，请改名后重试');
+        if (!$skipSameNameFile) {
+            $isExist = $this->isFileNameExists($targetFileName);
+            if ($isExist) {
+                throw new FileExistsException('文件已经存在，请改名后重试');
+            }
         }
 
         $upload_file_options = [
@@ -60,6 +62,11 @@ class OssUpload implements UploadInterface
             throw $e;
         }
         return $this->buildUrl($targetFileName);
+    }
+
+    public function isFileNameExists(string $targetFileName): bool
+    {
+        return $this->ossClient->doesObjectExist($this->bucketName, $targetFileName);
     }
 
     public function buildUrl(string $targetFileName): string
