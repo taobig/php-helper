@@ -6,8 +6,11 @@ use OSS\Core\OssException;
 use OSS\OssClient;
 use taobig\helpers\upload\exceptions\FileExistsException;
 use taobig\helpers\upload\exceptions\UploadException;
-use taobig\helpers\upload\OssParams;
 
+
+/**
+ * @codeCoverageIgnore
+ */
 class OssUpload implements UploadInterface
 {
 

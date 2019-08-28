@@ -2,6 +2,9 @@
 
 namespace taobig\helpers\upload;
 
+/**
+ * @codeCoverageIgnore
+ */
 interface UploadInterface
 {
 
