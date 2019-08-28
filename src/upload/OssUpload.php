@@ -27,6 +27,7 @@ class OssUpload implements UploadInterface
     }
 
     /**
+     * @deprecated
      * @param string $localFile
      * @param string $targetFileName
      * @param bool $skipSameNameFile
@@ -43,7 +44,7 @@ class OssUpload implements UploadInterface
             }
         }
 
-        $upload_file_options = [
+        $uploadFileOptions = [
             OssClient::OSS_HEADERS => [
 //                'Expires' => 'Fri, 28 Feb 2012 05:38:42 GMT',
                 'Expires' => (new \DateTime(("+30 Days")))->format(\DateTime::COOKIE),//Tuesday, 24-Nov-2015 17:43:37 CST
@@ -55,9 +56,83 @@ class OssUpload implements UploadInterface
             ],
         ];
         try {
-            $this->ossClient->uploadFile($this->bucketName, $targetFileName, $localFile, $upload_file_options);
+            $this->ossClient->uploadFile($this->bucketName, $targetFileName, $localFile, $uploadFileOptions);
         } catch (OssException $e) {
             throw new UploadException('上传文件失败' . $e->getMessage());
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+        return $this->buildUrl($targetFileName);
+    }
+
+    /**
+     * @param string $localFile
+     * @param string $targetFileName
+     * @param bool $skipSameNameFile
+     * @return string
+     * @throws \Throwable
+     */
+    public function uploadFile(string $localFile, string $targetFileName, bool $skipSameNameFile = true): string
+    {
+        if ($skipSameNameFile) {
+            $isExist = $this->isFileNameExists($targetFileName);
+            if ($isExist) {
+                return $this->buildUrl($targetFileName);
+            }
+        }
+
+        $uploadFileOptions = [
+            OssClient::OSS_HEADERS => [
+//                'Expires' => 'Fri, 28 Feb 2012 05:38:42 GMT',
+                'Expires' => (new \DateTime(("+30 Days")))->format(\DateTime::COOKIE),//Tuesday, 24-Nov-2015 17:43:37 CST
+                'Cache-Control' => 'no-cache',
+//                 'Content-Disposition' => 'attachment;filename=oss_download.jpg',//不用浏览器下载，不用设置
+                'Content-Encoding' => 'utf-8',
+                'Content-Language' => 'zh-CN',
+                'x-oss-server-side-encryption' => 'AES256',
+            ],
+        ];
+        try {
+            $this->ossClient->uploadFile($this->bucketName, $targetFileName, $localFile, $uploadFileOptions);
+        } catch (OssException $e) {
+            throw new UploadException('上传文件失败' . $e->getMessage());
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+        return $this->buildUrl($targetFileName);
+    }
+
+    public function moveFile(string $sourceFileName, string $targetFileName, bool $skipSameNameFile = true): string
+    {
+        if ($skipSameNameFile) {
+            $isExist = $this->isFileNameExists($targetFileName);
+            if ($isExist) {
+                return $this->buildUrl($targetFileName);
+            }
+        }
+        try {
+            $this->ossClient->copyObject($this->bucketName, $sourceFileName, $this->bucketName, $targetFileName);
+            $this->ossClient->deleteObject($this->bucketName, $sourceFileName);
+        } catch (OssException $e) {
+            throw new UploadException('移动文件失败' . $e->getMessage());
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+        return $this->buildUrl($targetFileName);
+    }
+
+    public function copyFile(string $sourceFileName, string $targetFileName, bool $skipSameNameFile = true): string
+    {
+        if ($skipSameNameFile) {
+            $isExist = $this->isFileNameExists($targetFileName);
+            if ($isExist) {
+                return $this->buildUrl($targetFileName);
+            }
+        }
+        try {
+            $this->ossClient->copyObject($this->bucketName, $sourceFileName, $this->bucketName, $targetFileName);
+        } catch (OssException $e) {
+            throw new UploadException('移动文件失败' . $e->getMessage());
         } catch (\Throwable $e) {
             throw $e;
         }
