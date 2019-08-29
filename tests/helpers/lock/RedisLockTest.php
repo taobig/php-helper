@@ -8,13 +8,15 @@ use taobig\helpers\lock\RedisLock;
 class RedisLockTest extends TestCase
 {
 
-
     public function testLock()
     {
         $redis = new \Redis();
         $redis->connect("localhost");
         $redisConnection = new RedisExtensionConnection($redis);
         $redisLock = new RedisLock($redisConnection, '1');
+
+        var_dump($redisLock->name());
+        $this->assertSame(RedisLock::class, $redisLock->getName());
 
         $lockedKey = "testtesttest";
         $lockedValue = $redisLock->lock($lockedKey, 200);
