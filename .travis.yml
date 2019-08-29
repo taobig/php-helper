@@ -19,6 +19,8 @@ matrix:
 #  allow_failures:
 #    - php: nightly
 
+services:
+  - redis-server
 
 # cache vendor dirs
 cache:
