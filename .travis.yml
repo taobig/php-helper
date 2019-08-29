@@ -45,6 +45,7 @@ before_script:
   - php -r "echo ini_get('memory_limit').PHP_EOL;"
   - echo 'memory_limit = 64M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - php -r "echo ini_get('memory_limit').PHP_EOL;"
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   # ensure no files contain UTF-8 byte order mark
