@@ -22,7 +22,7 @@ class FileLock extends Lock
     public function __destruct()
     {
         foreach (self::$locks as $key => $resource) {
-            $this->unlock($key, $resource);
+            $this->unlock($key, 0);
         }
     }
 
