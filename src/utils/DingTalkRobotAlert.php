@@ -7,6 +7,7 @@ use taobig\helpers\http\HttpRequest;
 
 /**
  * docs: https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq
+ * @codeCoverageIgnore
  */
 class DingTalkRobotAlert
 {
