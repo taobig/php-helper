@@ -84,6 +84,7 @@ class OssUpload implements UploadInterface
             }
         }
 
+        //说明 OSS支持HTTP协议规定的5个请求头：Cache-Control、Expires、Content-Encoding、Content-Disposition、Content-Type。如果上传Object时设置了这些请求头，则该Object被下载时，相应的请求头值会被自动设置成上传时的值。
         $uploadFileOptions = [
             OssClient::OSS_HEADERS => [
 //                'Expires' => 'Fri, 28 Feb 2012 05:38:42 GMT',
