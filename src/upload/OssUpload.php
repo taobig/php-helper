@@ -3,6 +3,9 @@
 namespace taobig\helpers\upload;
 
 use OSS\Core\OssException;
+use OSS\Model\LifecycleAction;
+use OSS\Model\LifecycleConfig;
+use OSS\Model\LifecycleRule;
 use OSS\OssClient;
 use taobig\helpers\upload\exceptions\FileExistsException;
 use taobig\helpers\upload\exceptions\UploadException;
@@ -30,13 +33,13 @@ class OssUpload implements UploadInterface
     }
 
     /**
-     * @deprecated
      * @param string $localFile
      * @param string $targetFileName
      * @param bool $skipSameNameFile
      * @return string
      * @throws FileExistsException
      * @throws \Throwable
+     * @deprecated
      */
     public function upload(string $localFile, string $targetFileName, bool $skipSameNameFile = false): string
     {
@@ -141,6 +144,23 @@ class OssUpload implements UploadInterface
             throw $e;
         }
         return $this->buildUrl($targetFileName);
+    }
+
+    /**
+     * @see https://help.aliyun.com/document_detail/32108.html
+     * @param string $ruleId 设置规则ID。
+     * @param string $matchPrefix 设置文件前缀。 eg: "A1/"
+     * @throws OssException
+     */
+    public function setLifecycle(string $ruleId, string $matchPrefix)
+    {
+        $lifecycleConfig = new LifecycleConfig();
+        $actions = [];
+        // 距最后修改时间3天后过期。
+        $actions[] = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DAYS, 3);
+        $lifecycleRule = new LifecycleRule($ruleId, $matchPrefix, LifecycleRule::LIFECYCLE_STATUS_ENABLED, $actions);
+        $lifecycleConfig->addRule($lifecycleRule);
+        $this->ossClient->putBucketLifecycle($this->bucketName, $lifecycleConfig);
     }
 
     public function getFileInfo(string $fileName): array
