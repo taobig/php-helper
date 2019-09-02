@@ -143,6 +143,12 @@ class OssUpload implements UploadInterface
         return $this->buildUrl($targetFileName);
     }
 
+    public function getFileInfo(string $fileName): array
+    {
+        $objectName = ltrim($fileName, '/');
+        return $this->ossClient->getObjectMeta($this->bucketName, $objectName);
+    }
+
     public function isFileNameExists(string $targetFileName): bool
     {
         return $this->ossClient->doesObjectExist($this->bucketName, $targetFileName);

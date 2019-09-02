@@ -23,6 +23,8 @@ interface UploadInterface
 
     public function copyFile(string $sourceFileName, string $targetFileName, bool $skipSameNameFile = true): string;
 
+    public function getFileInfo(string $fileName): array;
+
     public function isFileNameExists(string $targetFileName): bool;
 
     public function buildUrl(string $targetFileName): string;
