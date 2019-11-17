@@ -19,6 +19,11 @@
 		"yiisoft/yii2-redis": "^2.0",
 		"aliyuncs/oss-sdk-php": "~2.0"
 	},
+	"replace": {
+		"symfony/polyfill-ctype": "*",
+		"ralouphie/getallheaders": "*",
+		"symfony/polyfill-mbstring": "*"
+	},
 	"autoload" : {
 		"psr-4" : {
 			"taobig\\helpers\\" : "src/"
