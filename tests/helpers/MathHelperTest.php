@@ -7,14 +7,17 @@ class MathHelperTest extends TestCase
 
     public function testAdd()
     {
+        $this->expectException(\ErrorException::class);
         $this->assertSame("0.00", MathHelper::add("hello world", "h"));
         $this->assertSame("3.00", MathHelper::add("1", "2"));
         $this->assertSame("3.13", MathHelper::add("1.01", "2.12"));
 
         $this->assertSame("2.00", MathHelper::add(" 1", "2"));
+        $this->expectException(\ErrorException::class);
         $this->assertSame("2.00", MathHelper::add("hello", "2"));
         $this->assertSame("3.13", MathHelper::add("1.01", "2.12999"));
         $this->assertSame("3.14", MathHelper::add("1.01666", "2.12999"));
+        $this->expectException(\ErrorException::class);
         $this->assertSame("2.00", MathHelper::add("12hello", "2"));
     }
 
@@ -54,9 +57,11 @@ class MathHelperTest extends TestCase
         $this->assertSame(0, MathHelper::comp("3", "3.001"));
         $this->assertSame(0, MathHelper::comp("3", "3.009"));
 
-        $this->assertSame(0, MathHelper::comp(" 3", "0"));
-        $this->assertSame(-1, MathHelper::comp(" 3", "3"));
+        $this->assertSame(1, MathHelper::comp(" 3", "0"));
+        $this->assertSame(0, MathHelper::comp(" 3", "3"));
+        $this->expectException(\ErrorException::class);
         $this->assertSame(-1, MathHelper::comp("hello", "3"));
+        $this->expectException(\ErrorException::class);
         $this->assertSame(0, MathHelper::comp("12hello", "0"));
 
     }
