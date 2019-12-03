@@ -3,7 +3,9 @@
 
 namespace taobig\helpers\upload;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class OssParams
 {
 

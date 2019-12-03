@@ -6,7 +6,13 @@ use taobig\helpers\lock\exceptions\LockFailedException;
 
 interface LockInterface
 {
+    /**
+     * @deprecated
+     * @return string
+     */
     public function name();
+
+    public function getName(): string;
 
     /**
      * @param string $key

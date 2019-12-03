@@ -14,7 +14,16 @@ abstract class Lock implements LockInterface
         $this->version = $version;
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public function name()
+    {
+        return $this->name;
+    }
+
+    public function getName(): string
     {
         return $this->name;
     }
