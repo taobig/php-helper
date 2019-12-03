@@ -9,19 +9,14 @@ namespace taobig\helpers\upload;
 class OssParams
 {
 
-    /** @var string */
-    public $accessKeyId;
+    public string $accessKeyId;
 
-    /** @var string */
-    public $accessKeySecret;
+    public string $accessKeySecret;
 
-    /** @var string */
-    public $endpointServer;
+    public string $endpointServer;
 
-    /** @var string */
-    public $bindingDomain;
+    public string $bindingDomain;
 
-    /** @var string */
-    public $bucketName;
+    public string $bucketName;
 
 }

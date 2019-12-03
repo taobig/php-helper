@@ -5,7 +5,7 @@ namespace taobig\helpers\lock;
 class RedisExtensionConnection implements RedisConnectionInterface
 {
 
-    protected $redis;
+    protected \Redis $redis;
 
     public function __construct(\Redis $redis)
     {

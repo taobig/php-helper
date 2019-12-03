@@ -7,10 +7,7 @@ use taobig\helpers\lock\exceptions\LockFailedException;
 class FileLock extends Lock
 {
 
-    /**
-     * @var string
-     */
-    protected $dirPath;
+    protected string $dirPath;
 
     public function __construct(string $dirPath, string $version)
     {
@@ -34,7 +31,7 @@ class FileLock extends Lock
      */
     public function lock(string $key, int $lifeTime = 60): int
     {
-        $resource = @fopen($this->dirPath  . md5($key), 'a');
+        $resource = @fopen($this->dirPath . md5($key), 'a');
         if (!$resource || !flock($resource, LOCK_EX | LOCK_NB)) {
             throw new LockFailedException($key);
         }

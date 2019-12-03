@@ -4,9 +4,9 @@ namespace taobig\helpers\lock;
 
 abstract class Lock implements LockInterface
 {
-    protected $name;
-    protected $version;
-    protected static $locks = [];
+    protected string $name;
+    protected string $version;
+    protected static array $locks = [];
 
     public function __construct(string $version)
     {

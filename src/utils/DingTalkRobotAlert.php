@@ -11,7 +11,7 @@ use taobig\helpers\http\HttpRequest;
  */
 class DingTalkRobotAlert
 {
-    private $url;
+    private string $url;
 
     public function __construct(string $url)
     {

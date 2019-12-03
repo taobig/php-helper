@@ -17,12 +17,9 @@ use taobig\helpers\upload\exceptions\UploadException;
 class OssUpload implements UploadInterface
 {
 
-    /** @var OssClient */
-    private $ossClient;
-    /** @var string */
-    private $bindingDomain;
-    /** @var string */
-    private $bucketName;
+    private OssClient $ossClient;
+    private string $bindingDomain;
+    private string $bucketName;
 
     public function __construct(OssParams $ossParams)
     {

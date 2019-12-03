@@ -7,7 +7,7 @@ use yii\redis\Connection;
 class YiiRedisConnection implements RedisConnectionInterface
 {
 
-    protected $redis;
+    protected Connection $redis;
 
     public function __construct(Connection $redis)
     {
