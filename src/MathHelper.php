@@ -14,6 +14,8 @@ class MathHelper
      */
     public static function add(string $left_operand, string $right_operand, int $scale = 2): string
     {
+        $left_operand = trim($left_operand);
+        $right_operand = trim($right_operand);//fix  bcmath function argument is not well-formed
         return bcadd($left_operand, $right_operand, $scale);
     }
 
@@ -26,6 +28,8 @@ class MathHelper
      */
     public static function sub(string $left_operand, string $right_operand, int $scale = 2): string
     {
+        $left_operand = trim($left_operand);
+        $right_operand = trim($right_operand);//fix  bcmath function argument is not well-formed
         return bcsub($left_operand, $right_operand, $scale);
     }
 
@@ -38,7 +42,8 @@ class MathHelper
      */
     public static function mul(string $left_operand, string $right_operand, int $scale = 2): string
     {
-
+        $left_operand = trim($left_operand);
+        $right_operand = trim($right_operand);//fix  bcmath function argument is not well-formed
         $result = bcmul($left_operand, $right_operand, $scale);
         if (PHP_VERSION_ID >= 70300) {
             return $result;
@@ -56,6 +61,8 @@ class MathHelper
      */
     public static function div(string $left_operand, string $right_operand, int $scale = 2): string
     {
+        $left_operand = trim($left_operand);
+        $right_operand = trim($right_operand);//fix  bcmath function argument is not well-formed
         return bcdiv($left_operand, $right_operand, $scale);
     }
 
@@ -73,6 +80,8 @@ class MathHelper
      */
     public static function comp(string $left_operand, string $right_operand, int $scale = 2): int
     {
+        $left_operand = trim($left_operand);
+        $right_operand = trim($right_operand);//fix  bcmath function argument is not well-formed
         return bccomp($left_operand, $right_operand, $scale);
     }
 }
