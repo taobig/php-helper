@@ -20,6 +20,7 @@ class MathHelperTest extends TestCase
 
     public function testSub()
     {
+        $this->assertSame("3.00", MathHelper::sub(" 5", "2"));
         $this->assertSame("3.00", MathHelper::sub("5", "2"));
         $this->assertSame("4.98", MathHelper::sub("5.00", "0.02"));
         $this->assertSame("2.01", MathHelper::sub("5.11", "3.10"));
@@ -28,6 +29,7 @@ class MathHelperTest extends TestCase
 
     public function testMul()
     {
+        $this->assertSame("6.0000", MathHelper::mul(" 2", "3", 4));
         $this->assertSame("6.0000", MathHelper::mul("2", "3", 4));
         $this->assertNotSame("6", MathHelper::mul("2", "3"));
 
@@ -39,6 +41,7 @@ class MathHelperTest extends TestCase
 
     public function testDiv()
     {
+        $this->assertSame("0.01", MathHelper::div(" 1", "100"));
         $this->assertSame("0.01", MathHelper::div("1", "100"));
         $this->assertSame("2.00", MathHelper::div("4.04", "2.02"));
         $this->assertSame("3333.33", MathHelper::div("1", "0.0003"));
@@ -46,6 +49,7 @@ class MathHelperTest extends TestCase
 
     public function testComp()
     {
+        $this->assertSame(0, MathHelper::comp(" 3", "3.00"));
         $this->assertSame(0, MathHelper::comp("3", "3.00"));
         $this->assertSame(0, MathHelper::comp("3", "3.001"));
         $this->assertSame(0, MathHelper::comp("3", "3.009"));
