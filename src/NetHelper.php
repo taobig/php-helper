@@ -8,34 +8,17 @@ class NetHelper
     public static function getMachineIpV4($onlyPublicAddress = false)
     {
         $ipList = [];
-        if (PHP_VERSION_ID >= 70300) {
-            $adapterList = net_get_interfaces();
-            foreach ($adapterList as $adapter) {
-                foreach ($adapter['unicast'] as $list) {
-                    if (!isset($list['address'])) {
-                        continue;
-                    }
-                    $ipAddress = trim($list['address']);
-                    if (NetHelper::isIPv4Address($ipAddress)) {
-                        if ($ipAddress != "127.0.0.1") {//Loop back address
-                            if ($onlyPublicAddress) {
-                                if (NetHelper::isPrivateIPv4Address($ipAddress)) {
-                                    continue;
-                                }
-                            }
-                            $ipList[] = $ipAddress;
-                        }
-                    }
+        $adapterList = net_get_interfaces();
+        foreach ($adapterList as $adapter) {
+            foreach ($adapter['unicast'] as $list) {
+                if (!isset($list['address'])) {
+                    continue;
                 }
-            }
-        } else {
-            $result = shell_exec("/sbin/ifconfig");
-            if (preg_match_all("/addr:(\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0) {
-                foreach ($match[1] as $k => $v) {
-                    $ipAddress = $match[1][$k];
+                $ipAddress = trim($list['address']);
+                if (NetHelper::isIPv4Address($ipAddress)) {
                     if ($ipAddress != "127.0.0.1") {//Loop back address
                         if ($onlyPublicAddress) {
-                            if (self::isPrivateIPv4Address($ipAddress)) {
+                            if (NetHelper::isPrivateIPv4Address($ipAddress)) {
                                 continue;
                             }
                         }
