@@ -29,6 +29,7 @@ class NetHelper
                 }
             }
         } else {
+            //Linux && Mac
             $result = shell_exec("/sbin/ifconfig");
             if (preg_match_all("/addr:(\d+\.\d+\.\d+\.\d+)/", $result, $match) !== 0) {
                 foreach ($match[1] as $k => $v) {
