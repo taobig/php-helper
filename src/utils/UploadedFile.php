@@ -190,7 +190,7 @@ class UploadedFile
             self::$_files = [];
             if (isset($_FILES) && is_array($_FILES)) {
                 foreach ($_FILES as $class => $info) {
-                    self::loadFilesRecursive($class, $info['name'], $info['tmp_name'], $info['type'], $info['size'], $info['error']);
+                    self::loadFilesRecursive($class, $info['name'] ?? '', $info['tmp_name'] ?? '', $info['type'] ?? '', $info['size'] ?? 0, $info['error']);
                 }
             }
         }
