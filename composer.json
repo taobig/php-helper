@@ -8,6 +8,7 @@
 	"require" : {
 		"php" : "^7.4",
 		"php-64bit": "^7.4",
+		"ext-ctype":"*",
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"ext-json": "*",
@@ -18,11 +19,6 @@
 		"aliyuncs/oss-sdk-php": "~2.0",
 		"phpunit/phpunit": "^8.4",
 		"php-coveralls/php-coveralls": "^2.2"
-	},
-	"replace": {
-		"symfony/polyfill-ctype": "*",
-		"ralouphie/getallheaders": "*",
-		"symfony/polyfill-mbstring": "*"
 	},
 	"autoload" : {
 		"psr-4" : {
