@@ -132,4 +132,14 @@ class StringHelper
         return $ret;
     }
 
+    public static function snakeCase2CamelCase(string $str): string
+    {
+        return lcfirst(implode('', array_map('ucfirst', explode('_', $str))));
+    }
+
+    public static function camelCase2KebabCase(string $input): string
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $input));
+    }
+
 }

@@ -105,4 +105,17 @@ class StringHelperTest extends TestCase
         $this->assertSame("aaa bbb ccc", StringHelper::combineSpaces("aaa bbb    ccc"));
     }
 
+    public function testSnakeCase2Camelcase()
+    {
+        $this->assertSame("aaaBbbCcc", StringHelper::snakeCase2CamelCase("aaa_bbb_ccc"));
+        $this->assertSame("aaaBbbCcc", StringHelper::snakeCase2CamelCase("aaaBbb_ccc"));
+        $this->assertSame("aaa2Cc", StringHelper::snakeCase2CamelCase("aaa_2_ccc"));
+    }
+
+    public function testCamelCase2DashCase()
+    {
+        $this->assertSame("aaa-bbb-ccc", StringHelper::camelCase2KebabCase("aaaBbbCcc"));
+        $this->assertSame("aaa-bbb-ccc", StringHelper::camelCase2KebabCase("AaaBbbCcc"));
+    }
+
 }
