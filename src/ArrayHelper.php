@@ -58,7 +58,7 @@ class ArrayHelper
         $result = [];
         if (is_array($arr)) {
             foreach ($arr as $key => $val) {
-                $camelcaseKey = lcfirst(implode('', array_map('ucfirst', explode('_', $key))));
+                $camelcaseKey = StringHelper::snakeCase2CamelCase($key);
                 if (isset($result[$camelcaseKey])) {
                     if($reserveOriginValue) {
                         continue;
