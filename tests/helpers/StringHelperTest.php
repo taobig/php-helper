@@ -109,7 +109,7 @@ class StringHelperTest extends TestCase
     {
         $this->assertSame("aaaBbbCcc", StringHelper::snakeCase2CamelCase("aaa_bbb_ccc"));
         $this->assertSame("aaaBbbCcc", StringHelper::snakeCase2CamelCase("aaaBbb_ccc"));
-        $this->assertSame("aaa2Cc", StringHelper::snakeCase2CamelCase("aaa_2_ccc"));
+        $this->assertSame("aaa2Ccc", StringHelper::snakeCase2CamelCase("aaa_2_ccc"));
     }
 
     public function testCamelCase2DashCase()
