@@ -142,4 +142,9 @@ class StringHelper
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $input));
     }
 
+    public static function camelCase2SnakeCase(string $input): string
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
+    }
+
 }
