@@ -14,6 +14,13 @@ class SingleInstanceBaseTest extends TestCase {
         $this->assertSame("Hello World!", SingleInstanceTest::getInstance()->hello());
     }
 
+    public function testClone() {
+        $instance = SingleInstanceTest::getInstance();
+        $this->expectException(\Error::class);
+        clone $instance;
+    }
+
+
 }
 
 
