@@ -15,11 +15,16 @@ class HttpRequestTest extends TestCase
     {
         $time = time();
         $params = ['time' => $time];
-        $content = (new HttpRequest())->postJson("localhost:8080/json", $params, 10);
+        $key = 'Customer-Header';
+        $value = 'hello';
+        $headers = [$key => $value];
+        $content = (new HttpRequest())->postJson("localhost:8080/json", $params, 10, $headers);
         $this->assertSame("string", gettype($content));
         $obj = json_decode($content);
         $this->assertSame("object", gettype($obj));
         $this->assertSame($time, $obj->time);
+
+        $this->assertSame($value, $obj->headers->{$key});
     }
 
     public function testPostForm()
