@@ -5,7 +5,10 @@ $uri = $_SERVER["REQUEST_URI"];
 switch ($uri) {
     case "/json":
         header("Content-type:application/json");
-        echo file_get_contents("php://input");
+        $str = file_get_contents("php://input");
+        $params = json_decode($str, true);
+        $params['headers'] = apache_request_headers();
+        echo json_encode($params);
         break;
     case "/form":
         header("Content-type:application/json");
