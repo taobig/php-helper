@@ -198,4 +198,38 @@ class ArrayHelperTest extends TestCase
         $this->assertSame(false, array_key_exists(4, $result));
     }
 
+    public function testIsAssocArray()
+    {
+        $arr = [];
+        $this->assertSame(true, ArrayHelper::isAssocArray($arr));
+
+        $arr = ['a' => 1, 2, 3, 4];
+        $this->assertSame(true, ArrayHelper::isAssocArray($arr));
+
+        $arr = [1, 2, 3, 4];
+        $this->assertSame(false, ArrayHelper::isAssocArray($arr));
+    }
+
+
+    public function testIsIndexedArray()
+    {
+        $arr = [];
+        $this->assertSame(true, ArrayHelper::isIndexedArray($arr));
+
+        $arr = [1, 2, 3, 4];
+        $this->assertSame(true, ArrayHelper::isIndexedArray($arr));
+
+        $arr = ['a' => 1, 2, 3, 4];
+        $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
+
+        $arr = ['0' => 1, 2, 3, 4];
+        $this->assertSame(true, ArrayHelper::isIndexedArray($arr));
+
+        $arr = ['0' => 1, '1' => 2, '2' => 3, '3' => 4];
+        $this->assertSame(true, ArrayHelper::isIndexedArray($arr));
+
+        $arr = ['0' => 1, '2' => 2, '3' => 3, '4' => 4];
+        $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
+    }
+
 }

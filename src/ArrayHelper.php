@@ -60,9 +60,9 @@ class ArrayHelper
             foreach ($arr as $key => $val) {
                 $camelcaseKey = StringHelper::snakeCase2CamelCase($key);
                 if (isset($result[$camelcaseKey])) {
-                    if($reserveOriginValue) {
+                    if ($reserveOriginValue) {
                         continue;
-                    }else{
+                    } else {
                         $result[$camelcaseKey] = $val;
                     }
                 }
@@ -109,6 +109,38 @@ class ArrayHelper
             return array_values($result);
         }
         return $result;
+    }
+
+    /**
+     * 判断数组是关联数组（associative array）
+     * @param array $arr
+     * @return bool
+     */
+    public static function isAssocArray(array $arr): bool
+    {
+        if (empty($arr)) {
+            return true;
+        }
+        return array_keys($arr) !== range(0, count($arr) - 1);
+    }
+
+    /**
+     * 判断数组是索引数组（indexed array）
+     * 1. 包含有合法整型值的字符串会被转换为整型。例如键名 "8" 实际会被储存为 8。但是 "08" 则不会强制转换，因为其不是一个合法的十进制数值。
+     * 2. 浮点数也会被转换为整型，意味着其小数部分会被舍去。例如键名 8.7 实际会被储存为 8。
+     * 3. 布尔值也会被转换成整型。即键名 true 实际会被储存为 1 而键名 false 会被储存为 0。
+     * 4. Null 会被转换为空字符串，即键名 null 实际会被储存为 ""。
+     * 5. 数组和对象不能被用为键名。坚持这么做会导致警告：Illegal offset type。
+     * 即 $arr[1] === $arr['1'] === $arr[1.5] === $arr[true] === $arr[01]; 但是$arr['01']实际存储的key是字符串'01'。
+     * @param array $arr
+     * @return bool
+     */
+    public static function isIndexedArray(array $arr): bool
+    {
+        if (empty($arr)) {
+            return true;
+        }
+        return array_keys($arr) === range(0, count($arr) - 1);
     }
 
 }
