@@ -93,4 +93,11 @@ class FileHelperTest extends TestCase
         $content = FileHelper::getLastNLines($file, 1, '\r\n');
     }
 
+    public function testGetLastNLinesByTailf()
+    {
+        $file = __DIR__ . '/fileHelperTest.txt';
+        $content = FileHelper::getLastNLinesByTailf($file, 1);
+        $this->assertSame('//last line', $content);
+    }
+
 }
