@@ -68,7 +68,8 @@ class FileHelperTest extends TestCase
         $this->assertSame(false, file_exists($dir));
     }
 
-    public function testGetLastNLines()
+    //一个方法里只能有一个expectException
+    public function testGetLastNLinesInvalidArgument1()
     {
         $file = __DIR__ . '/fileHelperTest.txt';
         $content = FileHelper::getLastNLines($file, 1);
@@ -82,13 +83,25 @@ class FileHelperTest extends TestCase
 
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 0);
+    }
 
+    public function testGetLastNLinesInvalidArgumentException2()
+    {
+        $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, -1);
+    }
 
+    public function testGetLastNLinesInvalidArgumentException3()
+    {
+        $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 1, '');
+    }
 
+    public function testGetLastNLinesInvalidArgumentException4()
+    {
+        $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 1, '\r\n');
     }
