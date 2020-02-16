@@ -35,7 +35,7 @@ class RedisExtensionConnection implements RedisConnectionInterface
 
     public function del(array $keys)
     {
-        return $this->redis->delete($keys);
+        return $this->redis->del($keys);
     }
 }
 

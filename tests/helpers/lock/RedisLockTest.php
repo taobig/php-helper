@@ -13,17 +13,19 @@ class RedisLockTest extends TestCase
         $redis = new \Redis();
         $redis->connect("localhost");
         $redisConnection = new RedisExtensionConnection($redis);
-        $redisLock = new RedisLock($redisConnection, '1');
+        foreach ([true, false] as $enableEvalCommand) {
+            $redisLock = new RedisLock($redisConnection, '1', $enableEvalCommand);
 
-        var_dump($redisLock->name());
-        $this->assertSame(RedisLock::class, $redisLock->getName());
+            var_dump($redisLock->name());
+            $this->assertSame(RedisLock::class, $redisLock->getName());
 
-        $lockedKey = "testtesttest";
-        $lockedValue = $redisLock->lock($lockedKey, 200);
-        $this->assertSame(true, is_int($lockedValue));
+            $lockedKey = "testtesttest_" . time();
+            $lockedValue = $redisLock->lock($lockedKey, 200);
+            $this->assertSame(true, is_int($lockedValue));
 
-        $this->expectException(LockFailedException::class);
-        $redisLock->lock($lockedKey, 200);
+            $this->expectException(LockFailedException::class);
+            $redisLock->lock($lockedKey, 200);
+        }
     }
 
     public function testUnlock()
@@ -31,15 +33,17 @@ class RedisLockTest extends TestCase
         $redis = new \Redis();
         $redis->connect("localhost");
         $redisConnection = new RedisExtensionConnection($redis);
-        $redisLock = new RedisLock($redisConnection, '1');
+        foreach ([true, false] as $enableEvalCommand) {
+            $redisLock = new RedisLock($redisConnection, '1', $enableEvalCommand);
 
-        $lockedKey = "testtesttest";
-        $lockedValue = $redisLock->lock($lockedKey, 200);
-        $this->assertSame(true, is_int($lockedValue));
+            $lockedKey = "testtesttest_" . time();;
+            $lockedValue = $redisLock->lock($lockedKey, 200);
+            $this->assertSame(true, is_int($lockedValue));
 
-        $redisLock->unlock($lockedKey, $lockedValue);
+            $redisLock->unlock($lockedKey, $lockedValue);
 
-        $redisLock->lock($lockedKey, 200);
+            $redisLock->lock($lockedKey, 200);
+        }
     }
 
 }
