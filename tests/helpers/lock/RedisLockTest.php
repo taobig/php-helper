@@ -50,7 +50,7 @@ class RedisLockTest extends TestCase
 
     public function testLockWithYiiRedisConnection()
     {
-        require(__DIR__ . '/../../../vendor/yiisoft/yii2/Yii.php');
+        require_once __DIR__ . '/../../../vendor/yiisoft/yii2/Yii.php';
 
         $redis = new Connection();
         $redisConnection = new YiiRedisConnection($redis);
@@ -72,7 +72,7 @@ class RedisLockTest extends TestCase
 
     public function testUnlockWithYiiRedisConnection()
     {
-        require(__DIR__ . '/../../../vendor/yiisoft/yii2/Yii.php');
+        require_once __DIR__ . '/../../../vendor/yiisoft/yii2/Yii.php';
 
         $redis = new Connection();
         $redisConnection = new YiiRedisConnection($redis);
