@@ -232,4 +232,31 @@ class ArrayHelperTest extends TestCase
         $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
     }
 
+    public function testObject2Array()
+    {
+        $str = 'O:9:"astdClass":1:{s:1:"a";s:1:"a";}';
+        $phpIncompleteClass = unserialize($str);
+        $obj = new StdClass();
+        $obj->a = 'a';
+        $obj->b = ['aa' => 'aa', 'bb' => 'bb'];
+        $obj->c = new StdClass();
+        $obj->c->aa = 'aa';
+        $obj->d = $phpIncompleteClass;
+        $obj->resource1 =  fopen(__FILE__, 'r');
+        $obj->resource2 =  fopen(__FILE__, 'r');
+        fclose($obj->resource2);
+
+        $expectedResult = [
+            'a' => 'a',
+            'b' => ['aa' => 'aa', 'bb' => 'bb'],
+            'c' => ['aa' => 'aa'],
+//            'd' => [
+//                '__PHP_Incomplete_Class_Name' => 'astdClass',
+//                'a' => 'a',
+//            ]
+        ];
+        $this->assertSame($expectedResult, ArrayHelper::object2Array($obj));
+        fclose($obj->resource1);
+    }
+
 }

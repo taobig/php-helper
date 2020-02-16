@@ -143,4 +143,36 @@ class ArrayHelper
         return array_keys($arr) === range(0, count($arr) - 1);
     }
 
+    /**
+     * convert object 2 array, will ignore resources and \__PHP_Incomplete_Class
+     * @see https://www.php.net/manual/en/function.gettype.php
+     * @see https://www.php.net/manual/en/function.is-resource.php
+     * @see https://www.php.net/manual/en/function.is-object.php
+     * 不能用json_decode(json_encode($obj), true)，因为json_encode不支持resource
+     * @param object $obj
+     * @return array
+     */
+    public static function object2Array($obj)
+    {
+        $arr = (array)$obj;
+        foreach ($arr as $k => $v) {
+            //is_resource() is not a strict type-checking method: it will return FALSE if var is a resource variable that has been closed.
+            if (in_array(gettype($v), ['resource', 'resource (closed)', 'unknown type'])) {
+                unset($arr[$k]);
+                continue;
+            }
+            if ($v instanceof \__PHP_Incomplete_Class) {
+                unset($arr[$k]);
+                continue;
+            }
+            //7.2.0	is_object() now returns TRUE for unserialized objects without a class definition (class of __PHP_Incomplete_Class). Previously FALSE was returned.
+            // >= 7.2.0  gettype($v) => 'object'   and  is_object($v) => true
+            // < 7.2.0   gettype($v) => 'object'   and  is_object($v) => false
+            if (gettype($v) === 'object' || gettype($v) === 'array') {
+                $arr[$k] = self::object2Array($v);
+            }
+        }
+        return $arr;
+    }
+
 }
