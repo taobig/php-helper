@@ -7,13 +7,15 @@ use taobig\helpers\lock\exceptions\LockFailedException;
 class RedisLock extends Lock
 {
 
+    protected bool $enableEvalCommand = true;
     protected $redis;
 
-    public function __construct(RedisConnectionInterface $redis, string $version)
+    public function __construct(RedisConnectionInterface $redis, string $version, bool $enableEvalCommand = true)
     {
         parent::__construct($version);
 
         $this->redis = $redis;
+        $this->enableEvalCommand = $enableEvalCommand;
     }
 
     public function __destruct()
@@ -51,15 +53,9 @@ class RedisLock extends Lock
      */
     public function unlock(string $key, int $lockValue)
     {
-//        $lockKey = $this->getLockKey($key);
-//        $lockValue = $this->redis->get($lockKey);
-//        if ($lockValue == $lockValue) {
-//            $this->redis->del([$lockKey]);
-//        }
-//        unset(self::$locks[$key]);
-
         $lockKey = $this->getLockKey($key);
-        $command = <<<COMMAND
+        if ($this->enableEvalCommand) {
+            $command = <<<COMMAND
 if redis.call("get", KEYS[1]) == ARGV[1]
 then
     return redis.call("del", KEYS[1])
@@ -67,7 +63,14 @@ else
     return 0
 end
 COMMAND;
-        $this->redis->eval($command, [$lockKey, $lockValue], 1);
+            $this->redis->eval($command, [$lockKey, $lockValue], 1);
+        } else {
+            $lockKey = $this->getLockKey($key);
+            $lockValue = $this->redis->get($lockKey);
+            if ($lockValue == $lockValue) {
+                $this->redis->del([$lockKey]);
+            }
+        }
 
         unset(self::$locks[$key]);
     }
