@@ -61,8 +61,9 @@ class FileHelperTest extends TestCase
 
     /**
      * @depends testCopy
+     * @param string $dir
      */
-    public function testRemove($dir)
+    public function testRemove(string $dir)
     {
         FileHelper::recurseRemove($dir);
         $this->assertSame(false, file_exists($dir));
@@ -83,6 +84,7 @@ class FileHelperTest extends TestCase
 
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 0);
+        echo $content;//unreachable code
     }
 
     public function testGetLastNLinesInvalidArgumentException2()
@@ -90,6 +92,7 @@ class FileHelperTest extends TestCase
         $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, -1);
+        echo $content;//unreachable code
     }
 
     public function testGetLastNLinesInvalidArgumentException3()
@@ -97,6 +100,7 @@ class FileHelperTest extends TestCase
         $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 1, '');
+        echo $content;//unreachable code
     }
 
     public function testGetLastNLinesInvalidArgumentException4()
@@ -104,6 +108,7 @@ class FileHelperTest extends TestCase
         $file = __DIR__ . '/fileHelperTest.txt';
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, 1, '\r\n');
+        echo $content;//unreachable code
     }
 
     public function testGetLastNLinesByTailf()

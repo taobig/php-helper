@@ -52,7 +52,7 @@ class FileHelper
         rmdir($src);
     }
 
-    public static function getLastNLines(string $filePath, int $lines = 1, $eol = "\n")
+    public static function getLastNLines(string $filePath, int $lines = 1, $eol = "\n"): string
     {
         if ($lines <= 0) {
             throw new \OutOfBoundsException('');
