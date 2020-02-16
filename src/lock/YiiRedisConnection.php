@@ -50,7 +50,7 @@ class YiiRedisConnection implements RedisConnectionInterface
 
     public function del(array $keys)
     {
-        return $this->redis->del($keys);
+        return $this->redis->del(...$keys);
     }
 }
 
