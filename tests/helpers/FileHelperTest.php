@@ -85,6 +85,12 @@ class FileHelperTest extends TestCase
 
         $this->expectException(OutOfBoundsException::class);
         $content = FileHelper::getLastNLines($file, -1);
+
+        $this->expectException(OutOfBoundsException::class);
+        $content = FileHelper::getLastNLines($file, 1, '');
+
+        $this->expectException(OutOfBoundsException::class);
+        $content = FileHelper::getLastNLines($file, 1, '\r\n');
     }
 
 }
