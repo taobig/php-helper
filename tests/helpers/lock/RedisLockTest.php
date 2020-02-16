@@ -18,7 +18,7 @@ class RedisLockTest extends TestCase
         foreach ([true, false] as $enableEvalCommand) {
             $redisLock = new RedisLock($redisConnection, '1', $enableEvalCommand);
 
-            var_dump($redisLock->name());
+            $this->assertSame(RedisLock::class, $redisLock->name());
             $this->assertSame(RedisLock::class, $redisLock->getName());
 
             $lockedKey = "testtesttest_" . time();
@@ -57,7 +57,7 @@ class RedisLockTest extends TestCase
         foreach ([true, false] as $enableEvalCommand) {
             $redisLock = new RedisLock($redisConnection, '1', $enableEvalCommand);
 
-            var_dump($redisLock->name());
+            $this->assertSame(RedisLock::class, $redisLock->name());
             $this->assertSame(RedisLock::class, $redisLock->getName());
 
             $lockedKey = "testtesttest_" . time();
