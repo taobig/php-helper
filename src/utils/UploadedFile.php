@@ -5,6 +5,7 @@ namespace taobig\helpers\utils;
 /**
  * Based on Yii2 yii\web\UploadedFile class
  * @see https://www.yiiframework.com/doc/api/2.0/yii-web-uploadedfile
+ * @codeCoverageIgnore
  */
 class UploadedFile
 {
