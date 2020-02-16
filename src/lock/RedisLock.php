@@ -7,7 +7,7 @@ use taobig\helpers\lock\exceptions\LockFailedException;
 class RedisLock extends Lock
 {
 
-    protected bool $enableEvalCommand = true;
+    protected $enableEvalCommand = true;
     protected $redis;
 
     public function __construct(RedisConnectionInterface $redis, string $version, bool $enableEvalCommand = true)
