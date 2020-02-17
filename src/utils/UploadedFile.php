@@ -5,7 +5,6 @@ namespace taobig\helpers\utils;
 /**
  * Based on Yii2 yii\web\UploadedFile class
  * @see https://www.yiiframework.com/doc/api/2.0/yii-web-uploadedfile
- * @codeCoverageIgnore
  */
 class UploadedFile
 {
@@ -135,7 +134,7 @@ class UploadedFile
      * @return bool true whether the file is saved successfully
      * @see error
      */
-    public function saveAs($file, $deleteTempFile = true)
+    public function saveAs($file, $deleteTempFile = true): bool
     {
         if ($this->error == UPLOAD_ERR_OK) {
             //The destination directory must exist; move_uploaded_file() & copy() will not automatically create it for you.
@@ -176,7 +175,7 @@ class UploadedFile
      * @return bool whether there is an error with the uploaded file.
      * Check [[error]] for detailed error code information.
      */
-    public function getHasError()
+    public function getHasError(): bool
     {
         return $this->error != UPLOAD_ERR_OK;
     }
