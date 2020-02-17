@@ -1,6 +1,7 @@
 <?php
 
 use taobig\helpers\http\HttpRequest;
+use taobig\helpers\utils\UploadedFile;
 
 class HttpRequestTest extends TestCase
 {
@@ -40,22 +41,28 @@ class HttpRequestTest extends TestCase
     {
         $time = time();
         $params = [
+            //必须有name、filename、contents三个参数才能被填充到$_FILES
             [
-                'name' => 'file1',
+                'name' => 'file1',//$_FILES['file1']
                 'contents' => file_get_contents(__FILE__),
-                'filename' => basename(__FILE__),
+                'filename' => '1.php',
             ],
             [
-                'name' => 'file2',
+                'name' => 'files[]',//$_FILES['files']
                 'contents' => file_get_contents(__FILE__),
-                'filename' => basename(__FILE__),
+                'filename' => '2_0.php',
             ],
             [
-                'name' => 'file_size',
+                'name' => 'files[]',
+                'contents' => file_get_contents(__FILE__),
+                'filename' => '2_1.php',
+            ],
+            [
+                'name' => 'file_size',//$_POST['file_size'] => filesize(__FILE__)
                 'contents' => filesize(__FILE__),
             ],
             [
-                'name' => 'time',
+                'name' => 'time',//$_POST['time'] => $time
                 'contents' => $time,
             ],
         ];
@@ -65,6 +72,46 @@ class HttpRequestTest extends TestCase
         $json = json_decode($content, true);
         $this->assertSame($time, intval($json['post']['time']));
         $this->assertSame($json['files']['file1']['size'], intval($json['post']['file_size']));
+        return $json['files'];
+    }
+
+    /**
+     * @depends testPostFile
+     */
+    public function testUploadedFile(array $files)
+    {
+        $_FILES = $files;
+
+        $uploadedFiles = UploadedFile::getInstancesByName('files');
+        foreach ($uploadedFiles as $index => $uploadedFile) {
+            $this->assertSame("2_{$index}", $uploadedFile->getBaseName());
+            $this->assertSame('php', $uploadedFile->getExtension());
+            $this->assertSame(false, $uploadedFile->getHasError());
+        }
+        unset($uploadedFiles);
+        unset($uploadedFile);
+        UploadedFile::reset();
+
+        $uploadedFiles = UploadedFile::getInstances();
+        $this->assertSame(3, count($uploadedFiles));
+        unset($uploadedFiles);
+        UploadedFile::reset();
+
+        $uploadedFile = UploadedFile::getInstanceByName('file1');
+        $this->assertSame('1', $uploadedFile->getBaseName());
+        $this->assertSame('php', $uploadedFile->getExtension());
+        $this->assertSame(false, $uploadedFile->getHasError());
+
+        //TODO: is_uploaded_file检测不能通过
+//        $dstDir = __DIR__;
+//        $time = time();
+//        echo "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
+//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1", false));
+//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_2", false));
+//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3"));
+//        $this->assertSame(false, file_exists("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3"));
+//        unset($uploadedFile);
+//        UploadedFile::reset();
     }
 
 }
