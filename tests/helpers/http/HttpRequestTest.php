@@ -92,6 +92,13 @@ class HttpRequestTest extends TestCase
         unset($uploadedFile);
         UploadedFile::reset();
 
+        $uploadedFiles = UploadedFile::getInstancesByName('file1');
+        $this->assertSame("1", $uploadedFiles[0]->getBaseName());
+        $this->assertSame('php', $uploadedFiles[0]->getExtension());
+        $this->assertSame(false, $uploadedFiles[0]->getHasError());
+        unset($uploadedFiles);
+        UploadedFile::reset();
+
         $uploadedFiles = UploadedFile::getInstances();
         $this->assertSame(3, count($uploadedFiles));
         unset($uploadedFiles);
