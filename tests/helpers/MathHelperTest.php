@@ -5,24 +5,40 @@ use taobig\helpers\MathHelper;
 class MathHelperTest extends TestCase
 {
 
+    //一个方法里只能有一个expectException
     public function testAdd()
     {
-        $this->expectException(\ErrorException::class);
-        $this->assertSame("0.00", MathHelper::add("hello world", "h"));
         $this->assertSame("3.00", MathHelper::add("1", "2"));
         $this->assertSame("3.13", MathHelper::add("1.01", "2.12"));
 
+        $this->expectException(\ErrorException::class);
         $this->assertSame("2.00", MathHelper::add(" 1", "2"));
+    }
+
+    //一个方法里只能有一个expectException
+    public function testAdd2()
+    {
+        $this->expectException(\ErrorException::class);
+        $this->assertSame("0.00", MathHelper::add("hello world", "h"));
+    }
+
+    public function testAdd3()
+    {
         $this->expectException(\ErrorException::class);
         $this->assertSame("2.00", MathHelper::add("hello", "2"));
         $this->assertSame("3.13", MathHelper::add("1.01", "2.12999"));
         $this->assertSame("3.14", MathHelper::add("1.01666", "2.12999"));
+    }
+
+    public function testAdd4()
+    {
         $this->expectException(\ErrorException::class);
         $this->assertSame("2.00", MathHelper::add("12hello", "2"));
     }
 
     public function testSub()
     {
+        $this->expectException(\ErrorException::class);
         $this->assertSame("3.00", MathHelper::sub(" 5", "2"));
         $this->assertSame("3.00", MathHelper::sub("5", "2"));
         $this->assertSame("4.98", MathHelper::sub("5.00", "0.02"));
@@ -32,6 +48,7 @@ class MathHelperTest extends TestCase
 
     public function testMul()
     {
+        $this->expectException(\ErrorException::class);
         $this->assertSame("6.0000", MathHelper::mul(" 2", "3", 4));
         $this->assertSame("6.0000", MathHelper::mul("2", "3", 4));
         $this->assertNotSame("6", MathHelper::mul("2", "3"));
@@ -44,6 +61,7 @@ class MathHelperTest extends TestCase
 
     public function testDiv()
     {
+        $this->expectException(\ErrorException::class);
         $this->assertSame("0.01", MathHelper::div(" 1", "100"));
         $this->assertSame("0.01", MathHelper::div("1", "100"));
         $this->assertSame("2.00", MathHelper::div("4.04", "2.02"));
@@ -52,18 +70,14 @@ class MathHelperTest extends TestCase
 
     public function testComp()
     {
-        $this->assertSame(0, MathHelper::comp(" 3", "3.00"));
-        $this->assertSame(0, MathHelper::comp("3", "3.00"));
-        $this->assertSame(0, MathHelper::comp("3", "3.001"));
-        $this->assertSame(0, MathHelper::comp("3", "3.009"));
-
-        $this->assertSame(1, MathHelper::comp(" 3", "0"));
-        $this->assertSame(0, MathHelper::comp(" 3", "3"));
-        $this->expectException(\ErrorException::class);
-        $this->assertSame(-1, MathHelper::comp("hello", "3"));
         $this->expectException(\ErrorException::class);
         $this->assertSame(0, MathHelper::comp("12hello", "0"));
+    }
 
+    public function testComp2()
+    {
+        $this->expectException(\ErrorException::class);
+        $this->assertSame(0, MathHelper::comp("12hello", "0"));
     }
 
 }
