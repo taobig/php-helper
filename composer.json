@@ -12,7 +12,7 @@
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"ext-json": "*",
-		"guzzlehttp/guzzle": "^6.3"
+		"guzzlehttp/guzzle": "^6.3 || ^8.4"
     },
 	"require-dev" : {
 		"yiisoft/yii2-redis": "^2.0",
