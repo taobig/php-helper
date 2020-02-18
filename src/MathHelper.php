@@ -6,31 +6,6 @@ class MathHelper
 {
 
     /**
-     * PHP会把" 1"/"H1"/...转换成0。
-     * >=PHP7.4: "Warning: bcadd(): bcmath function argument is not well-formed in ..."
-     * @param string $left_operand
-     * @param string $right_operand
-     * @throws \ErrorException
-     */
-    private static function checkParams(string $left_operand, string $right_operand)
-    {
-        if (PHP_VERSION_ID < 70400) {
-            if (trim($left_operand) !== $left_operand) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (trim($right_operand) !== $right_operand) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (!is_numeric($left_operand)) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (!is_numeric($right_operand)) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-        }
-    }
-
-    /**
      * 加（结果超过$scale位的数字将会被舍去）
      * @param string $left_operand
      * @param string $right_operand
@@ -39,7 +14,6 @@ class MathHelper
      */
     public static function add(string $left_operand, string $right_operand, int $scale = 2): string
     {
-        self::checkParams($left_operand, $right_operand);
         return bcadd($left_operand, $right_operand, $scale);
     }
 
@@ -52,7 +26,6 @@ class MathHelper
      */
     public static function sub(string $left_operand, string $right_operand, int $scale = 2): string
     {
-        self::checkParams($left_operand, $right_operand);
         return bcsub($left_operand, $right_operand, $scale);
     }
 
@@ -65,13 +38,7 @@ class MathHelper
      */
     public static function mul(string $left_operand, string $right_operand, int $scale = 2): string
     {
-        self::checkParams($left_operand, $right_operand);
-        $result = bcmul($left_operand, $right_operand, $scale);
-        if (PHP_VERSION_ID >= 70300) {
-            return $result;
-        } else {//@see: https://bugs.php.net/bug.php?id=66364
-            return bcadd($result, "0", $scale);
-        }
+        return bcmul($left_operand, $right_operand, $scale);
     }
 
     /**
@@ -83,7 +50,6 @@ class MathHelper
      */
     public static function div(string $left_operand, string $right_operand, int $scale = 2): string
     {
-        self::checkParams($left_operand, $right_operand);
         return bcdiv($left_operand, $right_operand, $scale);
     }
 
@@ -101,7 +67,6 @@ class MathHelper
      */
     public static function comp(string $left_operand, string $right_operand, int $scale = 2): int
     {
-        self::checkParams($left_operand, $right_operand);
         return bccomp($left_operand, $right_operand, $scale);
     }
 }
