@@ -108,6 +108,18 @@ class StringHelperTest extends TestCase
         $this->assertSame("aaa　bbb ccc", StringHelper::combineSpaces("aaa　bbb    ccc"));
     }
 
+    public function testCombineSpacesInUtf8String()
+    {
+        $this->assertSame("", StringHelper::combineSpacesInUtf8String(""));
+        $this->assertSame("aaa bbb ccc", StringHelper::combineSpacesInUtf8String("aaa  bbb  ccc"));
+        $this->assertSame("aaa bbb ccc", StringHelper::combineSpacesInUtf8String("aaa bbb    ccc"));
+        //全角空格
+        $this->assertSame("aaa　bbb ccc", StringHelper::combineSpacesInUtf8String("aaa　bbb    ccc"));
+
+        $gbkStr = file_get_contents(__DIR__ . '/StringEncodingHelperFile_GBK.source');
+        $this->assertSame(null, StringHelper::combineSpacesInUtf8String($gbkStr));
+    }
+
     public function testSnakeCase2Camelcase()
     {
         $this->assertSame("aaaBbbCcc", StringHelper::snakeCase2CamelCase("aaa_bbb_ccc"));

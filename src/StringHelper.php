@@ -125,11 +125,13 @@ class StringHelper
     //合并多个连续空格为一个
     public static function combineSpaces(string $str): string
     {
-        $ret = preg_replace("/\s(?=\s)/", "\\1", $str);
-        if ($ret === null) {
-            throw new \RuntimeException("preg_replace {$str} failed");
-        }
-        return $ret;
+        return preg_replace("/\s(?=\s)/", "\\1", $str);
+    }
+
+    //合并多个连续空格为一个
+    public static function combineSpacesInUtf8String(string $str): ?string
+    {
+        return preg_replace("/\s(?=\s)/u", "\\1", $str);
     }
 
     public static function snakeCase2CamelCase(string $str): string
