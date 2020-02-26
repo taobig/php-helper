@@ -30,6 +30,9 @@ class NetHelperTest extends TestCase
 
     public function testIsIPv4Address()
     {
+        $ip = "127.0.0.1";
+        $this->assertSame(true, NetHelper::isIPv4Address($ip));
+
         $ip = "192.168.0.1";
         $this->assertSame(true, NetHelper::isIPv4Address($ip));
 
@@ -45,6 +48,9 @@ class NetHelperTest extends TestCase
 
     public function testIsPrivateIP()
     {
+        $ip = "127.0.0.1";
+        $this->assertSame(false, NetHelper::isPrivateIPv4Address($ip));
+
         $result = NetHelper::isPrivateIPv4Address("10.0.0.0");
         $this->assertSame(true, $result);
 
@@ -62,6 +68,32 @@ class NetHelperTest extends TestCase
         $this->assertSame(true, $result);
         $result = NetHelper::isPrivateIPv4Address("172.32.0.0");
         $this->assertSame(false, $result);
+    }
+
+    public function testIsPublicIP()
+    {
+        $ip = "127.0.0.1";
+        $this->assertSame(true, NetHelper::isPublicIPv4Address($ip));
+
+        $result = NetHelper::isPublicIPv4Address("10.0.0.0");
+        $this->assertSame(false, $result);
+
+        $result = NetHelper::isPublicIPv4Address("192.168.0.0");
+        $this->assertSame(false, $result);
+        $result = NetHelper::isPublicIPv4Address("192.1.0.0");
+        $this->assertSame(true, $result);
+
+        $result = NetHelper::isPublicIPv4Address("172.0.0.0");
+        $this->assertSame(true, $result);
+        $result = NetHelper::isPublicIPv4Address("172.16.0.0");
+        $this->assertSame(false, $result);
+        $result = NetHelper::isPublicIPv4Address("172.31.255.255");
+        $this->assertSame(false, $result);
+        $result = NetHelper::isPublicIPv4Address("172.32.0.0");
+        $this->assertSame(true, $result);
+
+        $result = NetHelper::isPublicIPv4Address("112.32.0.22");
+        $this->assertSame(true, $result);
 
     }
 

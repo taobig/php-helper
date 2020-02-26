@@ -55,6 +55,16 @@ class NetHelper
 //            }
 //        }
 //        return false;
+        if (filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function isPublicIPv4Address(string $ipAddress): bool
+    {
         if (filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE)) {
             return true;
         }
