@@ -242,8 +242,8 @@ class ArrayHelperTest extends TestCase
         $obj->c = new StdClass();
         $obj->c->aa = 'aa';
         $obj->d = $phpIncompleteClass;
-        $obj->resource1 =  fopen(__FILE__, 'r');
-        $obj->resource2 =  fopen(__FILE__, 'r');
+        $obj->resource1 = fopen(__FILE__, 'r');
+        $obj->resource2 = fopen(__FILE__, 'r');
         fclose($obj->resource2);
 
         $expectedResult = [
