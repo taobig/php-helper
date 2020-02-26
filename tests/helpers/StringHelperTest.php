@@ -101,8 +101,11 @@ class StringHelperTest extends TestCase
 
     public function testCombine()
     {
+        $this->assertSame("", StringHelper::combineSpaces(""));
         $this->assertSame("aaa bbb ccc", StringHelper::combineSpaces("aaa  bbb  ccc"));
         $this->assertSame("aaa bbb ccc", StringHelper::combineSpaces("aaa bbb    ccc"));
+        //全角空格
+        $this->assertSame("aaa　bbb ccc", StringHelper::combineSpaces("aaa　bbb    ccc"));
     }
 
     public function testSnakeCase2Camelcase()
