@@ -28,6 +28,21 @@ class NetHelperTest extends TestCase
         }
     }
 
+    public function testIsIPv4Address()
+    {
+        $ip = "192.168.0.1";
+        $this->assertSame(true, NetHelper::isIPv4Address($ip));
+
+        $ip = "192.168.0.1000";
+        $this->assertSame(false, NetHelper::isIPv4Address($ip));
+
+        $ip = "192.168.0.10a";
+        $this->assertSame(false, NetHelper::isIPv4Address($ip));
+
+        $ip = "2001:0db8:86a3:08d3:1319:8a2e:0370:7344";
+        $this->assertSame(false, NetHelper::isIPv4Address($ip));
+    }
+
     public function testIsPrivateIP()
     {
         $result = NetHelper::isPrivateIPv4Address("10.0.0.0");
