@@ -67,7 +67,6 @@ class HttpRequestTest extends TestCase
             ],
         ];
         $content = (new HttpRequest())->postFile("localhost:8080/file", $params, 10);
-        var_dump($content);
         $this->assertSame("string", gettype($content));
         $json = json_decode($content, true);
         $this->assertSame($time, intval($json['post']['time']));
@@ -77,6 +76,8 @@ class HttpRequestTest extends TestCase
 
     /**
      * @depends testPostFile
+     * @param array $files
+     * @return UploadedFile|null
      */
     public function testUploadedFile(array $files)
     {
@@ -105,20 +106,46 @@ class HttpRequestTest extends TestCase
         UploadedFile::reset();
 
         $uploadedFile = UploadedFile::getInstanceByName('file1');
+        $this->assertInstanceOf(UploadedFile::class, $uploadedFile);
         $this->assertSame('1', $uploadedFile->getBaseName());
         $this->assertSame('php', $uploadedFile->getExtension());
         $this->assertSame(false, $uploadedFile->getHasError());
+        return $uploadedFile;
+    }
 
+    /**
+     * @depends testUploadedFile
+     * @param UploadedFile $uploadedFile
+     */
+    public function testSaveUploadedFile(UploadedFile $uploadedFile)
+    {
+        $dstDir = __DIR__;
+        $time = time();
+        echo "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
+        try {
+            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
+            $this->assertSame(true, $uploadedFile->saveAs($targetFile, false));
+            $this->assertSame(true, file_exists($targetFile));
+        } finally {
+            unlink($targetFile);
+        }
+        try {
+            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_2";
+            $this->assertSame(true, $uploadedFile->saveAs($targetFile, false));
+            $this->assertSame(true, file_exists($targetFile));
+        } finally {
+            unlink($targetFile);
+        }
         //TODO: is_uploaded_file检测不能通过
-//        $dstDir = __DIR__;
-//        $time = time();
-//        echo "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
-//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1", false));
-//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_2", false));
-//        $this->assertSame(true, $uploadedFile->saveAs("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3"));
-//        $this->assertSame(false, file_exists("{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3"));
-//        unset($uploadedFile);
-//        UploadedFile::reset();
+//        try {
+//            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3";
+//            $this->assertSame(true, $uploadedFile->saveAs($targetFile));
+//            $this->assertSame(false, file_exists($targetFile));
+//        } finally {
+//            unlink($targetFile);
+//        }
+        unset($uploadedFile);
+        UploadedFile::reset();
     }
 
 }
