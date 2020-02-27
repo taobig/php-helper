@@ -54,4 +54,5 @@ script:
   - vendor/bin/phpunit --verbose
 
 after_success:
+ - pear run-tests tests/phpt/FileUploadTest.phpt -v
  - travis_retry php vendor/bin/php-coveralls -v

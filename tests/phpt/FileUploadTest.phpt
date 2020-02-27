@@ -20,9 +20,7 @@ abcdef123456789
 --FILE--
 <?php
 
-// pear run-tests tests/helpers/http/FileUpload.phpt -v
-
-require  __DIR__.'/../../../src/utils/UploadedFile.php';
+require  __DIR__.'/../../src/utils/UploadedFile.php';
 use taobig\helpers\utils\UploadedFile;
 
 function testSaveUploadedFile(UploadedFile $uploadedFile)
