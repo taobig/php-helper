@@ -119,7 +119,7 @@ class HttpRequestTest extends TestCase
      */
     public function testSaveUploadedFile(UploadedFile $uploadedFile)
     {
-        $dstDir = __DIR__;
+        $dstDir = sys_get_temp_dir();
         $time = time();
         echo "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
         try {
