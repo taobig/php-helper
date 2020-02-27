@@ -113,39 +113,4 @@ class HttpRequestTest extends TestCase
         return $uploadedFile;
     }
 
-    /**
-     * @depends testUploadedFile
-     * @param UploadedFile $uploadedFile
-     */
-    public function testSaveUploadedFile(UploadedFile $uploadedFile)
-    {
-        $dstDir = sys_get_temp_dir();
-        $time = time();
-        echo "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
-        try {
-            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_1";
-            $this->assertSame(true, $uploadedFile->saveAs($targetFile, false));
-            $this->assertSame(true, file_exists($targetFile));
-        } finally {
-            unlink($targetFile);
-        }
-        try {
-            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_2";
-            $this->assertSame(true, $uploadedFile->saveAs($targetFile, false));
-            $this->assertSame(true, file_exists($targetFile));
-        } finally {
-            unlink($targetFile);
-        }
-        //TODO: is_uploaded_file检测不能通过
-//        try {
-//            $targetFile = "{$dstDir}/{$time}/tmp_uploaded_file_{$time}_3";
-//            $this->assertSame(true, $uploadedFile->saveAs($targetFile));
-//            $this->assertSame(false, file_exists($targetFile));
-//        } finally {
-//            unlink($targetFile);
-//        }
-        unset($uploadedFile);
-        UploadedFile::reset();
-    }
-
 }
