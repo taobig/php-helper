@@ -11,7 +11,7 @@ class FileLockTest extends TestCase
     {
         $fileLock = new FileLock("/tmp/", '1');
 
-        var_dump($fileLock->name());
+        $this->assertSame(FileLock::class, $fileLock->name());
         $this->assertSame(FileLock::class, $fileLock->getName());
 
         $lockedKey = "testtesttest";

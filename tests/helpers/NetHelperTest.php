@@ -9,7 +9,7 @@ class NetHelperTest extends TestCase
     {
         if (PHP_VERSION_ID >= 70300) {
             $adapterList = net_get_interfaces();
-            var_dump($adapterList);
+            print_r($adapterList);
         }
         $ipList = NetHelper::getMachineIpV4();
         echo "All ip address\n";
