@@ -20,7 +20,9 @@ abcdef123456789
 --FILE--
 <?php
 
-require  __DIR__.'/../../src/utils/UploadedFile.php';
+namespace taobig\tests\phpt;
+
+require_once __DIR__.'/../../vendor/autoload.php';
 use taobig\helpers\utils\UploadedFile;
 
 function testSaveUploadedFile(UploadedFile $uploadedFile)
