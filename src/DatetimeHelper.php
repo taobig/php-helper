@@ -3,6 +3,7 @@
 namespace taobig\helpers;
 
 use DateTime;
+use DateTimeZone;
 
 class DatetimeHelper
 {
@@ -94,6 +95,20 @@ class DatetimeHelper
     public static function convertStringToDatetime(string $datetime): DateTime
     {
         return new DateTime($datetime);
+    }
+
+    /**
+     * @param string $dt '2020-03-18 00:00:00'
+     * @param string $targetTimezone eg:'UTC','Asia/Shanghai'...
+     * @param string|null $sourceTimezone eg:'Asia/Shanghai'..., If $timezone is omitted, the current timezone will be used
+     * @return DateTime
+     * @throws \Exception
+     */
+    public static function convertTimezone(string $dt, string $targetTimezone, string $sourceTimezone = null): DateTime
+    {
+        $targetDatetime = new DateTime($dt, $sourceTimezone ? new DateTimeZone($sourceTimezone) : null);
+        $targetDatetime->setTimezone(new DateTimeZone($targetTimezone));
+        return $targetDatetime;
     }
 
 }
