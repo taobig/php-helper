@@ -26,9 +26,9 @@ abstract class EnumBase
         return static::labels()[$val] ?? $val;
     }
 
-    public static function exists($va): bool
+    public static function exists($val): bool
     {
-        return isset(static::labels()[$va]);
+        return isset(static::labels()[$val]);
     }
 
 }
