@@ -111,4 +111,10 @@ class DatetimeHelper
         return $targetDatetime;
     }
 
+    public static function validate(string $date, string $format = 'Y-m-d'): bool
+    {
+        $dt = DateTime::createFromFormat($format, $date);
+        return $dt && $dt->format($format) === $date;
+    }
+
 }

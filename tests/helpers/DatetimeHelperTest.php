@@ -106,4 +106,15 @@ class DatetimeHelperTest extends TestCase
         $this->assertSame('2019-07-31 16:00:00', $dt->format('Y-m-d H:i:s'));
     }
 
+    public function testValidate()
+    {
+        $this->assertSame(false, DatetimeHelper::validate('2020-13-01'));
+        $this->assertSame(false, DatetimeHelper::validate('20202-01-01'));
+        $this->assertSame(false, DatetimeHelper::validate('2020-01-32'));
+        $this->assertSame(false, DatetimeHelper::validate('2012-2-25'));
+        $this->assertSame(true, DatetimeHelper::validate('2020-12-01'));
+        $this->assertSame(true, DatetimeHelper::validate('2020', 'Y'));
+        $this->assertSame(false, DatetimeHelper::validate('12020', 'Y'));
+    }
+
 }
