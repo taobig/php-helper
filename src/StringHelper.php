@@ -90,11 +90,11 @@ class StringHelper
     }
 
     /**
-     * @deprecated
      * @param string $str
      * @param int $length
      * @param string $paddingChar Must be a character
      * @return string
+     * @deprecated
      */
     public static function leftPadding(string $str, int $length, string $paddingChar): string
     {
@@ -148,5 +148,22 @@ class StringHelper
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
     }
+
+    public static function split(string $str, string $separator = ',', bool $keepEmptyParts = true)
+    {
+        $list = explode($separator, $str);
+        if (!$keepEmptyParts) {
+            $validList = [];
+            foreach ($list as $item) {
+                if ($item === '') {
+                    continue;
+                }
+                $validList[] = $item;
+            }
+            $list = $validList;
+        }
+        return $list;
+    }
+
 
 }
