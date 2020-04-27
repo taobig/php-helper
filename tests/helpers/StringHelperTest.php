@@ -123,4 +123,16 @@ class StringHelperTest extends TestCase
         $this->assertSame("aaa_bbb_ccc", StringHelper::camelCase2SnakeCase("aaaBbbCcc"));
         $this->assertSame("aaa_bbb_ccc", StringHelper::camelCase2SnakeCase("AaaBbbCcc"));
     }
+
+    public function testSplit()
+    {
+        $this->assertEquals(['aaa', 'bbb', 'ccc'], StringHelper::split("aaa_bbb_ccc", '_'));
+        $this->assertEquals(['aaa', 'bbb', 'ccc'], StringHelper::split("aaa,bbb,ccc", ','));
+        $this->assertEquals(['aaa', 'bbb', '', 'ccc'], StringHelper::split("aaa,bbb,,ccc", ','));
+        $this->assertEquals(['aaa', 'bbb', 'ccc'], StringHelper::split("aaa,bbb,,ccc", ',', false));
+        $this->assertEquals(['aaa', 'bbb,ccc'], StringHelper::split("aaa,,bbb,ccc", ',,'));
+        $this->assertEquals(['aaa_bbb_ccc'], StringHelper::split("aaa_bbb_ccc", '__'));
+        $this->assertEquals(['aaa_bbb_ccc'], StringHelper::split("aaa_bbb_ccc", '__', false));
+    }
+
 }
