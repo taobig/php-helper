@@ -133,6 +133,16 @@ class StringHelperTest extends TestCase
         $this->assertEquals(['aaa', 'bbb,ccc'], StringHelper::split("aaa,,bbb,ccc", ',,'));
         $this->assertEquals(['aaa_bbb_ccc'], StringHelper::split("aaa_bbb_ccc", '__'));
         $this->assertEquals(['aaa_bbb_ccc'], StringHelper::split("aaa_bbb_ccc", '__', false));
+
+        $this->assertNotSame([1, 2, 3], StringHelper::split("1,2,3", ','));
+        $this->assertEquals(['1', '2', '3'], StringHelper::split("1,2,3", ','));
+        $this->assertSame(['1', '2', '3'], StringHelper::split("1,2,,3", ',', false));
+
+        $this->assertSame([], StringHelper::split("", ',', false));
+
+        $this->expectException(\ErrorException::class);
+        $this->assertSame([1, 2, 3], StringHelper::split("aaa_bbb_ccc", ''));
+
     }
 
 }
