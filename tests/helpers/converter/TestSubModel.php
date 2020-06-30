@@ -8,8 +8,7 @@ use taobig\helpers\converter\ConverterException;
 
 class TestSubModel extends BaseConverter
 {
-    /** @var string */
-    public $name = '';
+    public string $name = '';
 
     public function validate()
     {
