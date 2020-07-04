@@ -23,12 +23,20 @@ class HashMapTest extends TestCase
         $this->assertSame(1, $hashMap->get("1"));
         $this->assertSame(22, $hashMap->get("22"));
         $this->assertSame(22, $hashMap->get(22));
+        $this->assertSame(null, $hashMap->get(2222222));
 
-        $hashMap->remove("2");
+        $oldValue = $hashMap->remove("2");
+        $this->assertSame(2, $oldValue);
+        $oldValue = $hashMap->remove("2");
+        $this->assertSame(null, $oldValue);
+
         $this->assertSame(5, $hashMap->size());
         $this->assertSame(true, $hashMap->containsKey(1));
         $this->assertSame(true, $hashMap->containsKey("1"));
+        $this->assertSame(false, $hashMap->containsKey("aaaaa"));
         $this->assertSame(true, $hashMap->containsValue(1));
+        $this->assertSame(true, $hashMap->containsValue("a"));
+        $this->assertSame(false, $hashMap->containsValue("aaaaaaa"));
         $this->assertSame([1, 22, 3, "a", "b"], $hashMap->values());
         $this->assertSame(true, $hashMap->isNotEmpty());
         $this->assertSame('{"1":1,"22":22,"3":3,"a":"a","b":"b"}', $hashMap->toJson());
