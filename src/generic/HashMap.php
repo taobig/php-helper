@@ -2,6 +2,8 @@
 
 namespace taobig\helpers\generic;
 
+use taobig\helpers\generic\exception\KeyTypeErrorException;
+
 /**
  * Class HashMap
  * @package taobig\helpers\generic
@@ -23,14 +25,14 @@ class HashMap
         if (is_int($key) || is_string($key)) {
             return;
         }
-        throw new HashMapKeyTypeErrorException("The key should be either a string or an integer");
+        throw new KeyTypeErrorException("The key should be either a string or an integer");
     }
 
     /**
      * @param string|int $key
      * @param $value
      * @return mixed|null
-     * @throws HashMapKeyTypeErrorException
+     * @throws KeyTypeErrorException
      */
     public function put($key, $value)
     {
@@ -57,7 +59,7 @@ class HashMap
     /**
      * @param string|int $key
      * @return mixed|null
-     * @throws HashMapKeyTypeErrorException
+     * @throws KeyTypeErrorException
      */
     public function get($key)
     {
@@ -81,7 +83,7 @@ class HashMap
     /**
      * @param string|int $key
      * @return mixed|null
-     * @throws HashMapKeyTypeErrorException
+     * @throws KeyTypeErrorException
      */
     public function remove($key)
     {
@@ -120,7 +122,7 @@ class HashMap
     /**
      * @param string|int $key
      * @return bool
-     * @throws HashMapKeyTypeErrorException
+     * @throws KeyTypeErrorException
      */
     public function containsKey($key): bool
     {

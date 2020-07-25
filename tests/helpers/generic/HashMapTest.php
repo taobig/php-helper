@@ -3,7 +3,7 @@
 namespace taobig\tests\helpers\generic;
 
 use taobig\helpers\generic\HashMap;
-use taobig\helpers\generic\HashMapKeyTypeErrorException;
+use taobig\helpers\generic\exception\KeyTypeErrorException;
 use TestCase;
 
 class HashMapTest extends TestCase
@@ -54,7 +54,7 @@ class HashMapTest extends TestCase
         $this->assertSame(true, $hashMap2->isEmpty());
         $this->assertSame('null', $hashMap2->toJson());
 
-        $this->expectException(HashMapKeyTypeErrorException::class);
+        $this->expectException(KeyTypeErrorException::class);
         $hashMap->put(true, "true");
 
     }
