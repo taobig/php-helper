@@ -95,6 +95,7 @@ class StringHelper
      * @param string $paddingChar Must be a character
      * @return string
      * @deprecated
+     * @see prepend
      */
     public static function leftPadding(string $str, int $length, string $paddingChar): string
     {
