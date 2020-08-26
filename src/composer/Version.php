@@ -13,7 +13,7 @@ class Version
      * @param string $floorVersion
      * @return bool
      */
-    public static function checkLocalInstalledVersion(string $composerLockFile, string $packageName, string $floorVersion)
+    public static function checkLocalInstalledVersion(string $composerLockFile, string $packageName, string $floorVersion): bool
     {
         $composerLockFileContent = file_get_contents($composerLockFile);
         $arr = json_decode($composerLockFileContent, true);
