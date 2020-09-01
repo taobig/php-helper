@@ -89,12 +89,13 @@ class DatetimeHelper
 
     /**
      * @param string $datetime
+     * @param DateTimeZone|null $timezone
      * @return DateTime
      * @throws \Exception
      */
-    public static function convertStringToDatetime(string $datetime): DateTime
+    public static function convertStringToDatetime(string $datetime, ?DateTimeZone $timezone = null): DateTime
     {
-        return new DateTime($datetime);
+        return new DateTime($datetime, $timezone);
     }
 
     /**
@@ -111,10 +112,15 @@ class DatetimeHelper
         return $targetDatetime;
     }
 
-    public static function validate(string $date, string $format = 'Y-m-d'): bool
+    /**
+     * @param string $time String representing the time.
+     * @param string $format Format accepted by date().
+     * @return bool
+     */
+    public static function validate(string $time, string $format = 'Y-m-d'): bool
     {
-        $dt = DateTime::createFromFormat($format, $date);
-        return $dt && $dt->format($format) === $date;
+        $dt = DateTime::createFromFormat($format, $time);
+        return $dt && $dt->format($format) === $time;
     }
 
 }
