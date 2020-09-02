@@ -28,6 +28,16 @@ class ArrayHelperTest extends TestCase
         $this->assertSame(3, $result[1][0]);
 
 
+        $result = ArrayHelper::split(['a' => 1, 2, 3], 2, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(2, count($result));
+        $this->assertSame(2, count($result[0]));
+        $this->assertSame(1, $result[0]['a']);
+        $this->assertSame(2, $result[0][0]);
+        $this->assertSame(1, count($result[1]));
+        $this->assertSame(3, $result[1][1]);
+
+
         $result = ArrayHelper::split([1, 2, 3], 3);
         $this->assertSame(true, is_array($result));
         $this->assertSame(1, count($result));

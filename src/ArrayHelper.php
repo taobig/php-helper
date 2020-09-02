@@ -8,32 +8,40 @@ class ArrayHelper
     /**
      * @param array $arr
      * @param int $size split by $size
+     * @param bool $preserveKeys
      * @return array
      */
-    public static function split(array $arr, int $size): array
+    public static function split(array $arr, int $size, bool $preserveKeys = false): array
     {
         $multiArr = [];
         if ($size <= 0) {
             return $multiArr;
         }
-
-        if ($size >= count($arr)) {
-            $multiArr[] = $arr;
-        } else {
-            $index = 0;
-            $length = 0;
-            foreach ($arr as $row) {
-                ++$length;
-                $multiArr[$index][] = $row;
-                if ($length >= $size) {
-                    ++$index;
-                    $length = 0;
-                }
-            }
-        }
+//
+//        if ($size >= count($arr)) {
+//            $multiArr[] = $arr;
+//        } else {
+//            $index = 0;
+//            $length = 0;
+//            foreach ($arr as $row) {
+//                ++$length;
+//                $multiArr[$index][] = $row;
+//                if ($length >= $size) {
+//                    ++$index;
+//                    $length = 0;
+//                }
+//            }
+//        }
+//        return $multiArr;
+        $multiArr = array_chunk($arr, $size, $preserveKeys);
         return $multiArr;
     }
 
+    /**
+     * @param array $arr
+     * @param int|string $column_key
+     * @return array
+     */
     public static function groupBy(array $arr, $column_key): array
     {
         $multiArr = [];
