@@ -32,7 +32,15 @@ class DingTalkRobotAlert
     //    }
     //}
     //response: {"errcode":0,"errmsg":"ok"}
-    public function alertText(string $message, array $atMobiles = [], $isAtAll = false)
+    //response: {"errcode":130101,"errmsg":"send too fast, exceed 20 times per minute"}
+    /**
+     * @param string $message
+     * @param array $atMobiles
+     * @param bool $isAtAll
+     * @throws RuntimeException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function alertText(string $message, array $atMobiles = [], bool $isAtAll = false)
     {
         $httpClient = new HttpRequest();
         $result = $httpClient->postJson($this->url, [
@@ -47,6 +55,9 @@ class DingTalkRobotAlert
         ]);
         $arr = json_decode($result, true);
         if ($arr === null || $arr['errcode'] !== 0) {
+            if ($arr && isset($arr['errcode']) && $arr['errcode'] == 130101) {
+                throw new RuntimeException($arr['errmsg']);
+            }
             throw new RuntimeException('send message to dingtalk failed.response:' . $result);
         }
     }
