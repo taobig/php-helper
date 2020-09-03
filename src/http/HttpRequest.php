@@ -30,6 +30,14 @@ class HttpRequest
 
     }
 
+    /**
+     * @param string $url
+     * @param array $params
+     * @param float $timeout
+     * @param array $headers
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function postJson(string $url, array $params = [], float $timeout = 1.0, array $headers = [])
     {
         return self::post($url, $params, 'application/json', $timeout, $headers);
@@ -45,6 +53,15 @@ class HttpRequest
         return self::post($url, $params, 'multipart/form-data', $timeout, $headers);
     }
 
+    /**
+     * @param string $url
+     * @param array $params
+     * @param string $contentType
+     * @param float $timeout
+     * @param array $headers
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     private function post(string $url, array $params, string $contentType, float $timeout, array $headers = []): string
     {
         $client = new Client([
