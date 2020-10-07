@@ -10,6 +10,15 @@ use yii\redis\Connection;
 class RedisLockTest extends TestCase
 {
 
+    protected function setUp(): void
+    {
+        if (!extension_loaded('Redis')) {
+            $this->markTestSkipped(
+                'The Redis extension is not available.'
+            );
+        }
+    }
+
     public function testLockWithRedisExtensionConnection()
     {
         $redis = new \Redis();
