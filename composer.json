@@ -6,13 +6,13 @@
 	"license" : "MIT",
 	"minimum-stability" : "stable",
 	"require" : {
-		"php" : "^7.4",
-		"php-64bit": "^7.4",
+		"php" : "^7.4 || ^8.0",
+		"php-64bit": "^7.4 || ^8.0",
 		"ext-ctype":"*",
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"ext-json": "*",
-		"guzzlehttp/guzzle": "^6.3"
+		"guzzlehttp/guzzle": "^7.0"
     },
 	"require-dev" : {
 		"yiisoft/yii2-redis": "^2.0",
