@@ -42,7 +42,7 @@ before_script:
   - php -r "echo ini_get('memory_limit').PHP_EOL;"
   - echo 'memory_limit = 64M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - php -r "echo ini_get('memory_limit').PHP_EOL;"
-  - if [ `php -v |sed '2,$d'|awk '{print $2}'|awk -F '.' '{print $1}' ` -eq 8 ] ; then `php -v;no | pecl install redis-5.3.2RC2`; fi
+  - if [ `php -v |sed '2,$d'|awk '{print $2}'|awk -F '.' '{print $1}' ` -eq 8 ] ; then no | pecl install redis-5.3.2RC2; fi
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 #  -  no | pecl install redis-5.3.2RC2
 #  -  echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
