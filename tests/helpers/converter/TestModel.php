@@ -15,16 +15,9 @@ class TestModel extends BaseConverter
     /** @var string */
     public $start_time = '';//": "2020-01-01 00:00:00",
 
+    #[TypedArrayList(TestSubModel::class)]
     /** @var TestSubModel[] */
     public $list = [];
-
-
-    protected function getTypedArrayListMapping(): array
-    {
-        return [
-            'list' => new TypedArrayList(TestSubModel::class),
-        ];
-    }
 
     public function validate()
     {

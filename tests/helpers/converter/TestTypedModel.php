@@ -19,19 +19,13 @@ class TestTypedModel extends BaseConverter
 
     public string $start_time = '';
 
+    #[TypedArrayList(TestSubModel::class)]
     /** @var TestSubModel[] */
     public array $list = [];
 
+    #[TypedArrayList(TestSubModel::class, 2)]
     /** @var TestSubModel[][] */
     public array $multi_list = [];
-
-    protected function getTypedArrayListMapping(): array
-    {
-        return [
-            'list' => new TypedArrayList(TestSubModel::class),
-            'multi_list' => new TypedArrayList(TestSubModel::class, 2),
-        ];
-    }
 
     public function validate()
     {
