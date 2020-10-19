@@ -52,7 +52,7 @@ script:
   # validate composer.json
   - composer validate --no-check-lock
   - pear version
-  - pear run-tests tests/phpt/FileUploadTest.phpt -v
+#  - pear run-tests tests/phpt/FileUploadTest.phpt -v
   - php -S localhost:8080 tests/route.php > /dev/null 2>&1 &
   # run PHPUnit
   - vendor/bin/phpunit --verbose
