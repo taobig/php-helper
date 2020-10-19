@@ -11,6 +11,8 @@ A tool set for PHP projects
 ### INSTALLATION
 **Install via Composer**  
 ```
+composer global require "fxp/composer-asset-plugin:^1.4.2" (For Dev)
+
 composer require taobig/php-helper
 
 ```
