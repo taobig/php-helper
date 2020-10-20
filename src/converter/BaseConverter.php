@@ -14,7 +14,7 @@ abstract class BaseConverter
      * @return static
      * @throws ConverterException|\ReflectionException
      */
-    public static function load(array $inputArr, bool $validate = true)
+    public static function load(array $inputArr, bool $validate = true): static
     {
         $className = get_called_class();
         /** @var static $obj */
@@ -32,7 +32,16 @@ abstract class BaseConverter
                     throw new ConverterException("class {$className} property {$attributeName} has been declared without a type.");
                 }
 
-                $typeName = $propertyType->getName();
+
+//                $propertyType instanceof ReflectionNamedType|ReflectionUnionType
+                if ($propertyType instanceof \ReflectionNamedType) {
+                    $typeName = $propertyType->getName();
+                } else if ($propertyType instanceof \ReflectionUnionType) {
+                    //$typeName = $propertyType->getTypes()[0]->getName();//使用union type时，只会读取第一个
+                    throw new ConverterException("union type is not support");
+                } else {
+                    throw new ConverterException("unsupported class:" . get_class($propertyType));
+                }
                 $propertyAllowsNull = $propertyType->allowsNull();
                 if (is_null($val)) {
                     if (!$propertyAllowsNull) {
@@ -51,10 +60,9 @@ abstract class BaseConverter
                                 $dimensional = 1;
                                 $reflectionAttributes = $reflectionProperty->getAttributes();
                                 foreach ($reflectionAttributes as $reflectionAttribute) {
-                                    $attributeName = $reflectionAttribute->getName();
-                                    $arguments = $reflectionAttribute->getArguments();
-
-                                    if ($attributeName == 'TypedArrayList') {
+                                    $reflectionAttributeName = $reflectionAttribute->getName();
+                                    if ($reflectionAttributeName == TypedArrayList::class) {
+                                        $arguments = $reflectionAttribute->getArguments();
                                         $targetTypeName = $arguments[0];
                                         $dimensional = $arguments[1] ?? 1;
                                         break;

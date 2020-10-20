@@ -56,7 +56,9 @@ JSON;
         $this->assertSame(true, $params->is_ok);
         $this->assertSame(1.1, $params->score);
         $this->assertSame('2020-01-01 00:00:00', $params->start_time);
+        $this->assertEquals(true, $params->list[0] instanceof TestSubModel);
         $this->assertEquals('foo', $params->list[0]->name);
+        $this->assertEquals(true, $params->multi_list[0][0] instanceof TestSubModel);
         $this->assertEquals('bar', $params->multi_list[0][0]->name);
         $this->assertSame(null, $params->number);
         $this->assertSame(null, $params->str);
@@ -70,7 +72,7 @@ JSON;
     "age": 18,
     "is_ok": true,
     "score": 1.1,
-    "name": null,
+    "name": "name is string",
     "number": null,
     "start_time": "2020-01-01 00:00:00",
     "str": null,
