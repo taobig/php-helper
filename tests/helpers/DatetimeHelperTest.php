@@ -32,14 +32,14 @@ class DatetimeHelperTest extends TestCase
         for ($i = 1; $i < 200; ++$i) {
             $dt = DatetimeHelper::getDatetime();
             usleep(500000);
-            $this->assertRegExp("/^[2-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) [0-5]\d:[0-5]\d:[0-5]\d$/", $dt);
+            $this->assertMatchesRegularExpression("/^[2-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) [0-5]\d:[0-5]\d:[0-5]\d$/", $dt);
         }
     }
 
     public function testGetDate()
     {
         $dt = DatetimeHelper::getDate();
-        $this->assertRegExp("/^[2-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $dt);
+        $this->assertMatchesRegularExpression("/^[2-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $dt);
     }
 
     public function testGetYesterdayDate()
