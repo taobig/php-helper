@@ -2,7 +2,7 @@
 
 namespace taobig\helpers\utils;
 
-use RuntimeException;
+use taobig\helpers\exception\RuntimeException;
 use taobig\helpers\http\HttpRequest;
 
 /**
