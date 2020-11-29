@@ -1,6 +1,9 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\IntHelper;
+use TestCase;
 
 class IntHelperTest extends TestCase
 {
@@ -13,6 +16,8 @@ class IntHelperTest extends TestCase
         $this->assertSame(false, IntHelper::isUnsignedInt("111.11"));
         $this->assertSame(true, IntHelper::isUnsignedInt("0"));
         $this->assertSame(false, IntHelper::isUnsignedInt("1.1111111111111E+28"));
+        $this->assertSame(false, IntHelper::isUnsignedInt("1.111"));
+        $this->assertSame(false, IntHelper::isUnsignedInt(1.111));//float
     }
 
 
