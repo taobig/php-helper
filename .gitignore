@@ -18,6 +18,7 @@ Thumbs.db
 
 # composer vendor dir
 vendor
+node_modules
 composer.phar
 
 # For your library you may commit the composer.lock file if you want to.
