@@ -1,0 +1,8 @@
+{
+    "license": "MIT",
+    "dependencies": {
+        "@composer-asset/bower-asset--inputmask": "file:./vendor/foxy/composer-asset/bower-asset/inputmask",
+        "@composer-asset/bower-asset--yii2-pjax": "file:./vendor/foxy/composer-asset/bower-asset/yii2-pjax",
+        "@composer-asset/yiisoft--yii2": "file:./vendor/foxy/composer-asset/yiisoft/yii2"
+    }
+}

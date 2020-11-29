@@ -15,10 +15,21 @@
 		"guzzlehttp/guzzle": "^7.0"
     },
 	"require-dev" : {
-		"yiisoft/yii2-redis": "^2.0",
 		"aliyuncs/oss-sdk-php": "~2.0",
 		"phpunit/phpunit": "^9.0",
-		"php-coveralls/php-coveralls": "^2.2"
+		"php-coveralls/php-coveralls": "^2.2",
+		"kriss/foxy-yii2-convert": "^1.3",
+		"yiisoft/yii2-redis": "^2.0"
+	},
+	"provide": {
+		"bower-asset/bootstrap": "*",
+		"bower-asset/jquery": "*",
+		"bower-asset/inputmask": "*",
+		"bower-asset/punycode": "*",
+		"bower-asset/yii2-pjax": "*",
+		"npm-asset/wangeditor": "*",
+		"npm-asset/webuploader": "*",
+		"bower-asset/typeahead.js": "*"
 	},
 	"autoload" : {
 		"psr-4" : {
