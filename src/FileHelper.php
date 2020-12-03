@@ -2,6 +2,9 @@
 
 namespace taobig\helpers;
 
+use taobig\helpers\exception\io\FileNotFoundException;
+use taobig\helpers\exception\io\IOException;
+
 class FileHelper
 {
 
@@ -92,6 +95,58 @@ class FileHelper
     {
         $cmd = "tail -n {$lines} " . escapeshellarg($filePath);
         return shell_exec($cmd);
+    }
+
+    public static function readCsvFile(string $filePath): array
+    {
+        if (!file_exists($filePath)) {
+            throw new FileNotFoundException($filePath);
+        }
+//        if (!is_readable($filePath)) {
+//            throw new IOException($filePath);
+//        }
+        $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) use ($filePath) {
+            throw new IOException($filePath);
+        });
+        try {
+            $lineList = [];
+            if (($handle = fopen($filePath, "r")) !== FALSE) {//fopen: Upon failure, an E_WARNING is emitted.
+                try {
+                    while (($data = fgetcsv($handle)) !== FALSE) {
+                        $lineList[] = $data;
+                    }
+                } finally {
+                    fclose($handle);
+                }
+                return $lineList;
+            } else {
+                throw new IOException($filePath);
+            }
+        } finally {
+            set_error_handler($oldErrorHandler);
+        }
+    }
+
+    public static function writeCsvFile(string $filePath, array $list, string $mode = 'a+'): void
+    {
+        $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) use ($filePath) {
+            throw new IOException($filePath);
+        });
+        try {
+            if (($handle = fopen($filePath, $mode)) !== FALSE) {//fopen: Upon failure, an E_WARNING is emitted.
+                try {
+                    foreach ($list as $fields) {
+                        fputcsv($handle, $fields);
+                    }
+                } finally {
+                    fclose($handle);
+                }
+            } else {
+                throw new IOException($filePath);
+            }
+        } finally {
+            set_error_handler($oldErrorHandler);
+        }
     }
 
 }

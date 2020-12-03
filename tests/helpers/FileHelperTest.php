@@ -1,8 +1,12 @@
 <?php
 
+namespace taobig\tests\helpers;
+
+use taobig\helpers\exception\io\FileNotFoundException;
+use taobig\helpers\exception\io\IOException;
 use taobig\helpers\FileHelper;
 
-class FileHelperTest extends TestCase
+class FileHelperTest extends \TestCase
 {
 
     public function testCopyDestinationIsFile()
@@ -116,6 +120,103 @@ class FileHelperTest extends TestCase
         $file = __DIR__ . '/fileHelperTest.txt';
         $content = FileHelper::getLastNLinesByTailf($file, 1);
         $this->assertSame('//last line', $content);
+    }
+
+    public function testReadCsvFile(): string
+    {
+        $filePath = __DIR__ . '/csv_read_test.csv';
+        $lineList = FileHelper::readCsvFile($filePath);
+        $this->assertSame('a1', $lineList[0][0]);
+        $this->assertSame('a4', $lineList[0][3]);
+        $this->assertSame('b3,b33', $lineList[1][2]);
+        $this->assertSame('c4,c44\",c444', $lineList[2][3]);
+        $this->assertSame('d5",d55', $lineList[3][4]);
+        $this->assertSame(4, count($lineList));
+
+        return $filePath;
+    }
+
+    public function testReadCsvFileNotFoundException()
+    {
+        $this->expectException(FileNotFoundException::class);
+        $filePath = __DIR__ . '/file_not_exists.txt';
+        $lineList = FileHelper::readCsvFile($filePath);
+    }
+
+    public function testReadCsvFileReadException()
+    {
+        $filePath = '';
+        if (PHP_OS_FAMILY === 'Darwin') {
+            $filePath = '/.file';
+        } else if (PHP_OS_FAMILY === 'Linux') {
+            $filePath = '/root/.bashrc';
+        } else if (PHP_OS_FAMILY === 'Windows') {
+            $this->markTestSkipped("Todo");
+        } else {
+            $this->markTestSkipped("Todo");
+        }
+        $this->expectException(IOException::class);
+        $lineList = FileHelper::readCsvFile($filePath);
+    }
+
+    /**
+     * @depends testReadCsvFile
+     * @param string $csvFilePath
+     */
+    public function testWriteCsvFile(string $csvFilePath)
+    {
+        $list = array(
+            array(
+                0 => 'a1',
+                1 => 'a2',
+                2 => 'a3',
+                3 => 'a4',
+            ),
+            array(
+                0 => 'b1',
+                1 => 'b2',
+                2 => 'b3,b33',
+                3 => 'b4',
+            ),
+            array(
+                0 => 'c1',
+                1 => 'c2',
+                2 => 'c3',
+                3 => 'c4,c44\\",c444',
+            ),
+            array(
+                0 => 'd1',
+                1 => 'd2',
+                2 => 'd3',
+                3 => 'd4',
+                4 => 'd5",d55',
+            ),
+        );
+        $filePath = __DIR__ . '/csv_write_test.csv';
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+        FileHelper::writeCsvFile($filePath, $list);
+        $a1 = file_get_contents($csvFilePath);
+        $a2 = file_get_contents($filePath);
+        $this->assertSame(true, $a1 === $a2);
+        unlink($filePath);
+    }
+
+    public function testWriteCsvFileException()
+    {
+        $filePath = '';
+        if (PHP_OS_FAMILY === 'Darwin') {
+            $filePath = '/.file';
+        } else if (PHP_OS_FAMILY === 'Linux') {
+            $filePath = '/root/.bashrc';
+        } else if (PHP_OS_FAMILY === 'Windows') {
+            $this->markTestSkipped("Todo");
+        } else {
+            $this->markTestSkipped("Todo");
+        }
+        $this->expectException(IOException::class);
+        FileHelper::writeCsvFile($filePath, []);
     }
 
 }
