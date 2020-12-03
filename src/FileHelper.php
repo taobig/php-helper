@@ -55,10 +55,10 @@ class FileHelper
     public static function getLastNLines(string $filePath, int $lines = 1, $eol = "\n"): string
     {
         if ($lines <= 0) {
-            throw new \OutOfBoundsException('');
+            throw new \ValueError();
         }
         if (strlen($eol) != 1) {
-            throw new \OutOfBoundsException('');
+            throw new \ValueError();
         }
         $content = "";
         $resource = fopen($filePath, 'r');

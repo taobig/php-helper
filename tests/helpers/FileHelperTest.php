@@ -82,7 +82,7 @@ class FileHelperTest extends TestCase
         $content = FileHelper::getLastNLines($file, PHP_INT_MAX);
         $this->assertSame(file_get_contents($file), $content);
 
-        $this->expectException(OutOfBoundsException::class);
+        $this->expectException(\ValueError::class);
         $content = FileHelper::getLastNLines($file, 0);
         echo $content;//unreachable code
     }
@@ -90,7 +90,7 @@ class FileHelperTest extends TestCase
     public function testGetLastNLinesInvalidArgumentException2()
     {
         $file = __DIR__ . '/fileHelperTest.txt';
-        $this->expectException(OutOfBoundsException::class);
+        $this->expectException(\ValueError::class);
         $content = FileHelper::getLastNLines($file, -1);
         echo $content;//unreachable code
     }
@@ -98,7 +98,7 @@ class FileHelperTest extends TestCase
     public function testGetLastNLinesInvalidArgumentException3()
     {
         $file = __DIR__ . '/fileHelperTest.txt';
-        $this->expectException(OutOfBoundsException::class);
+        $this->expectException(\ValueError::class);
         $content = FileHelper::getLastNLines($file, 1, '');
         echo $content;//unreachable code
     }
@@ -106,7 +106,7 @@ class FileHelperTest extends TestCase
     public function testGetLastNLinesInvalidArgumentException4()
     {
         $file = __DIR__ . '/fileHelperTest.txt';
-        $this->expectException(OutOfBoundsException::class);
+        $this->expectException(\ValueError::class);
         $content = FileHelper::getLastNLines($file, 1, '\r\n');
         echo $content;//unreachable code
     }
