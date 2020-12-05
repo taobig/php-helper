@@ -6,7 +6,7 @@
 sudo: false
 # Ubuntu Xenial 16.04 as the default Travis CI build environment
 # https://blog.travis-ci.com/2019-04-15-xenial-default-build-environment
-dist: bionic
+#dist: bionic
 language: php
 
 php:
