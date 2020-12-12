@@ -1,6 +1,6 @@
 <?php
 
-namespace taobig\tests\helpers\generic;
+namespace taobig\tests\helpers\helpers\generic;
 
 use taobig\helpers\generic\ArrayList;
 use taobig\helpers\generic\exception\OffsetTypeErrorException;

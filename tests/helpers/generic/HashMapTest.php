@@ -1,6 +1,6 @@
 <?php
 
-namespace taobig\tests\helpers\generic;
+namespace taobig\tests\helpers\helpers\generic;
 
 use taobig\helpers\generic\HashMap;
 use taobig\helpers\generic\exception\KeyTypeErrorException;

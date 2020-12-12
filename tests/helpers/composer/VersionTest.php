@@ -1,7 +1,7 @@
 <?php
 
 
-namespace taobig\tests\helpers\composer;
+namespace taobig\tests\helpers\helpers\composer;
 
 use taobig\helpers\composer\Version;
 use TestCase;

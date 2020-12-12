@@ -20,7 +20,7 @@ abcdef123456789
 --FILE--
 <?php
 
-namespace taobig\tests\phpt;
+namespace taobig\tests\helpers\phpt;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 use taobig\helpers\utils\UploadedFile;

@@ -1,6 +1,6 @@
 <?php
 
-namespace taobig\tests\helpers;
+namespace taobig\tests\helpers\helpers;
 
 use taobig\helpers\exception\io\FileNotFoundException;
 use taobig\helpers\exception\io\IOException;

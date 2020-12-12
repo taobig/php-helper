@@ -27,7 +27,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"taobig\\tests\\": "tests/"
+			"taobig\\tests\\helpers\\": "tests/"
 		}
 	},
 	"homepage" : "https://github.com/taobig/php-helper",
