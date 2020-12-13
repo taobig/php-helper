@@ -35,14 +35,9 @@ cache:
 install:
   - |
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
-#  - travis_retry composer self-update && composer --version
-  # use composer 1.x
-  - command -v composer && wget -c -O ~/composer https://getcomposer.org/download/1.10.17/composer.phar && chmod +x ~/composer
-  - php ~/composer --version
+  - travis_retry composer self-update && composer --version && command -v composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  # core framework:
-  - travis_retry php ~/composer global require "fxp/composer-asset-plugin:^1.4.2" && php ~/composer global show
-  - travis_retry php ~/composer install --prefer-dist --no-interaction
+  - travis_retry composer install --prefer-dist --no-interaction
 #  - if [ $TRAVIS_PHP_VERSION = 'nightly' ]; then travis_retry composer install --prefer-dist --no-interaction --ignore-platform-reqs; else  composer install; fi
 
 
@@ -54,13 +49,13 @@ before_script:
   #  redis-5.3.2 released(2020-10-22)
   #- if [ `php -v |sed '2,$d'|awk '{print $2}'|awk -F '.' '{print $1}' ` -eq 8 ] ; then no | pecl install redis; else echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
 #  -  no | pecl install redis-5.3.2RC2
-  -  echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   # ensure no files contain UTF-8 byte order mark
   - if ! grep -rlI $'\xEF\xBB\xBF' src/ ; then echo "no utf8 BOM found"; else echo "found utf8 BOM in some files. See above."; exit 1; fi
   # validate composer.json
-  - php ~/composer validate --no-check-lock
+  - composer validate --no-check-lock
   - pear version
 #  - pear run-tests tests/phpt/FileUploadTest.phpt -v
   - php -S localhost:8080 tests/route.php > /dev/null 2>&1 &
