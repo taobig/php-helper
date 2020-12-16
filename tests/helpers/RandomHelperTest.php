@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\RandomHelper;
 
-class RandomHelperTest extends TestCase
+class RandomHelperTest extends \TestCase
 {
 
     // ASCII

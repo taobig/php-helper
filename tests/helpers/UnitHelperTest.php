@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\UnitHelper;
 
-class UnitHelperTest extends TestCase
+class UnitHelperTest extends \TestCase
 {
 
     public function testFormatBytes()

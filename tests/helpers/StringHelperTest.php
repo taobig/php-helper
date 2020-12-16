@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\StringHelper;
 
-class StringHelperTest extends TestCase
+class StringHelperTest extends \TestCase
 {
 
     public function testStartsWith()

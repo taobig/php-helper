@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\NetHelper;
 
-class NetHelperTest extends TestCase
+class NetHelperTest extends \TestCase
 {
 
     public function testGetLocalIpV4()

@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\MathHelper;
 
-class MathHelperTest extends TestCase
+class MathHelperTest extends \TestCase
 {
 
     //一个方法里只能有一个expectException

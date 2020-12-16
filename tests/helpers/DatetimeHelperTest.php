@@ -1,8 +1,11 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
+use DateTime;
 use taobig\helpers\DatetimeHelper;
 
-class DatetimeHelperTest extends TestCase
+class DatetimeHelperTest extends \TestCase
 {
 
     public function testMillisecondTimestamp()
@@ -29,11 +32,11 @@ class DatetimeHelperTest extends TestCase
 
     public function testGetDatetime()
     {
-        for ($i = 1; $i < 200; ++$i) {
+//        for ($i = 1; $i < 200; ++$i) {
             $dt = DatetimeHelper::getDatetime();
-            usleep(500000);
+//            usleep(500000);
             $this->assertMatchesRegularExpression("/^[2-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) [0-5]\d:[0-5]\d:[0-5]\d$/", $dt);
-        }
+//        }
     }
 
     public function testGetDate()

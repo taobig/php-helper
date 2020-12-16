@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\StringEncodingHelper;
 
-class StringEncodingHelperTest extends TestCase
+class StringEncodingHelperTest extends \TestCase
 {
 
     public function testDecodeUnicode()

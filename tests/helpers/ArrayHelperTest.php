@@ -1,8 +1,11 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
+use stdClass;
 use taobig\helpers\ArrayHelper;
 
-class ArrayHelperTest extends TestCase
+class ArrayHelperTest extends \TestCase
 {
 
     public function testSplit()

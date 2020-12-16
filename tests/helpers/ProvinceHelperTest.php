@@ -1,8 +1,10 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\ProvinceHelper;
 
-class ProvinceHelperTest extends TestCase
+class ProvinceHelperTest extends \TestCase
 {
 
     public function testProvince()

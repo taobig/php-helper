@@ -1,9 +1,11 @@
 <?php
 
+namespace taobig\tests\helpers\helpers;
+
 use taobig\helpers\NumberHelper;
 
 
-class NumberHelperTest extends TestCase
+class NumberHelperTest extends \TestCase
 {
 
     public function testSingleDigitToSimpleChinese()
