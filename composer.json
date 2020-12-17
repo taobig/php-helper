@@ -20,7 +20,8 @@
 	"autoload" : {
 		"psr-4" : {
 			"taobig\\helpers\\" : "src/"
-		}
+		},
+		"files": ["preload.php"]
 	},
 	"homepage" : "https://github.com/taobig/php-helper",
 	"support" : {
