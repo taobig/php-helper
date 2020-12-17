@@ -14,7 +14,7 @@
     },
 	"require-dev" : {
 		"aliyuncs/oss-sdk-php": "~2.0",
-		"phpunit/phpunit": "~6.1",
+		"phpunit/phpunit": "^6.1 || ^9.0",
 		"php-coveralls/php-coveralls": "^2.2"
 	},
 	"autoload" : {
