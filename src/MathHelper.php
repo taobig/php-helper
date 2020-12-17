@@ -2,31 +2,32 @@
 
 namespace taobig\helpers;
 
+use DivisionByZeroError;
+use ValueError;
+
 class MathHelper
 {
 
     /**
-     * PHP会把" 1"/"H1"/...转换成0。
+     * <PHP7.4会把" 1"/"H1"/...转换成0。
      * >=PHP7.4: "Warning: bcadd(): bcmath function argument is not well-formed in ..."
      * @param string $left_operand
      * @param string $right_operand
-     * @throws \ErrorException
+     * @throws ValueError
      */
     private static function checkParams(string $left_operand, string $right_operand)
     {
-        if (PHP_VERSION_ID < 70400) {
-            if (trim($left_operand) !== $left_operand) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (trim($right_operand) !== $right_operand) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (!is_numeric($left_operand)) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
-            if (!is_numeric($right_operand)) {
-                throw new \ErrorException('bcadd(): bcmath function argument is not well-formed');
-            }
+        if (trim($left_operand) !== $left_operand) {
+            throw new ValueError('bcmath function argument is not well-formed');
+        }
+        if (trim($right_operand) !== $right_operand) {
+            throw new ValueError('bcmath function argument is not well-formed');
+        }
+        if (!is_numeric($left_operand)) {
+            throw new ValueError('bcmath function argument is not well-formed');
+        }
+        if (!is_numeric($right_operand)) {
+            throw new ValueError('bcmath function argument is not well-formed');
         }
     }
 
@@ -80,11 +81,24 @@ class MathHelper
      * @param string $right_operand
      * @param int $scale
      * @return string
+     * @throws ValueError
+     * @throws DivisionByZeroError
      */
     public static function div(string $left_operand, string $right_operand, int $scale = 2): string
     {
         self::checkParams($left_operand, $right_operand);
-        return bcdiv($left_operand, $right_operand, $scale);
+        if (PHP_VERSION_ID < 80000) {
+            $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) {
+                throw new DivisionByZeroError("Division by zero");
+            });
+            try {
+                return bcdiv($left_operand, $right_operand, $scale);
+            } finally {
+                set_error_handler($oldErrorHandler);
+            }
+        } else {
+            return bcdiv($left_operand, $right_operand, $scale);
+        }
     }
 
 
