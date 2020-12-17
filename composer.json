@@ -13,7 +13,6 @@
 		"guzzlehttp/guzzle": "^6.3 || ^8.4"
     },
 	"require-dev" : {
-		"yiisoft/yii2-redis": "^2.0",
 		"aliyuncs/oss-sdk-php": "~2.0",
 		"phpunit/phpunit": "~6.1",
 		"php-coveralls/php-coveralls": "^2.2"
