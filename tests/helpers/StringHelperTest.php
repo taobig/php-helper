@@ -157,11 +157,7 @@ class StringHelperTest extends \TestCase
 
         $this->assertSame([], StringHelper::split("", ',', false));
 
-        if (PHP_MAJOR_VERSION >= 8) {
-            $this->expectException(\ValueError::class);// >= PHP 8
-        } else {
-            $this->expectException(\ErrorException::class);// <= PHP 7.4
-        }
+        $this->expectException(\ValueError::class);
         $this->assertSame([1, 2, 3], StringHelper::split("aaa_bbb_ccc", ''));
 
     }
