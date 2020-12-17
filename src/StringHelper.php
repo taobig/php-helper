@@ -150,6 +150,11 @@ class StringHelper
 
     public static function split(string $str, string $separator = ',', bool $keepEmptyParts = true)
     {
+        if (PHP_MAJOR_VERSION < 8) {
+            if (strlen($separator) === 0) {
+                throw new \ValueError("Empty delimiter");
+            }
+        }
         $list = explode($separator, $str);
         if (!$keepEmptyParts) {
             $validList = [];
