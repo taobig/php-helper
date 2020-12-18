@@ -20,6 +20,12 @@ matrix:
 allow_failures:
   - php: nightly
 
+branches:
+  only:
+    - master
+    - branch-v1
+
+
 services:
   - redis-server
 
