@@ -14,6 +14,8 @@ use taobig\helpers\generic\exception\KeyTypeErrorException;
  *     Null 会被转换为空字符串，即键名 null 实际会被储存为 ""。
  *     数组和对象不能被用为键名。坚持这么做会导致警告：Illegal offset type。
  * 所以 ->put("1", 1) or ->put(1, 1) 都可以通过->get(1) or ->get("1")取出数据
+ * @deprecated
+ * @see \Ds\Map require ext-ds or php-ds/php-ds
  */
 class HashMap
 {

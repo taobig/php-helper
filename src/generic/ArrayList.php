@@ -7,6 +7,12 @@ use taobig\helpers\generic\exception\IndexOutOfBoundsException;
 use taobig\helpers\generic\exception\OffsetTypeErrorException;
 use taobig\helpers\generic\exception\UnsupportedOperationException;
 
+/**
+ * Class ArrayList
+ * @package taobig\helpers\generic
+ * @deprecated
+ * @see \Ds\Sequence require ext-ds or php-ds/php-ds
+ */
 class ArrayList implements \IteratorAggregate, \ArrayAccess
 {
 
