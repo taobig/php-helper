@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 
 use taobig\helpers\lock\exceptions\LockFailedException;
 use taobig\helpers\lock\FileLock;

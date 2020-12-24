@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use taobig\helpers\http\HttpRequest;
 use taobig\helpers\utils\UploadedFile;
 

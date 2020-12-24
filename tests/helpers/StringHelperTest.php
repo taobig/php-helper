@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace taobig\tests\helpers\helpers;
 
 use taobig\helpers\StringHelper;

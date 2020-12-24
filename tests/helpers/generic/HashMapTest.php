@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace taobig\tests\helpers\helpers\generic;
 
 use taobig\helpers\generic\HashMap;

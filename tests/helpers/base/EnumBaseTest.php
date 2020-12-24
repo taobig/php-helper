@@ -1,20 +1,11 @@
 <?php
 
-use taobig\helpers\base\EnumBase;
+declare(strict_types=1);
 
-class EnumUserType extends EnumBase
-{
+namespace taobig\tests\helpers\helpers\base;
 
-    public static function labels(): array
-    {
-        return [
-            1 => 'A',
-            2 => 'B',
-        ];
-    }
-}
 
-class EnumBaseTest extends TestCase
+class EnumBaseTest extends \TestCase
 {
 
     public function testSplit()

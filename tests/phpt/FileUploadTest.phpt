@@ -20,6 +20,8 @@ abcdef123456789
 --FILE--
 <?php
 
+declare(strict_types=1);
+
 namespace taobig\tests\helpers\phpt;
 
 require_once __DIR__.'/../../vendor/autoload.php';
