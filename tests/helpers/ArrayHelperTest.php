@@ -243,6 +243,9 @@ class ArrayHelperTest extends \TestCase
         $arr = ['0' => 1, '1' => 2, '2' => 3, '3' => 4];
         $this->assertSame(true, ArrayHelper::isIndexedArray($arr));
 
+        $arr = ['1' => 2, '0' => 1, '2' => 3, '3' => 4];
+        $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
+
         $arr = ['0' => 1, '2' => 2, '3' => 3, '4' => 4];
         $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
     }
