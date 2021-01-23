@@ -204,6 +204,9 @@ class ArrayHelper
      */
     public static function isIndexedArray(array $arr): bool
     {
+        if (PHP_VERSION_ID >= 80100) {
+            return array_is_list($arr);//Since PHP 8.1
+        }
         if (empty($arr)) {
             return true;
         }
