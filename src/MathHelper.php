@@ -82,8 +82,12 @@ class MathHelper
     {
         self::checkParams($left_operand, $right_operand);
         if (PHP_VERSION_ID < 80000) {
-            $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) {
-                throw new DivisionByZeroError("Division by zero");
+            $oldErrorHandler = set_error_handler(function ($errno) {
+                if (!(error_reporting() & $errno)) {
+                    return false;
+                }
+
+                throw new DivisionByZeroError("Division by zero", $errno);
             });
             try {
                 return bcdiv($left_operand, $right_operand, $scale);
