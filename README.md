@@ -14,13 +14,21 @@ A tool set for PHP projects
 composer global require "fxp/composer-asset-plugin:^1.4.2" (For Dev)
 
 composer require taobig/php-helper
-
 ```
 ## Versions
 | Major Version	 | PHP Compatibility	 | Initial Release	 | Support |
 | :-----| ----: | :----: | :----: |
 | 1.x | PHP 7.0, PHP 7.1, PHP 7.2, PHP 7.3, PHP 7.4 | 2018-09-25 | ✅ |
 | 2.x | PHP 7.4, PHP 8.0 | 2020-01-11 | ✅ |
+
+
+### Static analysis
+
+The code is statically analyzed with [Psalm](https://psalm.dev/). To run static analysis:
+
+```shell
+./vendor/bin/psalm
+```
 
 ## Usage
 ```

@@ -105,8 +105,11 @@ class FileHelper
 //        if (!is_readable($filePath)) {
 //            throw new IOException($filePath);
 //        }
-        $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) use ($filePath) {
-            throw new IOException($filePath);
+        $oldErrorHandler = set_error_handler(function ($errno, $str) use ($filePath) {
+            if (!(error_reporting() & $errno)) {
+                return false;
+            }
+            throw new IOException($filePath, $str, $errno);
         });
         try {
             $lineList = [];
@@ -129,8 +132,11 @@ class FileHelper
 
     public static function writeCsvFile(string $filePath, array $list, string $mode = 'a+'): void
     {
-        $oldErrorHandler = set_error_handler(function ($errno, $str, $file, $line) use ($filePath) {
-            throw new IOException($filePath);
+        $oldErrorHandler = set_error_handler(function ($errno, $str) use ($filePath) {
+            if (!(error_reporting() & $errno)) {
+                return false;
+            }
+            throw new IOException($filePath, $str, $errno);
         });
         try {
             if (($handle = fopen($filePath, $mode)) !== FALSE) {//fopen: Upon failure, an E_WARNING is emitted.

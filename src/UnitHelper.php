@@ -16,7 +16,7 @@ class UnitHelper
         //1NB == 2^100 Bytes
         $suffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
         $base = log($bytes, 1024);
-        return number_format(round(pow(1024, $base - floor($base)), $precision), $precision) . $suffixes[floor($base)];
+        return number_format(round(pow(1024, $base - floor($base)), $precision), $precision) . $suffixes[intval(floor($base))];
     }
 
 }
