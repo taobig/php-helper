@@ -6,7 +6,7 @@ namespace taobig\helpers\base;
 
 class SingleInstanceBase {
 
-    static protected $instance;
+    protected static $instance;
 
     private function __construct() {
     }
