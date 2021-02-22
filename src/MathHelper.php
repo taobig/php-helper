@@ -15,17 +15,22 @@ class MathHelper
      */
     private static function checkParams(string $left_operand, string $right_operand): void
     {
-        if (trim($left_operand) !== $left_operand) {
-            throw new ValueError('bcmath function argument is not well-formed');
-        }
-        if (trim($right_operand) !== $right_operand) {
-            throw new ValueError('bcmath function argument is not well-formed');
-        }
-        if (!is_numeric($left_operand)) {
-            throw new ValueError('bcmath function argument is not well-formed');
-        }
-        if (!is_numeric($right_operand)) {
-            throw new ValueError('bcmath function argument is not well-formed');
+        // PHP-8.0.2: Fixed bug #80545 (bcadd('a', 'a') doesn't throw an exception).
+        // https://www.php.net/ChangeLog-8.php#8.0.2
+        // https://bugs.php.net/bug.php?id=80545
+        if (PHP_VERSION_ID < 80002) {
+            if (trim($left_operand) !== $left_operand) {
+                throw new ValueError('bcmath function argument is not well-formed');
+            }
+            if (trim($right_operand) !== $right_operand) {
+                throw new ValueError('bcmath function argument is not well-formed');
+            }
+            if (!is_numeric($left_operand)) {
+                throw new ValueError('bcmath function argument is not well-formed');
+            }
+            if (!is_numeric($right_operand)) {
+                throw new ValueError('bcmath function argument is not well-formed');
+            }
         }
     }
 
