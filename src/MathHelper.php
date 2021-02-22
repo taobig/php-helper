@@ -95,12 +95,22 @@ class MathHelper
                 throw new DivisionByZeroError("Division by zero", $errno);
             });
             try {
-                return bcdiv($left_operand, $right_operand, $scale);
+                /**
+                 * @psalm-var string $str
+                 * @var string $str
+                 */
+                $str = bcdiv($left_operand, $right_operand, $scale);
+                return $str;
             } finally {
                 set_error_handler($oldErrorHandler);
             }
         } else {
-            return bcdiv($left_operand, $right_operand, $scale);
+            /**
+             * @psalm-var string $str
+             * @var string $str
+             */
+            $str = bcdiv($left_operand, $right_operand, $scale);
+            return $str;
         }
     }
 
