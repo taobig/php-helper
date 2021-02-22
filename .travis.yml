@@ -65,6 +65,7 @@ script:
   - pear version
 #  - pear run-tests tests/phpt/FileUploadTest.phpt -v
   - php -S localhost:8080 tests/route.php > /dev/null 2>&1 &
+  - ./vendor/bin/psalm
   # run PHPUnit
   - ./vendor/bin/phpunit --verbose
   - ./vendor/bin/phpunit --verbose --bootstrap tests/bootstrap_with_errorhandler.php
