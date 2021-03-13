@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+namespace taobig\tests\helpers\helpers\http;
+
 use taobig\helpers\http\HttpRequest;
 use taobig\helpers\utils\UploadedFile;
 
-class HttpRequestTest extends TestCase
+class HttpRequestTest extends \TestCase
 {
 
     public function testGet()
