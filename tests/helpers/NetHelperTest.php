@@ -19,9 +19,10 @@ class NetHelperTest extends \TestCase
         echo "All ip address\n";
         var_dump($ipList);
 
-        $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
-        $this->assertSame($count - 1 - 1, count($ipList));
-
+        if (file_exists("/sbin/ifconfig")) {
+            $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
+            $this->assertSame($count - 1 - 1, count($ipList));
+        }
 
         $publicIpList = NetHelper::getMachineIpV4(true);
         $publicIp = shell_exec("curl ifconfig.co");// ifconfig.me  or ipinfo.io  or api.ipify.org  or  ip.cn  or  myip.ipip.net
