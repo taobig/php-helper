@@ -1,0 +1,92 @@
+name: Run-Tests
+
+on:
+  push:
+    branches:
+      - master
+      - branch-v1
+
+
+# 工作流程运行包括一项或多项作业。 作业默认是并行运行。 要按顺序运行作业，您可以使用 <job_id>needs 关键词在其他作业上定义依赖项。
+jobs:
+  php-tests:
+    strategy:
+      matrix:
+        php: [ 7.4, 8.0 ]
+        #dependency-version: [ prefer-lowest, prefer-stable ]
+        #os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ ubuntu-latest ]
+        #redis-version: [ 5, 6 ]
+        redis-version: [ 6 ]
+        experimental: [ false ]
+        include:
+          - php: 8.1
+            # os必须，否则报语法错误：Error when evaluating 'runs-on' for job 'php-tests'. (Line: 30, Col: 14): Unexpected value ''
+            # redis-version可以不要
+            os: ubuntu-latest
+            experimental: true
+        #max-parallel: 2
+
+    name: PHP-${{ matrix.php }} - Redis-${{ matrix.redis-version }} - ${{ matrix.os }}
+    #runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, zip, bcmath, intl, iconv, json, ctype
+          ini-values: post_max_size=256M
+          tools: pecl
+          coverage: xdebug
+
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.2.0
+        with:
+          redis-version: ${{ matrix.redis-version }}
+
+      - name: Install dependencies
+        run: |
+          date && ls -alh
+          composer -V && composer install --prefer-dist --no-interaction -v
+          pear version && ls -alh
+          php -S localhost:8080 tests/route.php > /dev/null 2>&1 &
+        env:
+          DEFAULT_BRANCH: master
+
+      - name: Psalm
+        run: |
+          date && ls -alh && ./vendor/bin/psalm
+        env:
+          DEFAULT_BRANCH: master
+
+      # 确保安装了Xdebug，否则不会生成clover.xml文件，从而导致后续上报失败
+      - name: PHPUNIT
+        run: |
+          date && ps aux|grep php
+          pwd && ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --verbose
+          pwd && ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --bootstrap tests/bootstrap_with_errorhandler.php --verbose
+          pwd && ls -alh build && ls -alh build/logs
+        env:
+          DEFAULT_BRANCH: master
+
+      - name: Upload coverage results to Coveralls
+        if: ${{ success() }}
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pwd && ls -alh build && ls -alh build/logs
+          pwd && composer global require php-coveralls/php-coveralls
+          pwd && php-coveralls --coverage_clover=build/logs/clover.xml -v
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ php-tests ]
+    steps:
+      - name: Deploy test
+        run: echo Yes;
