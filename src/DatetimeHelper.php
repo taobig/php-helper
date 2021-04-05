@@ -4,6 +4,7 @@ namespace taobig\helpers;
 
 use DateTime;
 use DateTimeZone;
+use taobig\helpers\exception\RuntimeException;
 
 class DatetimeHelper
 {
@@ -11,9 +12,13 @@ class DatetimeHelper
     /**
      * this method need 64-bit PHP runtime.
      * @return int
+     * @throws RuntimeException
      */
     public static function millisecondTimestamp(): int
     {
+        if (PHP_INT_SIZE < 8) {
+            throw new RuntimeException("Cannot be executed on 32-bit PHP...");
+        }
         $mt = explode(' ', microtime());
         return ((int)$mt[1]) * 1000 + ((int)round($mt[0] * 1000));
     }
