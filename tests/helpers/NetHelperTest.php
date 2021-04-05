@@ -16,10 +16,10 @@ class NetHelperTest extends \TestCase
             print_r($adapterList);
         }
         $ipList = NetHelper::getMachineIpV4();
-        echo "All ip address\n";
-        var_dump($ipList);
-
         if (file_exists("/sbin/ifconfig")) {
+            echo "All ip address\n";
+            var_dump($ipList);
+            var_dump(shell_exec("/sbin/ifconfig -s|wc -l"));
             $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
             $this->assertSame($count - 1 - 1, count($ipList));
         }
