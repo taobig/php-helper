@@ -21,8 +21,10 @@ class NetHelperTest extends \TestCase
 
         if (file_exists("/sbin/ifconfig")) {
             var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1'"));
-            var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*netmask'"));
-            $count = (int)trim(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*netmask'| wc -l"));
+            //ubuntu 16.04 x86_64: inet addr:172.17.0.1  Bcast:172.17.255.255  Mask:255.255.0.0
+            //ubuntu 20.04 x86_64: inet 172.31.0.1  netmask 255.255.0.0  broadcast 172.31.255.255
+            var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*(Bcast|netmask)'"));
+            $count = (int)trim(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*(Bcast|netmask)'| wc -l"));
             $this->assertSame($count, count($ipList));
         }
 
