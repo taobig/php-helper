@@ -29,7 +29,7 @@ class DatetimeHelper
     }
 
     /**
-     * @param int|string|DateTime $referenceTime time() or "2019-07-31" or DateTime
+     * @param int|string|DateTime|null $referenceTime time() or "2019-07-31" or DateTime
      * @return false|string
      */
     public static function getYesterdayDate($referenceTime = null)
@@ -46,7 +46,7 @@ class DatetimeHelper
     }
 
     /**
-     * @param int|string|DateTime $referenceTime time() or "2019-07-31" or DateTime
+     * @param int|string|DateTime|null $referenceTime time() or "2019-07-31" or DateTime
      * @return false|string
      */
     public static function getTomorrowDate($referenceTime = null)
