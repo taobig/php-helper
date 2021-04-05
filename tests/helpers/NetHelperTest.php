@@ -16,12 +16,14 @@ class NetHelperTest extends \TestCase
             print_r($adapterList);
         }
         $ipList = NetHelper::getMachineIpV4();
+        echo "All ip address\n";
+        var_dump($ipList);
+
         if (file_exists("/sbin/ifconfig")) {
-            echo "All ip address\n";
-            var_dump($ipList);
-            var_dump(shell_exec("/sbin/ifconfig -s|wc -l"));
-            $count = trim(shell_exec("/sbin/ifconfig -s|wc -l"));//include title & "Local Loopback"
-            $this->assertSame($count - 1 - 1, count($ipList));
+            var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1'"));
+            var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*netmask'"));
+            $count = (int)trim(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\s*netmask'| wc -l"));
+            $this->assertSame($count, count($ipList));
         }
 
         $publicIpList = NetHelper::getMachineIpV4(true);
