@@ -225,7 +225,6 @@ class ArrayHelperTest extends \TestCase
         $this->assertSame(false, ArrayHelper::isAssocArray($arr));
     }
 
-
     public function testIsIndexedArray()
     {
         $arr = [];
@@ -248,6 +247,27 @@ class ArrayHelperTest extends \TestCase
 
         $arr = ['0' => 1, '2' => 2, '3' => 3, '4' => 4];
         $this->assertSame(false, ArrayHelper::isIndexedArray($arr));
+
+        $arr = [];
+        $this->assertSame(true, array_is_list($arr));
+
+        $arr = [1, 2, 3, 4];
+        $this->assertSame(true, array_is_list($arr));
+
+        $arr = ['a' => 1, 2, 3, 4];
+        $this->assertSame(false, array_is_list($arr));
+
+        $arr = ['0' => 1, 2, 3, 4];
+        $this->assertSame(true, array_is_list($arr));
+
+        $arr = ['0' => 1, '1' => 2, '2' => 3, '3' => 4];
+        $this->assertSame(true, array_is_list($arr));
+
+        $arr = ['1' => 2, '0' => 1, '2' => 3, '3' => 4];
+        $this->assertSame(false, array_is_list($arr));
+
+        $arr = ['0' => 1, '2' => 2, '3' => 3, '4' => 4];
+        $this->assertSame(false, array_is_list($arr));
     }
 
     public function testObject2Array()
