@@ -142,6 +142,8 @@ class ArrayHelper
      * 即 $arr[1] === $arr['1'] === $arr[1.5] === $arr[true] === $arr[01]; 但是$arr['01']实际存储的key是字符串'01'。
      * @param array $arr
      * @return bool
+     * @deprecated
+     * @see array_is_list
      */
     public static function isIndexedArray(array $arr): bool
     {
