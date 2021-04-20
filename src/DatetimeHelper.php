@@ -6,6 +6,43 @@ use DateTime;
 use DateTimeZone;
 use taobig\helpers\exception\RuntimeException;
 
+/**
+ * Class DatetimeHelper
+ * @package taobig\helpers
+ *
+ * //Timestamp => DateTime string/DateTime Object
+ * $str = date('Y-m-d H:i:s.u', time());
+ * $obj = (new DateTime())->setTimestamp(time());
+ *
+ * $dt = new \DateTime();
+ * $dt->setTimestamp(0);
+ *
+ * //DateTime string ==> Timestamp/DateTime Object
+ * $timestamp = strtotime(date('Y-m-d H:i:s'));// to Timestamp
+ * $obj = new \DateTime($str);//to DateTime Object
+ *
+ * //DateTime Object ==> DateTime string/Timestamp
+ * $str = (new \DateTime($str))->format('Y-m-d H:i:s.u');
+ * $timestamp = (new \DateTime($str))->getTimestamp();
+ *
+ *
+ * //DateInterval
+ * $date = new \DateTime(date("Y-m-d"));
+ * $date->sub(new \DateInterval('P1D'));
+ * $yesterday = $date->format('Y-m-d');
+ *
+ * $date = new \DateTime("2021-04-20");
+ * $date->sub(new \DateInterval('P1DT1H1M1S'));
+ * echo $date->format('Y-m-d H:i:s');// 2021-04-18 22:58:59
+ *
+ * $date = new \DateTime("2021-04-20");
+ * $date->add(new \DateInterval('P1DT1H1M1S'));
+ * echo $date->format('Y-m-d H:i:s');// 2021-04-21 01:01:01
+ *
+ * $date = new \DateTime("2021-04-20");
+ * $date->add(new \DateInterval('P1Y1M1DT1H1M1S'));
+ * echo $date->format('Y-m-d H:i:s');// 2022-05-21 01:01:01
+ */
 class DatetimeHelper
 {
 
