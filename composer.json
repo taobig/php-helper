@@ -12,7 +12,8 @@
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"ext-json": "*",
-		"guzzlehttp/guzzle": "^7.0"
+		"guzzlehttp/guzzle": "^7.0",
+		"symfony/polyfill-php80": "^1.22"
     },
 	"require-dev" : {
 		"aliyuncs/oss-sdk-php": "~2.0",
