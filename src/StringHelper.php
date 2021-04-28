@@ -13,10 +13,7 @@ class StringHelper
      */
     public static function startsWith(string $str, string $characters): bool
     {
-        if (strlen($str) < strlen($characters)) {
-            return false;
-        }
-        return substr_compare($str, $characters, 0, strlen($characters)) === 0;
+        return str_starts_with($str, $characters);
     }
 
     /**
@@ -27,13 +24,7 @@ class StringHelper
      */
     public static function endsWith(string $str, string $characters): bool
     {
-        if (strlen($str) < strlen($characters)) {
-            return false;
-        }
-        if (strlen($characters) === 0) {
-            return true;
-        }
-        return substr_compare($str, $characters, -strlen($characters)) === 0;
+        return str_ends_with($str, $characters);
     }
 
     /**
