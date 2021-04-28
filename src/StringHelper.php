@@ -37,6 +37,17 @@ class StringHelper
     }
 
     /**
+     * case-sensitive
+     * @param string $str
+     * @param string $characters
+     * @return bool
+     */
+    public static function contains(string $str, string $characters): bool
+    {
+        return str_contains($str, $characters);
+    }
+
+    /**
      * All the parameters are case-sensitive.
      * @param string $str
      * @param string $characters

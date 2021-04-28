@@ -36,6 +36,16 @@ class StringHelperTest extends \TestCase
         $this->assertSame(false, StringHelper::endsWith("", "hello world"));
     }
 
+    public function testContains()
+    {
+        $this->assertSame(true, StringHelper::contains("hello world", "world"));
+        $this->assertSame(true, StringHelper::contains("hello world", " world"));
+        $this->assertSame(true, StringHelper::contains("hello world", ""));
+
+        $this->assertSame(false, StringHelper::contains("", "hello world"));
+        $this->assertSame(false, StringHelper::contains("hello world", "World"));
+    }
+
 
     public function testStripLeft()
     {
