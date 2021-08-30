@@ -151,6 +151,13 @@ class StringHelper
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
     }
 
+    /**
+     * @param string $str
+     * @param string $separator Can't be an empty string
+     * @param bool $keepEmptyParts
+     * @return array
+     * @throws \ValueError
+     */
     public static function split(string $str, string $separator = ',', bool $keepEmptyParts = true)
     {
         if (PHP_MAJOR_VERSION < 8) {
