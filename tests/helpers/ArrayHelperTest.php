@@ -233,6 +233,59 @@ class ArrayHelperTest extends \TestCase
         $this->assertSame(false, array_key_exists(4, $result));
     }
 
+    public function testRemoveSpecified()
+    {
+        $arr = [1, 2, 3, null, 4];
+        $result = ArrayHelper::removeSpecified($arr);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, 3, 4];
+        $result = ArrayHelper::removeSpecified($arr, 3);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(3, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, 3, 4];
+        $result = ArrayHelper::removeSpecified($arr, 3, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(3, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, '3', 4];
+        $result = ArrayHelper::removeSpecified($arr, 3, true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(false, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+
+        $arr = [1, 2, 3, '3', 4];
+        $result = ArrayHelper::removeSpecified($arr, 3, true, false);
+        $this->assertSame(true, array_is_list($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(true, array_key_exists(0, $result));
+        $this->assertSame(true, array_key_exists(1, $result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(false, array_key_exists(4, $result));
+    }
+
     public function testIsAssocArray()
     {
         $arr = [];

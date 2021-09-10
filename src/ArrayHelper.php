@@ -114,6 +114,15 @@ class ArrayHelper
         }
     }
 
+    /**
+     * @param array $arr
+     * @param null $specifiedElement
+     * @param bool $strictType
+     * @param bool $discardKeys
+     * @return array
+     * @deprecated
+     * @see removeSpecified
+     */
     public static function removeSpecifiedElement(array $arr, $specifiedElement = null, bool $strictType = false, bool $discardKeys = false): array
     {
         $result = [];
@@ -130,6 +139,26 @@ class ArrayHelper
             $result[$key] = $item;
         }
         if ($discardKeys) {
+            return array_values($result);
+        }
+        return $result;
+    }
+
+    public static function removeSpecified(array $arr, $specifiedElement = null, bool $strictType = false, bool $preserveKeys = true): array
+    {
+        $result = array_filter($arr, function ($v) use ($specifiedElement, $strictType) {
+            if ($strictType) {
+                if ($v === $specifiedElement) {
+                    return false;
+                }
+            } else {
+                if ($v == $specifiedElement) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        if (!$preserveKeys) {
             return array_values($result);
         }
         return $result;
