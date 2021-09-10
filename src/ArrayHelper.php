@@ -42,8 +42,15 @@ class ArrayHelper
      * @param int|string $columnKey
      * @param bool $skipIllegalKeys
      * @return array
+     * @deprecated
+     * @see groupByColumn
      */
     public static function groupBy(array $arr, $columnKey, bool $skipIllegalKeys = true): array
+    {
+        return self::groupByColumn($arr, $columnKey, $skipIllegalKeys);
+    }
+
+    public static function groupByColumn(array $arr, $columnKey, bool $skipIllegalKeys = false): array
     {
         $multiArr = [];
         foreach ($arr as $row) {
@@ -51,7 +58,7 @@ class ArrayHelper
             if (is_int($val) || is_string($val)) {
                 $multiArr[$val][] = $row;
             } else {
-                if(!$skipIllegalKeys) {
+                if (!$skipIllegalKeys) {
                     throw new \ValueError("Illegal offset type");
                 }
             }

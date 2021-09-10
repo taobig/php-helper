@@ -109,6 +109,51 @@ class ArrayHelperTest extends \TestCase
         ArrayHelper::groupBy($arr, 'a', false);
     }
 
+
+    public function testGroupByColumn()
+    {
+        $arr = [
+            ['a' => 'a', 'b' => 'b'],
+            ['a' => 'aa', 'b' => 'b'],
+            ['a' => 'a', 'b' => 'bb'],
+            ['a' => null, 'b' => 'bb'],
+            ['a' => false, 'b' => 'bb'],
+            ['a' => 11.11, 'b' => 'bb'],
+            ['a' => "11.11", 'b' => 'bbb'],
+            ['a' => "false", 'b' => 'bbb'],
+        ];
+        $result = ArrayHelper::groupByColumn($arr, 'a', true);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(4, count($result));
+        $this->assertSame(1, count($result['aa']));
+        $this->assertSame(1, count($result['11.11']));
+        $this->assertSame(1, count($result['false']));
+        $this->assertSame(false, array_key_exists('b', $result));
+        $this->assertSame(false, array_key_exists('bb', $result));
+    }
+
+    public function testGroupByColumnException()
+    {
+        $arr = [
+            ['a' => 'a', 'b' => 'b'],
+            ['a' => "false", 'b' => 'bbb'],
+            ['a' => [2222], 'b' => 'bbb'],
+        ];
+        $this->expectException(\ValueError::class);
+        ArrayHelper::groupByColumn($arr, 'a');
+    }
+
+    public function testGroupByColumnException2()
+    {
+        $arr = [
+            ['a' => 'a', 'b' => 'b'],
+            ['a' => "false", 'b' => 'bbb'],
+            ['a' => new StdClass(), 'b' => 'bbb'],
+        ];
+        $this->expectException(\ValueError::class);
+        ArrayHelper::groupByColumn($arr, 'a');
+    }
+
     public function testUnderscore2camelcase()
     {
         $arr = [
