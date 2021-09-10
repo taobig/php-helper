@@ -4,12 +4,6 @@ namespace taobig\helpers\http;
 
 use GuzzleHttp\Client;
 
-/**
- * Class HttpRequest
- * @package taobig\helpers\http
- * @deprecated
- * @see \taobig\helpers\http\Request
- */
 class HttpRequest
 {
 
