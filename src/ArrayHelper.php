@@ -39,16 +39,21 @@ class ArrayHelper
 
     /**
      * @param array $arr
-     * @param int|string $column_key
+     * @param int|string $columnKey
+     * @param bool $skipIllegalKeys
      * @return array
      */
-    public static function groupBy(array $arr, $column_key): array
+    public static function groupBy(array $arr, $columnKey, bool $skipIllegalKeys = true): array
     {
         $multiArr = [];
         foreach ($arr as $row) {
-            $val = $row[$column_key];
+            $val = $row[$columnKey];
             if (is_int($val) || is_string($val)) {
                 $multiArr[$val][] = $row;
+            } else {
+                if(!$skipIllegalKeys) {
+                    throw new \ValueError("Illegal offset type");
+                }
             }
         }
         return $multiArr;

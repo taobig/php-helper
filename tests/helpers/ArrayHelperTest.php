@@ -87,6 +87,28 @@ class ArrayHelperTest extends \TestCase
         $this->assertSame(false, array_key_exists('bb', $result));
     }
 
+    public function testGroupByException()
+    {
+        $arr = [
+            ['a' => 'a', 'b' => 'b'],
+            ['a' => "false", 'b' => 'bbb'],
+            ['a' => [2222], 'b' => 'bbb'],
+        ];
+        $this->expectException(\ValueError::class);
+        ArrayHelper::groupBy($arr, 'a', false);
+    }
+
+    public function testGroupByException2()
+    {
+        $arr = [
+            ['a' => 'a', 'b' => 'b'],
+            ['a' => "false", 'b' => 'bbb'],
+            ['a' => new StdClass(), 'b' => 'bbb'],
+        ];
+        $this->expectException(\ValueError::class);
+        ArrayHelper::groupBy($arr, 'a', false);
+    }
+
     public function testUnderscore2camelcase()
     {
         $arr = [
