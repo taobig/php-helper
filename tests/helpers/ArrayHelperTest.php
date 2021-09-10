@@ -160,6 +160,26 @@ class ArrayHelperTest extends \TestCase
         $this->assertSame(false, array_key_exists(5, $result));
     }
 
+    public function testRemoveEmpty()
+    {
+        $arr = [1, 2, 3, 0, '', 99, ['test']];
+        $result = ArrayHelper::removeEmpty($arr);
+        $this->assertSame(true, is_array($result));
+        $this->assertSame(5, count($result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(false, array_key_exists(3, $result));
+        $this->assertSame(false, array_key_exists(4, $result));
+        $this->assertSame(true, array_key_exists(5, $result));
+
+        $result = ArrayHelper::removeEmpty($arr, false);
+        $this->assertSame(true, array_is_list($result));
+        $this->assertSame(5, count($result));
+        $this->assertSame(true, array_key_exists(2, $result));
+        $this->assertSame(true, array_key_exists(3, $result));
+        $this->assertSame(true, array_key_exists(4, $result));
+        $this->assertSame(false, array_key_exists(5, $result));
+    }
+
     public function testRemoveSpecifiedElement()
     {
         $arr = [1, 2, 3, null, 4];

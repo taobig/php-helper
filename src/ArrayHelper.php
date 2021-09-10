@@ -84,6 +84,13 @@ class ArrayHelper
         return $result;
     }
 
+    /**
+     * @param array $arr
+     * @param bool $discardKeys
+     * @return array
+     * @deprecated
+     * @see removeEmpty
+     */
     public static function removeEmptyElement(array $arr, bool $discardKeys = false): array
     {
         $result = [];
@@ -96,6 +103,15 @@ class ArrayHelper
             return array_values($result);
         }
         return $result;
+    }
+
+    public static function removeEmpty(array $arr, bool $preserveKeys = true): array
+    {
+        if ($preserveKeys) {
+            return array_filter($arr);
+        } else {
+            return array_values(array_filter($arr));
+        }
     }
 
     public static function removeSpecifiedElement(array $arr, $specifiedElement = null, bool $strictType = false, bool $discardKeys = false): array
