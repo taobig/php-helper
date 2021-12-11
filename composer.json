@@ -13,7 +13,8 @@
 		"ext-bcmath":"*",
 		"ext-json": "*",
 		"guzzlehttp/guzzle": "^7.0",
-		"symfony/polyfill-php80": "^1.22"
+		"symfony/polyfill-php80": "^1.22",
+		"symfony/polyfill-php81": "^1.23"
     },
 	"require-dev" : {
 		"aliyuncs/oss-sdk-php": "~2.0",
