@@ -18,8 +18,11 @@ class StringEncodingHelper
         }, $str);
     }
 
-
-    //https://secure.php.net/manual/en/mbstring.supported-encodings.php
+    /**
+     * doc: https://secure.php.net/manual/en/mbstring.supported-encodings.php
+     * @param string $str
+     * @return false|string
+     */
     public static function toGBK(string $str)
     {
         $encode = mb_detect_encoding($str, ['UTF-8', 'GB2312', 'GBK', 'EUC-CN', 'CP936'], true);
@@ -32,6 +35,11 @@ class StringEncodingHelper
         }
     }
 
+    /**
+     * doc: https://secure.php.net/manual/en/mbstring.supported-encodings.php
+     * @param string $str
+     * @return false|string
+     */
     public static function gbkToUtf8(string $str)
     {
         $encode = mb_detect_encoding($str, ['UTF-8', 'GB2312', 'GBK', 'EUC-CN', 'CP936'], true);
