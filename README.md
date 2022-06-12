@@ -15,10 +15,12 @@ composer require taobig/php-helper
 
 ```
 ## Versions
-| Major Version	 | PHP Compatibility	 | Initial Release	 | Support |
-| :-----| ----: | :----: | :----: |
-| 1.x | PHP 7.0, PHP 7.1, PHP 7.2, PHP 7.3, PHP 7.4 | 2018-09-25 | ✅ |
-| 2.x | PHP 7.4 | 2020-01-11 | ✅ |
+| Major Version  | PHP Compatibility | Initial Release | Active Support |   Security Support |
+|:---------------|:------------------|:----------------|:--------------:|:------------------:|
+| 1.x            | PHP 7.0 - PHP 7.4 | 2018-09-25      |       ❎        |           ✅      |
+| 2.x            | \>= PHP 7.4       | 2020-01-11      |       ✅        |           ✅      |
+
+
 
 ## Usage
 ```
