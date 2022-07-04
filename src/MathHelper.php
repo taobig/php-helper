@@ -35,6 +35,7 @@ class MathHelper
     }
 
     /**
+     * return a + b
      * 加（结果超过$scale位的数字将会被舍去）
      * @param string $left_operand
      * @param string $right_operand
@@ -48,6 +49,7 @@ class MathHelper
     }
 
     /**
+     * return a - b
      * 减（结果超过$scale位的数字将会被舍去）
      * @param string $left_operand
      * @param string $right_operand
@@ -61,6 +63,7 @@ class MathHelper
     }
 
     /**
+     * return a * b
      * 乘(multiple)（结果超过$scale位的数字将会被舍去）
      * @param string $left_operand
      * @param string $right_operand
@@ -74,6 +77,7 @@ class MathHelper
     }
 
     /**
+     * return a / b
      * 除（结果超过$scale位的数字将会被舍去）
      * @param string $left_operand
      * @param string $right_operand
@@ -114,17 +118,15 @@ class MathHelper
         }
     }
 
-
     /**
+     * compare a and b, return -1 if a < b, 0 if a = b, 1 if a > b
      * 比较（参数超过$scale位的数字将被忽略不进行比较）
-     * 0 if the two operands are equal, 1 if the
-     * <i>left_operand</i> is larger than the
-     * <i>right_operand</i>, -1 otherwise.
-     *
      * @param string $left_operand
      * @param string $right_operand
      * @param int $scale
-     * @return int
+     * @return int 0 if the two operands are equal,
+     * 1 if the <i>left_operand</i> is larger than the <i>right_operand</i>,
+     * -1 otherwise.
      */
     public static function comp(string $left_operand, string $right_operand, int $scale = 2): int
     {
