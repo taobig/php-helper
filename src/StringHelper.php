@@ -10,6 +10,7 @@ class StringHelper
      * @param string $str
      * @param string $characters
      * @return bool
+     * @see str_starts_with() since PHP 8.0
      */
     public static function startsWith(string $str, string $characters): bool
     {
@@ -21,6 +22,7 @@ class StringHelper
      * @param string $str
      * @param string $characters
      * @return bool
+     * @see str_ends_with() since PHP 8.0
      */
     public static function endsWith(string $str, string $characters): bool
     {
