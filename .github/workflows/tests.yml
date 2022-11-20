@@ -69,10 +69,10 @@ jobs:
       # 确保安装了Xdebug，否则不会生成clover.xml文件，从而导致后续上报失败
       - name: PHPUNIT
         run: |
-          date && ps aux|grep php
-          pwd && ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --verbose
-          pwd && ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --bootstrap tests/bootstrap_with_errorhandler.php --verbose
-          pwd && ls -alh build && ls -alh build/logs
+          pwd && date && ps aux|grep php
+          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --verbose
+          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --bootstrap tests/bootstrap_with_errorhandler.php --verbose
+          ls -alh build && ls -alh build/logs
         env:
           DEFAULT_BRANCH: master
 
@@ -83,8 +83,8 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pwd && ls -alh build && ls -alh build/logs
-          pwd && composer global require php-coveralls/php-coveralls
-          pwd && php-coveralls --coverage_clover=build/logs/clover.xml -v
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
 
   deploy:
     runs-on: ubuntu-latest
