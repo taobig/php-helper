@@ -168,10 +168,12 @@ class StringHelperTest extends \TestCase
         $this->assertSame(['1', '2', '3'], StringHelper::split("1,2,,3", ',', false));
 
         $this->assertSame([], StringHelper::split("", ',', false));
+    }
 
+    public function testSplitException()
+    {
         $this->expectException(\ValueError::class);
         $this->assertSame([1, 2, 3], StringHelper::split("aaa_bbb_ccc", ''));
-
     }
 
     public function testEquals()
