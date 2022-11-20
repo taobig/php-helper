@@ -12,6 +12,11 @@ class DatetimeHelperTest extends \TestCase
 
     public function testMillisecondTimestamp()
     {
+        $dt = New DateTime();
+        $ts = $dt->getTimestamp();
+        $dt->add(new \DateInterval("PT30M"));//+30minutes
+        $this->assertSame($ts + 30 * 60, $dt->getTimestamp());
+
         $time = time();
         $millisecond = DatetimeHelper::millisecondTimestamp();
         $second = floor($millisecond / 1000);
