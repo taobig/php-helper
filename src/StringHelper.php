@@ -180,4 +180,15 @@ class StringHelper
     }
 
 
+    public static function equals(string $str1, string $str2): bool
+    {
+        return $str1 === $str2;
+    }
+
+    public static function equalsIgnoreCase(string $str1, string $str2): bool
+    {
+//        return strtolower($str1) === strtolower($str2);
+        return strcasecmp($str1, $str2) == 0;
+    }
+
 }

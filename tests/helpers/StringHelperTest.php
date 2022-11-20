@@ -174,4 +174,21 @@ class StringHelperTest extends \TestCase
 
     }
 
+    public function testEquals()
+    {
+        $this->assertTrue(StringHelper::equals("aaa", "aaa"));
+        $this->assertFalse(StringHelper::equals("aaa", "AAa",));
+        $this->assertFalse(StringHelper::equals("aaa", "AAAa"));
+        $this->assertFalse(StringHelper::equals("aaa", "aaA"));
+    }
+
+    public function testEqualsIgnoreCase()
+    {
+        $this->assertTrue(StringHelper::equalsIgnoreCase("aaa", "aaa"));
+        $this->assertTrue(StringHelper::equalsIgnoreCase("aaa", "AAa",));
+        $this->assertFalse(StringHelper::equalsIgnoreCase("aaa", "AAAa"));
+        $this->assertTrue(StringHelper::equalsIgnoreCase("aaa", "aaA"));
+        $this->assertFalse(StringHelper::equalsIgnoreCase("aaa", "aab"));
+    }
+
 }
