@@ -77,7 +77,7 @@ jobs:
           DEFAULT_BRANCH: master
 
       - name: Upload coverage results to Coveralls
-        if: ${{ success() }}
+        if: ${{ success() &&  matrix.php == '7.4' }}
         env:
           DEFAULT_BRANCH: master
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
