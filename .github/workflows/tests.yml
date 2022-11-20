@@ -79,6 +79,7 @@ jobs:
       - name: Upload coverage results to Coveralls
         if: ${{ success() }}
         env:
+          DEFAULT_BRANCH: master
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pwd && ls -alh build && ls -alh build/logs
