@@ -133,4 +133,18 @@ class MathHelper
         self::checkParams($left_operand, $right_operand);
         return bccomp($left_operand, $right_operand, $scale);
     }
+
+    /**
+     * @param string $left_operand
+     * @param string $right_operand
+     * @param int $scale
+     * @return bool
+     * @since v2.0.24 以后新增方法不再指定缺省的$scale参数，必须由调用方指定$scale参数
+     */
+    public static function equals(string $left_operand, string $right_operand, int $scale): bool
+    {
+        return self::comp($left_operand, $right_operand, $scale) === 0;
+    }
+
+
 }

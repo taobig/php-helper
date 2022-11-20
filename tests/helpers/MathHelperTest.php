@@ -94,4 +94,15 @@ class MathHelperTest extends \TestCase
         $this->assertSame(0, MathHelper::comp("12hello", "0"));
     }
 
+    public function testEquals()
+    {
+        $this->assertSame(false, MathHelper::equals("12", "0", 2));
+        $this->assertSame(true, MathHelper::equals("0", "0", 2));
+        $this->assertSame(true, MathHelper::equals("888", "888", 2));
+        $this->assertSame(true, MathHelper::equals("888.12", "888.12", 2));
+        $this->assertSame(true, MathHelper::equals("888.12", "888.12345", 2));
+        $this->assertSame(false, MathHelper::equals("888.12", "888.12345", 3));
+        $this->assertSame(false, MathHelper::equals("0", "011", 2));
+    }
+
 }
