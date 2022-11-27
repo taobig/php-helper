@@ -14,6 +14,8 @@ class MathHelperTest extends \TestCase
     {
         $this->assertSame("3.00", MathHelper::add("1", "2"));
         $this->assertSame("3.13", MathHelper::add("1.01", "2.12"));
+        $this->assertSame("1.11", MathHelper::add("-1.01", "2.12"));
+        $this->assertSame("1.11", MathHelper::add("2.12", "-1.01"));
 
         $this->expectException(\ValueError::class);
         $this->assertSame("2.00", MathHelper::add(" 1", "2"));
@@ -42,12 +44,19 @@ class MathHelperTest extends \TestCase
 
     public function testSub()
     {
-        $this->expectException(\ValueError::class);
-        $this->assertSame("3.00", MathHelper::sub(" 5", "2"));
         $this->assertSame("3.00", MathHelper::sub("5", "2"));
         $this->assertSame("4.98", MathHelper::sub("5.00", "0.02"));
         $this->assertSame("2.01", MathHelper::sub("5.11", "3.10"));
         $this->assertSame("98.52", MathHelper::sub("100.53", "2.01"));
+        $this->assertSame("102.54", MathHelper::sub("100.53", "-2.01"));
+        $this->assertSame("-98.52", MathHelper::sub("-100.53", "-2.01"));
+        $this->assertSame("-102.54", MathHelper::sub("-100.53", "2.01"));
+    }
+
+    public function testSubException()
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertSame("3.00", MathHelper::sub(" 5", "2"));
     }
 
     public function testMul()
@@ -103,6 +112,103 @@ class MathHelperTest extends \TestCase
         $this->assertSame(true, MathHelper::equals("888.12", "888.12345", 2));
         $this->assertSame(false, MathHelper::equals("888.12", "888.12345", 3));
         $this->assertSame(false, MathHelper::equals("0", "011", 2));
+    }
+
+    public function testNotEquals()
+    {
+        $this->assertSame(true, MathHelper::notEquals("12", "0", 2));
+        $this->assertSame(false, MathHelper::notEquals("0", "0", 2));
+        $this->assertSame(false, MathHelper::notEquals("888", "888", 2));
+        $this->assertSame(false, MathHelper::notEquals("888.12", "888.12", 2));
+        $this->assertSame(false, MathHelper::notEquals("888.12", "888.12345", 2));
+        $this->assertSame(true, MathHelper::notEquals("888.12", "888.12345", 3));
+        $this->assertSame(true, MathHelper::notEquals("0", "011", 2));
+    }
+
+    public function testIsZero()
+    {
+        $this->assertSame(false, MathHelper::isZero("12", 2));
+        $this->assertSame(true, MathHelper::isZero("0", 2));
+        $this->assertSame(true, MathHelper::isZero("0.00", 2));
+        $this->assertSame(true, MathHelper::isZero("0.00888", 2));
+        $this->assertSame(false, MathHelper::isZero("0.00888", 3));
+    }
+
+    public function testIsNotZero()
+    {
+        $this->assertSame(true, MathHelper::isNotZero("12", 2));
+        $this->assertSame(false, MathHelper::isNotZero("0", 2));
+        $this->assertSame(false, MathHelper::isNotZero("0.00", 2));
+        $this->assertSame(false, MathHelper::isNotZero("0.00888", 2));
+        $this->assertSame(true, MathHelper::isNotZero("0.00888", 3));
+    }
+
+    public function testIsNegative()
+    {
+        $this->assertSame(false, MathHelper::isNegative("12", 2));
+        $this->assertSame(false, MathHelper::isNegative("0", 2));
+        $this->assertSame(false, MathHelper::isNegative("-0.00888", 2));
+        $this->assertSame(true, MathHelper::isNegative("-0.00888", 3));
+        $this->assertSame(false, MathHelper::isNegative("0.00888", 5));
+    }
+
+    public function testIsPositive()
+    {
+        $this->assertSame(true, MathHelper::isPositive("12", 2));
+        $this->assertSame(false, MathHelper::isPositive("0", 2));
+        $this->assertSame(false, MathHelper::isPositive("-0.00888", 2));
+        $this->assertSame(true, MathHelper::isPositive("0.00888", 5));
+    }
+
+    public function testLessThan()
+    {
+        $this->assertSame(false, MathHelper::lessThan("12", "0", 2));
+        $this->assertSame(false, MathHelper::lessThan("0", "0", 2));
+        $this->assertSame(false, MathHelper::lessThan("888", "888", 2));
+        $this->assertSame(false, MathHelper::lessThan("888.12", "888.12", 2));
+        $this->assertSame(false, MathHelper::lessThan("888.12", "888.12345", 2));
+        $this->assertSame(true, MathHelper::lessThan("888.12", "888.12345", 3));
+        $this->assertSame(true, MathHelper::lessThan("0", "011", 2));
+        $this->assertSame(false, MathHelper::lessThan("011", "0", 2));
+    }
+
+    public function testLessThanOrEquals()
+    {
+        $this->assertSame(false, MathHelper::lessThanOrEquals("12", "0", 2));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("0", "0", 2));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("888", "888", 2));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("888.12", "888.12", 2));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("888.12", "888.12345", 2));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("888.12", "888.12345", 3));
+        $this->assertSame(false, MathHelper::lessThanOrEquals("888.12345", "888.12", 3));
+        $this->assertSame(true, MathHelper::lessThanOrEquals("0", "011", 2));
+        $this->assertSame(false, MathHelper::lessThanOrEquals("011", "0", 2));
+    }
+
+    public function testGreaterThan()
+    {
+        $this->assertSame(true, MathHelper::greaterThan("12", "0", 2));
+        $this->assertSame(false, MathHelper::greaterThan("0", "0", 2));
+        $this->assertSame(false, MathHelper::greaterThan("888", "888", 2));
+        $this->assertSame(false, MathHelper::greaterThan("888.12", "888.12", 2));
+        $this->assertSame(false, MathHelper::greaterThan("888.12", "888.12345", 2));
+        $this->assertSame(false, MathHelper::greaterThan("888.12", "888.12345", 3));
+        $this->assertSame(true, MathHelper::greaterThan("888.12345", "888.12", 3));
+        $this->assertSame(false, MathHelper::greaterThan("0", "011", 2));
+        $this->assertSame(true, MathHelper::greaterThan("011", "0", 2));
+    }
+
+    public function testGreaterThanOrEquals()
+    {
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("12", "0", 2));
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("0", "0", 2));
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("888", "888", 2));
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("888.12", "888.12", 2));
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("888.12", "888.12345", 2));
+        $this->assertSame(false, MathHelper::greaterThanOrEquals("888.12", "888.12345", 3));
+        $this->assertSame(true, MathHelper::greaterThan("888.12345", "888.12", 3));
+        $this->assertSame(false, MathHelper::greaterThanOrEquals("0", "011", 2));
+        $this->assertSame(true, MathHelper::greaterThanOrEquals("011", "0", 2));
     }
 
 }

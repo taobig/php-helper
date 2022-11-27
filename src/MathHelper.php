@@ -146,5 +146,51 @@ class MathHelper
         return self::comp($left_operand, $right_operand, $scale) === 0;
     }
 
+    public static function notEquals(string $left_operand, string $right_operand, int $scale): bool
+    {
+        return self::comp($left_operand, $right_operand, $scale) !== 0;
+    }
+
+    public static function isZero(string $operand, int $scale): bool
+    {
+        return self::comp($operand, '0', $scale) === 0;
+    }
+
+    public static function isNotZero(string $operand, int $scale): bool
+    {
+        return self::comp($operand, '0', $scale) != 0;
+    }
+
+    public static function isNegative(string $operand, int $scale): bool
+    {
+        return self::comp($operand, '0', $scale) === -1;
+    }
+
+    public static function isPositive(string $operand, int $scale): bool
+    {
+        return self::comp($operand, '0', $scale) === 1;
+    }
+
+    public static function lessThan(string $left_operand, string $right_operand, int $scale): bool
+    {
+        return self::comp($left_operand, $right_operand, $scale) === -1;
+    }
+
+    public static function lessThanOrEquals(string $left_operand, string $right_operand, int $scale): bool
+    {
+        $cmp = self::comp($left_operand, $right_operand, $scale);
+        return $cmp === -1 || $cmp === 0;
+    }
+
+    public static function greaterThan(string $left_operand, string $right_operand, int $scale): bool
+    {
+        return self::comp($left_operand, $right_operand, $scale) === 1;
+    }
+
+    public static function greaterThanOrEquals(string $left_operand, string $right_operand, int $scale): bool
+    {
+        $cmp = self::comp($left_operand, $right_operand, $scale);
+        return $cmp === 1 || $cmp === 0;
+    }
 
 }
