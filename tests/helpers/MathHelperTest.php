@@ -32,14 +32,24 @@ class MathHelperTest extends \TestCase
     {
         $this->expectException(\ValueError::class);
         $this->assertSame("2.00", MathHelper::add("hello", "2"));
-        $this->assertSame("3.13", MathHelper::add("1.01", "2.12999"));
-        $this->assertSame("3.14", MathHelper::add("1.01666", "2.12999"));
     }
 
     public function testAdd4()
     {
         $this->expectException(\ValueError::class);
         $this->assertSame("2.00", MathHelper::add("12hello", "2"));
+    }
+
+    public function testAdd5()
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertSame("2.00", MathHelper::add("12", "2 "));
+    }
+
+    public function testAdd6()
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertSame("2.00", MathHelper::add("12", "2hello"));
     }
 
     public function testSub()
@@ -61,8 +71,6 @@ class MathHelperTest extends \TestCase
 
     public function testMul()
     {
-        $this->expectException(\ValueError::class);
-        $this->assertSame("6.0000", MathHelper::mul(" 2", "3", 4));
         $this->assertSame("6.0000", MathHelper::mul("2", "3", 4));
         $this->assertNotSame("6", MathHelper::mul("2", "3"));
 
@@ -70,6 +78,12 @@ class MathHelperTest extends \TestCase
 
         $this->assertSame("6.00", MathHelper::mul("2", "3"));
         $this->assertSame("3.33", MathHelper::mul("1.1111111", "3"));
+    }
+
+    public function testMulException()
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertSame("6.0000", MathHelper::mul(" 2", "3", 4));
     }
 
     public function testDiv()
