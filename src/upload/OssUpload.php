@@ -160,13 +160,13 @@ class OssUpload implements UploadInterface
         $this->ossClient->putBucketLifecycle($this->bucketName, $lifecycleConfig);
     }
 
-    public function getFileInfo(string $fileName): array
+    public function getFileInfo(string $fileName): ?array
     {
         $objectName = ltrim($fileName, '/');
         return $this->ossClient->getObjectMeta($this->bucketName, $objectName);
     }
 
-    public function isFileNameExists(string $targetFileName): bool
+    public function isFileNameExists(string $targetFileName): ?bool
     {
         return $this->ossClient->doesObjectExist($this->bucketName, $targetFileName);
     }

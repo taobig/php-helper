@@ -31,9 +31,9 @@ interface UploadInterface
      */
     function setLifecycle(string $ruleId, string $matchPrefix);
 
-    public function getFileInfo(string $fileName): array;
+    public function getFileInfo(string $fileName): ?array;
 
-    public function isFileNameExists(string $targetFileName): bool;
+    public function isFileNameExists(string $targetFileName): ?bool;
 
     public function buildUrl(string $targetFileName): string;
 
