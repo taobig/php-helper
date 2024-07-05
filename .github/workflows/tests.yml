@@ -18,24 +18,23 @@ jobs:
         os: [ ubuntu-latest ]
         #redis-version: [ 5, 6 ]
         redis-version: [ 6 ]
-        experimental: [ true ]
-        include:
-          - php: 8.4
-#            # os必须，否则报语法错误：Error when evaluating 'runs-on' for job 'php-tests'. (Line: 30, Col: 14): Unexpected value ''
-#            # redis-version可以不要
-            os: ubuntu-latest
-#            redis-version: 6
-            experimental: true
+#        include:
+#          - php: 8.4
+##            # os必须，否则报语法错误：Error when evaluating 'runs-on' for job 'php-tests'. (Line: 30, Col: 14): Unexpected value ''
+##            # redis-version可以不要
+#            os: ubuntu-latest
+##            redis-version: 6
+#            experimental: true
         #max-parallel: 2
 
     name: PHP-${{ matrix.php }} - Redis-${{ matrix.redis-version }} - ${{ matrix.os }}
     #runs-on: ubuntu-latest
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
+    continue-on-error: false
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -47,7 +46,7 @@ jobs:
           coverage: xdebug
 
       - name: Start Redis
-        uses: supercharge/redis-github-action@1.2.0
+        uses: supercharge/redis-github-action@1.8.0
         with:
           redis-version: ${{ matrix.redis-version }}
 
