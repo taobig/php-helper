@@ -9,16 +9,22 @@ class Version
 
     public const PACKAGE_ALL = 'package_all';
     public const PACKAGE_DEV = 'package_dev';
-    public const PACKAGE_PROD = 'package_prod';
+
+    /**
+     * @Deprecated
+     * @see PACKAGE
+     */
+    public const PACKAGE_PROD = self::PACKAGE;
+    public const PACKAGE = 'package';
 
     /**
      * @param string $composerLockFile
      * @param string $packageName
-     * @param string $floorVersion
+     * @param string $floorVersion eg. "1.2.3", NOT "v1.2.3"
      * @param string $packageMode 'all':package and package-dev; 'package'; 'package-dev'
      * @return bool
      */
-    public static function checkLocalInstalledVersion(string $composerLockFile, string $packageName, string $floorVersion, string $packageMode = self::PACKAGE_PROD): bool
+    public static function checkLocalInstalledVersion(string $composerLockFile, string $packageName, string $floorVersion, string $packageMode = self::PACKAGE): bool
     {
         $localInstalledVersion = null;
         $composerLockFileContent = file_get_contents($composerLockFile);
@@ -37,7 +43,7 @@ class Version
                         $localInstalledVersion = $packageMap[$packageName]['version'];
                     }
                 }
-            } else if ($packageMode == self::PACKAGE_PROD) {
+            } else if ($packageMode == self::PACKAGE) {
                 if (isset($arr['packages']) && is_array($arr['packages'])) {
                     $packageMap = array_column($arr['packages'], NUll, 'name');
                     if (isset($packageMap[$packageName])) {
@@ -49,6 +55,7 @@ class Version
             }
         }
         if ($localInstalledVersion) {
+            $localInstalledVersion = ltrim($localInstalledVersion, 'v');// remove prefix 'v' if exists, "v1.2.3" => "1.2.3"
             return version_compare($localInstalledVersion, $floorVersion, '>=');
         }
         return false;
