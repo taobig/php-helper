@@ -12,7 +12,7 @@ jobs:
   php-tests:
     strategy:
       matrix:
-        php: [ 7.4, 8.0, 8.1 ]
+        php: [ 7.4, 8.0, 8.1, 8.2, 8.3 ]
         #dependency-version: [ prefer-lowest, prefer-stable ]
         #os: [ ubuntu-latest, windows-latest, macos-latest ]
         os: [ ubuntu-latest ]
@@ -20,7 +20,7 @@ jobs:
         redis-version: [ 6 ]
         experimental: [ true ]
         include:
-          - php: 8.2
+          - php: 8.4
 #            # os必须，否则报语法错误：Error when evaluating 'runs-on' for job 'php-tests'. (Line: 30, Col: 14): Unexpected value ''
 #            # redis-version可以不要
             os: ubuntu-latest
