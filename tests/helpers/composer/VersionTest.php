@@ -38,18 +38,17 @@ class VersionTest extends TestCase
         $b = Version::checkLocalInstalledVersion($composerLockFile, 'phpunit/phpunit', '1.1.1', Version::PACKAGE_DEV);
         $this->assertSame(true, $b);
 
-
-        {// php-coveralls/php-coveralls v2.5.2
-            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.5.3');
+        {
+            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '99.0.0');
             $this->assertSame(false, $b);
 
-            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.5.2');
+            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.0.0');
             $this->assertSame(false, $b);
 
-            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.5.3', Version::PACKAGE_DEV);
+            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '99.0.0', Version::PACKAGE_DEV);
             $this->assertSame(false, $b);
 
-            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.5.2', Version::PACKAGE_DEV);
+            $b = Version::checkLocalInstalledVersion($composerLockFile, 'php-coveralls/php-coveralls', '2.0.0', Version::PACKAGE_DEV);
             $this->assertSame(true, $b);
         }
     }
