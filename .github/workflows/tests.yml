@@ -69,8 +69,8 @@ jobs:
       - name: PHPUNIT
         run: |
           pwd && date && ps aux|grep php
-          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --verbose
-          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --bootstrap tests/bootstrap_with_errorhandler.php --verbose
+          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+          ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --bootstrap tests/bootstrap_with_errorhandler.php
           ls -alh build && ls -alh build/logs
         env:
           DEFAULT_BRANCH: master
