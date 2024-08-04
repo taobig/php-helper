@@ -6,19 +6,17 @@
 	"license" : "MIT",
 	"minimum-stability" : "stable",
 	"require" : {
-		"php" : "^7.4 || ^8.0",
-		"php-64bit": "^7.4 || ^8.0",
+		"php" : "^8.1",
+		"php-64bit": "^8.1",
 		"ext-ctype":"*",
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"ext-json": "*",
-		"guzzlehttp/guzzle": "^7.0",
-		"symfony/polyfill-php80": "^1.22",
-		"symfony/polyfill-php81": "^1.23"
+		"guzzlehttp/guzzle": "^7.0"
     },
 	"require-dev" : {
 		"aliyuncs/oss-sdk-php": "~2.0",
-		"phpunit/phpunit": "^9.0 || ^10.0 || ^11.0",
+		"phpunit/phpunit": "^10.0 || ^11.0",
 		"php-coveralls/php-coveralls": "^2.2",
 		"vimeo/psalm": "^4.4 || ^5.0"
 	},
