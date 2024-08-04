@@ -11,13 +11,9 @@ class NetHelperTest extends \TestCase
 
     public function testGetLocalIpV4()
     {
-        if (PHP_VERSION_ID >= 70300) {
-            $adapterList = net_get_interfaces();
-            print_r($adapterList);
-        }
         $ipList = NetHelper::getMachineIpV4();
         echo "All ip address\n";
-        var_dump($ipList);
+        //var_dump($ipList);
 
         if (file_exists("/sbin/ifconfig")) {
             var_dump(shell_exec("/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1'"));
