@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-      - branch-v1
-
+      - develop
 
 # 工作流程运行包括一项或多项作业。 作业默认是并行运行。 要按顺序运行作业，您可以使用 <job_id>needs 关键词在其他作业上定义依赖项。
 jobs:

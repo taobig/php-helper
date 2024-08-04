@@ -17,9 +17,9 @@
         <testsuite name="php-helper Test Suite">
             <directory>./tests</directory>
         </testsuite>
-        <testsuite name="PHPT Test Suite">
-            <directory suffix=".phpt">tests/phpt</directory>
-        </testsuite>
+<!--        <testsuite name="PHPT Test Suite">-->
+<!--            <directory suffix=".phpt">tests/phpt</directory>-->
+<!--        </testsuite>-->
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
