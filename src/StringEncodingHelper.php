@@ -2,6 +2,8 @@
 
 namespace taobig\helpers;
 
+use taobig\helpers\exception\RuntimeException;
+
 class StringEncodingHelper
 {
 
@@ -13,9 +15,17 @@ class StringEncodingHelper
      */
     public static function decodeUnicode(string $str)
     {
-        return preg_replace_callback("/\\\u([0-9a-f]{4})/i", function ($matches) {
-            return iconv('UCS-2BE', 'UTF-8', pack('H4', $matches[1]));
-        }, $str);
+        try {
+            return preg_replace_callback("/\\\u([0-9a-f]{4})/i", function ($matches) {
+                $result = iconv('UCS-2BE', 'UTF-8', pack('H4', $matches[1]));
+                if ($result === false) {
+                    throw new RuntimeException("iconv error");
+                }
+                return $result;
+            }, $str);
+        } catch (RuntimeException $e) {
+            return null;
+        }
     }
 
     /**
@@ -48,7 +58,7 @@ class StringEncodingHelper
         } else if ($encode == "UTF-8") {
             return $str;
         } else {
-            return iconv( 'GB18030', 'UTF-8', $str);
+            return iconv('GB18030', 'UTF-8', $str);
         }
     }
 

@@ -154,7 +154,7 @@ class OssUpload implements UploadInterface
         $lifecycleConfig = new LifecycleConfig();
         $actions = [];
         // 距最后修改时间3天后过期。
-        $actions[] = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DAYS, 3);
+        $actions[] = new LifecycleAction(OssClient::OSS_LIFECYCLE_EXPIRATION, OssClient::OSS_LIFECYCLE_TIMING_DAYS, "3");
         $lifecycleRule = new LifecycleRule($ruleId, $matchPrefix, LifecycleRule::LIFECYCLE_STATUS_ENABLED, $actions);
         $lifecycleConfig->addRule($lifecycleRule);
         $this->ossClient->putBucketLifecycle($this->bucketName, $lifecycleConfig);

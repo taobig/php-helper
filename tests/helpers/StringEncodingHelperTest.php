@@ -27,6 +27,10 @@ class StringEncodingHelperTest extends \TestCase
         $str = "[\"\u4f60\u597d\", [\"\u4f60\u597d\"]";
         $unicodeStr = (new StringEncodingHelper())->decodeUnicode($str);
         $this->assertSame("[\"你好\", [\"你好\"]", $unicodeStr);
+
+        $str = '{"name":"\\uD800"}'; // 无效的 Unicode 字符
+        $unicodeStr = (new StringEncodingHelper())->decodeUnicode($str);
+        $this->assertSame(null, $unicodeStr);
     }
 
     public function testToGBK()
