@@ -17,7 +17,7 @@ class StringEncodingHelper
     {
         try {
             return preg_replace_callback("/\\\u([0-9a-f]{4})/i", function ($matches) {
-                $result = iconv('UCS-2BE', 'UTF-8', pack('H4', $matches[1]));
+                $result = @iconv('UCS-2BE', 'UTF-8', pack('H4', $matches[1]));
                 if ($result === false) {
                     throw new RuntimeException("iconv error");
                 }
