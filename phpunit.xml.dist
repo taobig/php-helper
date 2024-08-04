@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-         stopOnRisky="false"
-         timeoutForSmallTests="1"
-         timeoutForMediumTests="10"
-         timeoutForLargeTests="60"
-         verbose="false">
-    <testsuites>
-        <testsuite name="php-helper Test Suite">
-            <directory>./tests</directory>
-        </testsuite>
-<!--        <testsuite name="PHPT Test Suite">-->
-<!--            <directory suffix=".phpt">tests/phpt</directory>-->
-<!--        </testsuite>-->
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-            <!--<file>/path/to/file</file>-->
-            <!--<exclude>-->
-            <!--<directory suffix=".php">/path/to/files</directory>-->
-            <!--<file>/path/to/file</file>-->
-            <!--</exclude>-->
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-clover" target="./build/logs/clover.xml"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./tests/bootstrap.php" colors="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" stopOnRisky="false" timeoutForSmallTests="1" timeoutForMediumTests="10" timeoutForLargeTests="60" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" cacheDirectory=".phpunit.cache">
+  <coverage>
+    <report>
+      <clover outputFile="./build/logs/clover.xml"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="php-helper Test Suite">
+      <directory>./tests</directory>
+    </testsuite>
+<!--    <testsuite name="PHPT Test Suite">-->
+<!--      <directory suffix=".phpt">tests/phpt</directory>-->
+<!--    </testsuite>-->
+  </testsuites>
+  <logging/>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+<!--      <file>/path/to/file</file>-->
+    </include>
+<!--    <exclude>-->
+<!--      <directory suffix=".php">/path/to/files</directory>-->
+<!--      <file>/path/to/file</file>-->
+<!--    </exclude>-->
+  </source>
 </phpunit>
