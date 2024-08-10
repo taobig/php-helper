@@ -116,6 +116,16 @@ class DatetimeHelperTest extends \TestCase
         $this->assertSame('2019-07-31 16:00:00', $dt->format('Y-m-d H:i:s'));
     }
 
+    public function testConvertTimezoneException()
+    {
+        $this->expectException(\DateInvalidTimeZoneException::class);
+
+        $str = '2019-08-01 00:00:00';
+        date_default_timezone_set('Asia/Shanghai');
+        $dt = DatetimeHelper::convertTimezone($str, 'UTC', '');
+        $this->assertSame('2019-07-31 16:00:00', $dt->format('Y-m-d H:i:s'));
+    }
+
     public function testValidate()
     {
         $this->assertSame(false, DatetimeHelper::validate('2020-13-01'));

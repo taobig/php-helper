@@ -146,10 +146,23 @@ class DatetimeHelper
      * @param string|null $sourceTimezone eg:'Asia/Shanghai'..., If $timezone is omitted, the current timezone will be used
      * @return DateTime
      * @throws \Exception
+     * @throws \DateInvalidTimeZoneException
      */
     public static function convertTimezone(string $dt, string $targetTimezone, string $sourceTimezone = null): DateTime
     {
-        $targetDatetime = new DateTime($dt, $sourceTimezone ? new DateTimeZone($sourceTimezone) : null);
+        $sourceDateTimeZone = null;
+        if ($sourceTimezone !== null) {
+            if (PHP_VERSION_ID < 80300) { // DateTimeZone::__construct(string $timezone): This method throws DateInvalidTimeZoneException if the timezone supplied is not recognised as a valid timezone. Prior to PHP 8.3, this was an Exception instead.
+                try {
+                    $sourceDateTimeZone = new DateTimeZone($sourceTimezone);
+                } catch (\Exception $e) {
+                    throw new \DateInvalidTimeZoneException("DateTimeZone::__construct(): Unknown or bad timezone ()");
+                }
+            } else {
+                $sourceDateTimeZone = new DateTimeZone($sourceTimezone);
+            }
+        }
+        $targetDatetime = new DateTime($dt, $sourceDateTimeZone);
         $targetDatetime->setTimezone(new DateTimeZone($targetTimezone));
         return $targetDatetime;
     }
