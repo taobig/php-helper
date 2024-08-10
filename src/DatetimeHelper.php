@@ -162,8 +162,19 @@ class DatetimeHelper
                 $sourceDateTimeZone = new DateTimeZone($sourceTimezone);
             }
         }
+
+        if (PHP_VERSION_ID < 80300) { // DateTimeZone::__construct(string $timezone): This method throws DateInvalidTimeZoneException if the timezone supplied is not recognised as a valid timezone. Prior to PHP 8.3, this was an Exception instead.
+            try {
+                $targetDateTimeZone = new DateTimeZone($targetTimezone);
+            } catch (\Exception $e) {
+                throw new \DateInvalidTimeZoneException("DateTimeZone::__construct(): Unknown or bad timezone ()");
+            }
+        } else {
+            $targetDateTimeZone = new DateTimeZone($targetTimezone);
+        }
+
         $targetDatetime = new DateTime($dt, $sourceDateTimeZone);
-        $targetDatetime->setTimezone(new DateTimeZone($targetTimezone));
+        $targetDatetime->setTimezone($targetDateTimeZone);
         return $targetDatetime;
     }
 
