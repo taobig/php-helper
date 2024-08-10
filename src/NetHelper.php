@@ -8,7 +8,7 @@ class NetHelper
     public static function getMachineIpV4($onlyPublicAddress = false): array
     {
         $ipList = [];
-        $adapterList = net_get_interfaces();
+        $adapterList = net_get_interfaces(); // PHP 7.3+
         foreach ($adapterList as $adapter) {
             foreach ($adapter['unicast'] as $list) {
                 if (!isset($list['address'])) {
