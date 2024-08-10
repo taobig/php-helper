@@ -146,7 +146,7 @@ class DatetimeHelper
      * @param string|null $sourceTimezone eg:'Asia/Shanghai'..., If $timezone is omitted, the current timezone will be used
      * @return DateTime
      * @throws \Exception
-     * @throws \DateInvalidTimeZoneException
+     * @throws \DateInvalidTimeZoneException when $targetTimezone or $sourceTimezone(if not null) is not a valid timezone
      */
     public static function convertTimezone(string $dt, string $targetTimezone, string $sourceTimezone = null): DateTime
     {
