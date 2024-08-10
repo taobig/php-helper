@@ -24,7 +24,7 @@ class RandomHelper
      * @param int $caseFlag
      * @return string
      * @throws \Exception
-     * @see StringHelper::random()
+     * @see str()
      * @deprecated
      */
     public function getRandomEnglishCharacters(int $characterCount, int $caseFlag = self::CASE_LOWER)
