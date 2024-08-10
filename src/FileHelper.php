@@ -91,6 +91,12 @@ class FileHelper
     }
 
 
+    /**
+     * @deprecated unsafe operation
+     * @param string $filePath
+     * @param int $lines
+     * @return false|string|null
+     */
     public static function getLastNLinesByTailf(string $filePath, int $lines = 1)
     {
         $cmd = "tail -n {$lines} " . escapeshellarg($filePath);
